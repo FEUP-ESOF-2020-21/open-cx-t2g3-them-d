@@ -26,8 +26,8 @@ Please contact us!
 
 Thank you!
 
-* Diana Freitas
-* Henrique Pereira
+* Diana Cristina Amaral de Freitas
+* Henrique Manuel Ruivo Pereira
 * Mariana Oliveira Ramos
 * Tomás Freitas Gonçalves
 
