@@ -35,6 +35,8 @@ Thank you!
 
 ## Product Vision
 
+SmartCon is an app aimed at simplifying the process of choosing conferences, allowing its users to filter these by interest, location, availability and feedback to previous editions. Additionally, SmartCon takes into account the users’ knowledge level to suggest the most relevant sessions in a specific conference, using, for that purpose, a small quiz created by the conference organization.
+
 ---
 ## Elevator Pitch
 
