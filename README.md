@@ -49,7 +49,19 @@ SmartCon is an app aimed at simplifying the process of choosing conferences, all
 
 ![](./images/use_cases_diagram.png)
 
-#### See conference suggestions
+#### Manage Profile
+* **Actor**: Attendee
+* **Description**: This use case exists so that the attendees can specify their interests, location and availability.  
+* **Preconditions and Post conditions**: In order to choose a conference from a filtered set of conferences the attendees must previously define their profile by filling out a form when installing the app.
+* **Normal Flow**: 
+  1. The attendee enters his name
+  2. The attendee selects his interest from a set of options
+  3. The attendee selects his location from a set of options
+  4. The attendee selects the date range
+  5. The attendee clicks a button to save his profile.
+* **Alternative Flows and Exceptions**: 
+
+#### See conference recommendations
 * **Actor**: Attendee
 * **Description**: This use case exists so that the attendees can choose  which conference to go to from an already filtered set based on their interests, location, availability and feedback to previous editions.  
 * **Preconditions and Post conditions**: In order to choose a conference from a filtered set of conferences the attendees must previously define their profile by filling out a form when installing the app.
@@ -61,30 +73,27 @@ SmartCon is an app aimed at simplifying the process of choosing conferences, all
 #### See session suggestions
 * **Actor**: Attendee
 * **Description**: This use case exists so that the attendees can see which sessions are most recommended based on their knowledge about the conference main topics.
-* **Preconditions and Post conditions**: In order to see the set of filtered sessions the attendee must first enter the conference code which they have decided to attend. They must also answer the quiz proposed by chosen conference.
+* **Preconditions and Post conditions**: In order to see the set of filtered sessions the attendee must first enter the conference code which they have decided to attend. They must also answer the quiz provided by the conference organization.
 * **Normal Flow**: 
   1. The attendee presses the button to insert the code of the chosen conference
   2. The attendee enters the code
   3. The attendee presses the button to see session suggestions
-  4. The attendee answers the quiz made by the conference
+  4. The attendee answers the quiz made by the conference organization
   5. The attendee sees the suggestions
 * **Alternative Flows and Exceptions**: 
-
-#### Answer Quiz
-* **Actor**: Attendee
-* **Description**: This use case exists so that the app can filter a set of sessions to suggest to the attendee.
-* **Preconditions and Post conditions**:  In order to answer the quiz the attendee must first choose a conference and enter its code.
-* **Normal Flow**: 
-  1. The attendee enters the conference code
-  2. The attendee answers the quiz selecting one of the options in each question
-  3. The attendee presses the button when finished
-* **Alternative Flows and Exceptions**: 
+  1. The attendee presses the button to insert the code of the chosen conference
+  2. The attendee enters the code
+  3. The attendee sees the suggestions that were previously obtained
 
 #### Give feedback
 * **Actor**: Attendee
 * **Description**: This use case exists so that the attendees can rate a conference they attended.
 * **Preconditions and Post conditions**: In order to rate a conference it must have already occurred.
 * **Normal Flow**: 
+  1. The attendee presses the button to insert the code of the chosen conference
+  2. The attendee enters the code
+  3. The attendee presses the button to rate the conference
+  3. The attendee rates the conference
 * **Alternative Flows and Exceptions**: 
 
 #### Insert conference with quiz
