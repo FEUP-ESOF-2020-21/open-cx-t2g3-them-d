@@ -47,7 +47,7 @@ SmartCon is an app aimed at simplifying the process of choosing conferences, all
 
 ### Use case diagram
 
-![](./images/use_cases_diagram.png)
+![](./images/useCasesDiagram.png)
 
 #### Manage Profile
 * **Actor**: Attendee
