@@ -35,15 +35,21 @@ Thank you!
 
 ## Product Vision
 
-SmartCon is an app aimed at simplifying the process of choosing conferences, allowing its users to filter these by interest, location, availability and feedback to previous editions. Additionally, SmartCon takes into account the users’ knowledge level to suggest the most relevant sessions in a specific conference, using, for that purpose, a small quiz created by the conference organization.
+SmartCon is an app aimed at simplifying the process of choosing conferences, allowing its users to filter these by interest, location, availability and feedback to previous editions. Additionally, SmartCon takes into account the users’ knowledge level to suggest the most relevant sessions in a specific conference.
 
 ---
 ## Elevator Pitch
 
+Draft a small text to help you quickly introduce and describe your product in a short time and a few words (~800 characters), a technique usually known as elevator pitch.
+
+Take a look at the following links to learn some techniques:
+* [Crafting an Elevator Pitch](https://www.mindtools.com/pages/article/elevator-pitch.htm)
+* [The Best Elevator Pitch Examples, Templates, and Tactics - A Guide to Writing an Unforgettable Elevator Speech, by strategypeak.com](https://strategypeak.com/elevator-pitch-examples/)
+* [Top 7 Killer Elevator Pitch Examples, by toggl.com](https://blog.toggl.com/elevator-pitch-examples/)
+
 
 ---
 ## Requirements
-
 
 ### Use case diagram
 
@@ -99,25 +105,112 @@ SmartCon is an app aimed at simplifying the process of choosing conferences, all
 
 ### User stories
 
+#### Story I
+
+**Story**.
+As an Attendee, I want to be able to get conference suggestions based on my interests, location and availability so that the set of results is straightforward and accurate.
+
+**User interface mockups**.
+
+
+**Acceptance tests**.
+For each user story you should write also the acceptance tests (textually in Gherkin), i.e., a description of scenarios (situations) that will help to confirm that the system satisfies the requirements addressed by the user story.
+
+**Value and effort**.
+At the end, it is good to add a rough indication of the value of the user story to the customers (e.g. [MoSCoW](https://en.wikipedia.org/wiki/MoSCoW_method) method) and the team should add an estimation of the effort to implement it, for example, using t-shirt sizes (XS, S, M, L, XL).
+
+#### Story II
+
+**Story**.
+As an Attendee, I want to be able to rate a conference I attended to, to inform other people of my opinion on its quality and help other people when they are searching for conferences to attend to.
+
+**User interface mockups**.
+
+
+**Acceptance tests**.
+For each user story you should write also the acceptance tests (textually in Gherkin), i.e., a description of scenarios (situations) that will help to confirm that the system satisfies the requirements addressed by the user story.
+
+**Value and effort**.
+At the end, it is good to add a rough indication of the value of the user story to the customers (e.g. [MoSCoW](https://en.wikipedia.org/wiki/MoSCoW_method) method) and the team should add an estimation of the effort to implement it, for example, using t-shirt sizes (XS, S, M, L, XL).
+
+#### Story III
+
+**Story**.
+As an Attendee, I want to have the possibility of getting the right session suggestions according to my knowledge level on the conference’s matter.
+
+**User interface mockups**.
+
+
+**Acceptance tests**.
+For each user story you should write also the acceptance tests (textually in Gherkin), i.e., a description of scenarios (situations) that will help to confirm that the system satisfies the requirements addressed by the user story.
+
+**Value and effort**.
+At the end, it is good to add a rough indication of the value of the user story to the customers (e.g. [MoSCoW](https://en.wikipedia.org/wiki/MoSCoW_method) method) and the team should add an estimation of the effort to implement it, for example, using t-shirt sizes (XS, S, M, L, XL).
+
+#### Story IV
+
+**Story**.
+As a member of the Conference staff, I want to be able to insert a conference into the app database in order to promote it to possible attendees.
+
+**User interface mockups**.
+
+
+**Acceptance tests**.
+For each user story you should write also the acceptance tests (textually in Gherkin), i.e., a description of scenarios (situations) that will help to confirm that the system satisfies the requirements addressed by the user story.
+
+**Value and effort**.
+At the end, it is good to add a rough indication of the value of the user story to the customers (e.g. [MoSCoW](https://en.wikipedia.org/wiki/MoSCoW_method) method) and the team should add an estimation of the effort to implement it, for example, using t-shirt sizes (XS, S, M, L, XL).
+
+#### Story V
+
+**Story**.
+As a member of the Conference staff, I want to be able to test the attendees’ knowledge in order to have an audience that is inquisitive and capable of understanding the matter discussed in each session. 
+
+**User interface mockups**.
+
+
+**Acceptance tests**.
+For each user story you should write also the acceptance tests (textually in Gherkin), i.e., a description of scenarios (situations) that will help to confirm that the system satisfies the requirements addressed by the user story.
+
+**Value and effort**.
+At the end, it is good to add a rough indication of the value of the user story to the customers (e.g. [MoSCoW](https://en.wikipedia.org/wiki/MoSCoW_method) method) and the team should add an estimation of the effort to implement it, for example, using t-shirt sizes (XS, S, M, L, XL).
 
 ### Domain model
 
-
+To better understand the context of the software system, it is very useful to have a simple UML class diagram with all the key concepts (names, attributes) and relationships involved of the problem domain addressed by your module.
 
 ---
 
 ## Architecture and Design
  
+The architecture of a software system encompasses the set of key decisions about its overall organization. 
+
+A well written architecture document is brief but reduces the amount of time it takes new programmers to a project to understand the code to feel able to make modifications and enhancements.
+
+To document the architecture requires describing the decomposition of the system in their parts (high-level components) and the key behaviors and collaborations between them. 
+
+In this section you should start by briefly describing the overall components of the project and their interrelations. You should also describe how you solved typical problems you may have encountered, pointing to well-known architectural and design patterns, if applicable.
 
 ### Physical architecture
 
+The purpose of this subsection is to document the high-level logical structure of the code, using a UML diagram with logical packages, without the worry of allocating to components, processes or machines.
+
+It can be beneficial to present the system both in a horizontal or vertical decomposition:
+* horizontal decomposition may define layers and implementation concepts, such as the user interface, business logic and concepts; 
+* vertical decomposition can define a hierarchy of subsystems that cover all layers of implementation.
 
 ### Logical architecture
 
+The goal of this subsection is to document the high-level physical structure of the software system (machines, connections, software components installed, and their dependencies) using UML deployment diagrams or component diagrams (separate or integrated), showing the physical structure of the system.
+
+It should describe also the technologies considered and justify the selections made. Examples of technologies relevant for openCX are, for example, frameworks for mobile applications (Flutter vs ReactNative vs ...), languages to program with microbit, and communication with things (beacons, sensors, etc.).
 
 
 ### Prototype
 
+To help on validating all the architectural, design and technological decisions made, we usually implement a vertical prototype, a thin vertical slice of the system.
+
+In this subsection please describe in more detail which, and how, user(s) story(ies) were implemented.
 ---
 
 ## Test
