@@ -2,7 +2,7 @@
 
 Welcome to the documentation pages of the SmartCon of **openCX**!
 
-You can find here detailed about the SmartCon, hereby mentioned as module, from a high-level vision to low-level implementation decisions, a kind of Software Development Report, organized by discipline (as of RUP): 
+You can find here detailed information about the SmartCon, hereby mentioned as module, from a high-level vision to low-level implementation decisions, a kind of Software Development Report, organized by discipline (as of RUP): 
 
 * Business modeling 
   * [Product Vision](#Product-Vision)
@@ -35,7 +35,7 @@ Thank you!
 
 ## Product Vision
 
-SmartCon is an app aimed at simplifying the process of choosing conferences, allowing its users to filter these by interest, location, availability and feedback to previous editions. Additionally, SmartCon takes into account the users’ knowledge level to suggest the most relevant sessions in a specific conference.
+SmartCon is an app aimed at simplifying conference choices, allowing its users to filter these by preference, ranking and availability. Additionally, SmartCon takes into account the users’ knowledge level to suggest relevant sessions in a specific conference.
 
 ---
 ## Elevator Pitch
