@@ -40,8 +40,7 @@ SmartCon is an app aimed at simplifying conference choices, allowing its users t
 ---
 ## Elevator Pitch
 
-Have you ever wondered about the main reason why attendees come to your events? From engaging in unique experiences to exploring the networking opportunities, there are probably a few different answers. However one of the most important and relevant reasons is to learn. And, unfortunately, at large and popular conferences, it is not uncommon for attendees to feel overwhelmed and lost while trying to navigate through many parallel sessions. Thats why our app will focus on users knowlege to suggest the sessions which are most relevant for the user.
-The user, after filtering the desired conference based on its interests and previous feedback, will need to answer a small quiz, created by the conference organization. That will allow the app to build the participant's knowledge profile and suggest the most relevant sessions of the conference.
+Have you ever wondered about the main reason why attendees come to your events? From finding solutions to problems to engaging in unique experiences, there are probably a few different answers. However one of the most important and relevant reasons is to learn. And, unfortunately, at large and popular conferences, it is not uncommon for attendees to feel overwhelmed and lost while trying to navigate through many parallel sessions. That is why our app will focus on users knowlege to suggest the sessions which are most relevant for the user. The user, after filtering the desired conference based on its interests and previous feedback, will need to answer a small quiz, created by the conference organization. That will allow the app to build the participant's knowledge profile and suggest the most relevant sessions of the conference.
 
 
 ---
