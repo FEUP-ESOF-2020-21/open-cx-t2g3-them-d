@@ -40,12 +40,8 @@ SmartCon is an app aimed at simplifying conference choices, allowing its users t
 ---
 ## Elevator Pitch
 
-Draft a small text to help you quickly introduce and describe your product in a short time and a few words (~800 characters), a technique usually known as elevator pitch.
-
-Take a look at the following links to learn some techniques:
-* [Crafting an Elevator Pitch](https://www.mindtools.com/pages/article/elevator-pitch.htm)
-* [The Best Elevator Pitch Examples, Templates, and Tactics - A Guide to Writing an Unforgettable Elevator Speech, by strategypeak.com](https://strategypeak.com/elevator-pitch-examples/)
-* [Top 7 Killer Elevator Pitch Examples, by toggl.com](https://blog.toggl.com/elevator-pitch-examples/)
+Have you ever wondered about the main reason why attendees come to your events? From engaging in unique experiences to exploring the networking opportunities, there are probably a few different answers. However one of the most important and relevant reasons is to learn. And, unfortunately, at large and popular conferences, it is not uncommon for attendees to feel overwhelmed and lost while trying to navigate through many parallel sessions. Thats why our app will focus on users knowlege to suggest the sessions which are most relevant for the user.
+The user, after filtering the desired conference based on its interests and previous feedback, will need to answer a small quiz, created by the conference organization. That will allow the app to build the participant's knowledge profile and suggest the most relevant sessions of the conference.
 
 
 ---
@@ -127,7 +123,10 @@ As an Attendee, I want to be able to get conference suggestions based on my inte
 For each user story you should write also the acceptance tests (textually in Gherkin), i.e., a description of scenarios (situations) that will help to confirm that the system satisfies the requirements addressed by the user story.
 
 * **Value and effort**.
-At the end, it is good to add a rough indication of the value of the user story to the customers (e.g. [MoSCoW](https://en.wikipedia.org/wiki/MoSCoW_method) method) and the team should add an estimation of the effort to implement it, for example, using t-shirt sizes (XS, S, M, L, XL).
+
+Value: Must have
+
+Effort: L
 
 #### Story II
 
@@ -143,7 +142,10 @@ As an Attendee, I want to have the possibility of getting the right session sugg
 For each user story you should write also the acceptance tests (textually in Gherkin), i.e., a description of scenarios (situations) that will help to confirm that the system satisfies the requirements addressed by the user story.
 
 * **Value and effort**.
-At the end, it is good to add a rough indication of the value of the user story to the customers (e.g. [MoSCoW](https://en.wikipedia.org/wiki/MoSCoW_method) method) and the team should add an estimation of the effort to implement it, for example, using t-shirt sizes (XS, S, M, L, XL).
+
+Value: Must have
+
+Effort: XL
 
 
 #### Story III
@@ -160,7 +162,10 @@ As an Attendee, I want to be able to rate a conference I attended to, to inform 
 For each user story you should write also the acceptance tests (textually in Gherkin), i.e., a description of scenarios (situations) that will help to confirm that the system satisfies the requirements addressed by the user story.
 
 * **Value and effort**.
-At the end, it is good to add a rough indication of the value of the user story to the customers (e.g. [MoSCoW](https://en.wikipedia.org/wiki/MoSCoW_method) method) and the team should add an estimation of the effort to implement it, for example, using t-shirt sizes (XS, S, M, L, XL).
+
+Value: Could have
+
+Effort: M
 
 #### Story IV
 
@@ -175,7 +180,10 @@ As a member of the Conference staff, I want to be able to insert a conference in
 For each user story you should write also the acceptance tests (textually in Gherkin), i.e., a description of scenarios (situations) that will help to confirm that the system satisfies the requirements addressed by the user story.
 
 * **Value and effort**.
-At the end, it is good to add a rough indication of the value of the user story to the customers (e.g. [MoSCoW](https://en.wikipedia.org/wiki/MoSCoW_method) method) and the team should add an estimation of the effort to implement it, for example, using t-shirt sizes (XS, S, M, L, XL).
+
+Value: Could have
+
+Effort: L
 
 #### Story V
 
@@ -190,7 +198,10 @@ As a member of the Conference staff, I want to be able to test the attendees’ 
 For each user story you should write also the acceptance tests (textually in Gherkin), i.e., a description of scenarios (situations) that will help to confirm that the system satisfies the requirements addressed by the user story.
 
 * **Value and effort**.
-At the end, it is good to add a rough indication of the value of the user story to the customers (e.g. [MoSCoW](https://en.wikipedia.org/wiki/MoSCoW_method) method) and the team should add an estimation of the effort to implement it, for example, using t-shirt sizes (XS, S, M, L, XL).
+
+Value: Must have
+
+Effort: XL
 
 ### Domain model
 
