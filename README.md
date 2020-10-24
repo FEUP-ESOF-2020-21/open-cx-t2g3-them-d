@@ -40,7 +40,7 @@ SmartCon is an app aimed at simplifying conference choices, allowing its users t
 ---
 ## Elevator Pitch
 
-Have you ever wondered about the main reason why attendees come to your events? From finding solutions to problems to engaging in unique experiences, there are probably a few different answers. However one of the most important and relevant reasons is to learn. And, unfortunately, at large and popular conferences, it is not uncommon for attendees to feel overwhelmed and lost while trying to navigate through many parallel sessions. That is why our app will focus on users knowlege to suggest the sessions which are most relevant for the user. The user, after filtering the desired conference based on its interests and previous feedback, will need to answer a small quiz, created by the conference organization. That will allow the app to build the participant's knowledge profile and suggest the most relevant sessions of the conference.
+Have you ever wondered about the main reason why attendees go to conferences? From finding solutions to problems to engaging in unique experiences, there are probably a few different answers. However, one of the most important and relevant reasons is to learn. And, unfortunately, at large and popular conferences, it is not uncommon for attendees to feel overwhelmed and lost while trying to navigate through many parallel sessions. That is why our app will focus on users knowlege to suggest the sessions which are most relevant for the user. The user, after filtering the desired conference based on its interests and previous feedback, will need to answer a small quiz, created by the conference organization. That will allow the app to build the participant's knowledge profile and suggest the most relevant sessions of the conference.
 
 
 ---
@@ -52,14 +52,13 @@ Have you ever wondered about the main reason why attendees come to your events? 
 
 #### Manage Profile
 * **Actor**: Attendee
-* **Description**: This use case exists so that the attendees can specify their interests, location and availability.  
-* **Preconditions and Post conditions**: In order to choose a conference from a filtered set of conferences the attendees must previously define their profile by filling out a form when installing the app.
+* **Description**: This use case exists so that the attendees can specify their interests and location.
+* **Preconditions and Post conditions**: 
 * **Normal Flow**: 
-  1. The attendee enters his name
-  2. The attendee selects his interest from a set of options
-  3. The attendee selects his location from a set of options
-  4. The attendee selects the date range
-  5. The attendee clicks a button to save his profile.
+  1. The attendee selects his interests from a set of options
+  2. The attendee selects his location from a set of options
+  3. The attendee clicks a button to save his profile.
+
 * **Alternative Flows and Exceptions**: 
 
 #### See conference recommendations
@@ -69,6 +68,7 @@ Have you ever wondered about the main reason why attendees come to your events? 
 * **Normal Flow**: 
   1. The attendee fills his profile 
   2. The attendee presses the button to see conference suggestions
+  3. The attendee can select the date range and filter the conferences by feedback by checking an checkbox
 * **Alternative Flows and Exceptions**: 
 
 #### See session suggestions
@@ -123,9 +123,8 @@ For each user story you should write also the acceptance tests (textually in Ghe
 
 * **Value and effort**.
 
-Value: Must have
-
-Effort: L
+  *Value*: Must have
+  *Effort*: L
 
 #### Story II
 
@@ -142,9 +141,8 @@ For each user story you should write also the acceptance tests (textually in Ghe
 
 * **Value and effort**.
 
-Value: Must have
-
-Effort: XL
+  *Value*: Must have
+  *Effort*: XL
 
 
 #### Story III
@@ -161,10 +159,8 @@ As an Attendee, I want to be able to rate a conference I attended to, to inform 
 For each user story you should write also the acceptance tests (textually in Gherkin), i.e., a description of scenarios (situations) that will help to confirm that the system satisfies the requirements addressed by the user story.
 
 * **Value and effort**.
-
-Value: Could have
-
-Effort: M
+  *Value*: Could have
+  *Effort*: M
 
 #### Story IV
 
@@ -179,10 +175,8 @@ As a member of the Conference staff, I want to be able to insert a conference in
 For each user story you should write also the acceptance tests (textually in Gherkin), i.e., a description of scenarios (situations) that will help to confirm that the system satisfies the requirements addressed by the user story.
 
 * **Value and effort**.
-
-Value: Could have
-
-Effort: L
+  *Value*: Could have
+  *Effort*: L
 
 #### Story V
 
@@ -197,10 +191,8 @@ As a member of the Conference staff, I want to be able to test the attendees’ 
 For each user story you should write also the acceptance tests (textually in Gherkin), i.e., a description of scenarios (situations) that will help to confirm that the system satisfies the requirements addressed by the user story.
 
 * **Value and effort**.
-
-Value: Must have
-
-Effort: XL
+  *Value*: Must have
+  *Effort*: XL
 
 ### Domain model
 
