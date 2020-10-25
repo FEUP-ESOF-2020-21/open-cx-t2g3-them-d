@@ -63,55 +63,59 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child:Column(
-          children: <Widget> [
-            // HEADER IMAGE (100%)
-            Row(
-              children: <Widget> [
-                Expanded(
-                    child: Image.asset(
-                      'images/pageHeader.png',
-                      fit: BoxFit.fitWidth,
-                    ),
-                ),
-              ]
-            ),
-            // CONTENT ROW
-            Row(
+          child:Column(
             children: <Widget> [
-              // MARGINS
-              Padding(
-                padding:  EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width * 0.05,
-                  right: MediaQuery.of(context).size.width * 0.05,
-                ),
+              // HEADER IMAGE (100%)
+              Row(
+                  children: <Widget> [
+                    Expanded(
+                      child: Image.asset(
+                        'images/pageHeader.png',
+                        fit: BoxFit.fitWidth,
+                      ),
+                    ),
+                  ]
               ),
-              // CONTENT
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget> [
-                  Container(
-                    child: Text("A Title", style: Theme.of(context).textTheme.headline2,),
-                    alignment: Alignment.topLeft,
-                  ),
-                  Container(
-                    child: Text("A SUBTITLE", style: Theme.of(context).textTheme.headline3,),
-                    alignment: Alignment.topLeft,
-                  ),
-                ],
-              ),
-              ],
-            )
-          ],
-        )
+              // CONTENT ROW
+              Row(
+                  children: <Widget> [
+                    // MARGINS
+                    Padding(
+                      padding:  EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width * 0.08,
+                        right: MediaQuery.of(context).size.width * 0.08,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget> [
+                          Container(
+                            child: Text("A Title", style: Theme.of(context).textTheme.headline2,),
+                            alignment: Alignment.topLeft,
+                          ),
+                          Container(
+                            child: Text("A SUBTITLE", style: Theme.of(context).textTheme.headline3,),
+                            alignment: Alignment.topLeft,
+                          ),
+                          // A button that can be used as a link to other page
+                          RaisedButton(
+                            onPressed: (){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => MyHomePage()),
+                              );
+                            },
+                            child: Text('Link to page'),
+                          )
+                        ],
+                      ),
+                    ),
+                  ]
+              )
+            ],
+          )
       ),
     );
   }
