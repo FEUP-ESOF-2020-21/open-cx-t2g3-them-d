@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:chips_choice/chips_choice.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,11 +23,11 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
 
         textTheme: TextTheme(
-          headline2: GoogleFonts.montserrat(
-            textStyle: TextStyle(color: Color(0xFF637DEB), fontSize: 40.0,  fontWeight: FontWeight.w500,),
+          headline2: GoogleFonts.rubik(
+            textStyle: TextStyle(color: Color(0xFF637DEB), fontSize: 38.0,  fontWeight: FontWeight.w500,),
           ),
-          headline3: GoogleFonts.montserrat(
-            textStyle: TextStyle(color: Color(0xFF4A4444), fontSize: 23.0,  fontWeight: FontWeight.w700,),
+          headline3: GoogleFonts.rubik(
+            textStyle: TextStyle(color: Color(0xFF4A4444), fontSize: 20.0,  fontWeight: FontWeight.w500, ),
           ),
         ),
 
@@ -127,31 +128,39 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  String _myDistrict;
-  String _myDistrictResult;
-  final districtKey = new GlobalKey<FormState>();
+  String _district, _districtResult;
+  List<String> _interests = [ "Technology", "Art & Design", "Finance", "Sports",
+    "Literature", "Marketing", "Scientific", "Wellness"];
+  List<String> _selectedInterests = [];
+  final profileKey = new GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
-    _myDistrict = '';
-    _myDistrictResult = '';
+    _district = '';
+    _districtResult = '';
   }
 
   _saveForm() {
-    var form = districtKey.currentState;
+    var form = profileKey.currentState;
     if (form.validate()) {
       form.save();
       setState(() {
-        _myDistrictResult = _myDistrict;
+        _districtResult = _district;
       });
     }
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Test()),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
+        resizeToAvoidBottomInset: false,
+        body: SingleChildScrollView(child: Center(
           // Center is a layout widget. It takes a single child and positions it
           // in the middle of the parent.
           child: Column(
@@ -182,55 +191,78 @@ class _ProfileState extends State<Profile> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget> [
                           Row(
-                              children: [Text("Your Profile", style: Theme.of(context).textTheme.headline2,),]
+                              children: [
+                                Container(
+                                    alignment: Alignment.topLeft,
+                                    child: Text("Your Profile", style: Theme.of(context).textTheme.headline2,)
+                                ),]
                           ),
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.84,
                             child: Form(
-                              key: districtKey,
+                              key: profileKey,
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
+                                Container(
+                                  padding: EdgeInsets.only(top: 5),
+                                  alignment: Alignment.topLeft,
+                                  child: Text('DISTRICT', style: Theme.of(context).textTheme.headline3,),
+                                ),
                                   Padding(
                                     padding: EdgeInsets.all(8.0),
                                     child: DropDownFormField(
-                                      titleText: 'District',
                                       hintText: 'Choose a district',
-                                      value: _myDistrict,
+                                      value: _district,
                                       onSaved: (value) {
                                         setState(() {
-                                          _myDistrict = value;
+                                          _district = value;
                                         });
                                       },
                                       onChanged: (value) {
                                         setState(() {
-                                          _myDistrict = value;
+                                          _district = value;
                                         });
                                       },
                                       dataSource: [
-                                        {
-                                          "display": "Porto",
-                                          "value": "Porto",
-                                        },
-                                        {
-                                          "display": "Aveiro",
-                                          "value": "Aveiro",
-                                        },
-                                        {
-                                          "display": "Lisboa",
-                                          "value": "Lisboa",
-                                        },
-                                        {
-                                          "display": "Viana do Castelo",
-                                          "value": "Viana do Castelo",
-                                        },
-                                        {
-                                          "display": "Faro",
-                                          "value": "Faro",
-                                        },
+                                        {"display": "Porto", "value": "Porto",},
+                                        {"display": "Aveiro", "value": "Aveiro",},
+                                        {"display": "Lisboa", "value": "Lisboa",},
+                                        {"display": "Viana do Castelo", "value": "Viana do Castelo",},
+                                        {"display": "Faro", "value": "Faro",},
                                       ],
                                       textField: 'display',
                                       valueField: 'value',
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.only(top: 5),
+                                    alignment: Alignment.topLeft,
+                                    child: Text('INTERESTS', style: Theme.of(context).textTheme.headline3,),
+                                ),
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width * 0.84,
+                                    child: ChipsChoice<String>.multiple(
+                                      value: _selectedInterests,
+                                        onChanged: (val) => setState(() => _selectedInterests = val),
+                                        choiceItems: C2Choice.listFrom<String, String>(
+                                          source: _interests,
+                                          value: (i, v) => v,
+                                          label: (i, v) => v,
+                                        ),
+                                        choiceStyle: C2ChoiceStyle(
+                                        ),
+                                      choiceActiveStyle: const C2ChoiceStyle(
+                                        showCheckmark: false,
+                                      ),
+                                        wrapped: true,
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.all(8),
+                                    child: RaisedButton(
+                                      child: Text('SAVE'),
+                                      onPressed: _saveForm,
                                     ),
                                   ),
                                 ],
@@ -245,6 +277,70 @@ class _ProfileState extends State<Profile> {
             ],
           ),
         )
+        )
+    );
+  }
+}
+
+class MultiSelectChip extends StatefulWidget {
+  final List<String> interests;
+  final Function(List<String>) onSelectionChanged;
+
+  MultiSelectChip(this.interests, {this.onSelectionChanged});
+
+  @override
+  _MultiSelectChipState createState() => _MultiSelectChipState();
+}
+
+class _MultiSelectChipState extends State<MultiSelectChip> {
+  // String selectedChoice = "";
+  List<String> selectedChoices = List();
+
+  _buildChoiceList() {
+    List<Widget> choices = List();
+
+    widget.interests.forEach((item) {
+      choices.add(Container(
+        padding: const EdgeInsets.all(2.0),
+        child: ChoiceChip(
+          label: Text(item),
+          selected: selectedChoices.contains(item),
+          onSelected: (selected) {
+            setState(() {
+              selectedChoices.contains(item)
+                  ? selectedChoices.remove(item)
+                  : selectedChoices.add(item);
+              widget.onSelectionChanged(selectedChoices);
+            });
+          },
+        ),
+      ));
+    });
+
+    return choices;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      children: _buildChoiceList(),
+    );
+  }
+}
+
+class Test extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: RaisedButton(
+        onPressed: (){
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Profile()),
+          );
+        },
+        child: Text('Conference Suggestions'),
+      ),
     );
   }
 }
