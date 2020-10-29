@@ -1,7 +1,7 @@
 class SmartconUser {
   final String uid;
 
-  SmartconUser({this.uid, district});
+  SmartconUser({this.uid});
 }
 
 class UserData {
