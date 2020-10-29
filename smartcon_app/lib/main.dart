@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'homePage.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -21,14 +23,34 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
 
         textTheme: TextTheme(
-          headline2: GoogleFonts.montserrat(
-            textStyle: TextStyle(color: Color(0xFF637DEB), fontSize: 40.0,  fontWeight: FontWeight.w500,),
+          headline2: GoogleFonts.rubik(
+            textStyle: TextStyle(
+              color: Color(0xFF637DEB),
+              fontSize: 38.0,
+              fontWeight: FontWeight.w500,
+            ),
           ),
-          headline3: GoogleFonts.montserrat(
-            textStyle: TextStyle(color: Color(0xFF4A4444), fontSize: 23.0,  fontWeight: FontWeight.w700,),
+          headline3: GoogleFonts.rubik(
+            textStyle: TextStyle(
+              color: Color(0xFF4A4444),
+              fontSize: 20.0,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          headline4: GoogleFonts.rubik(
+            textStyle: TextStyle(
+              color: Color(0xFFFFFFFF),
+              fontSize: 40.0,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          headline5: GoogleFonts.rubik(
+            textStyle: TextStyle(
+              color: Color(0xFFFFFFFF),
+              fontSize: 22.0,
+            ),
           ),
         ),
-
       ),
       home: MyHomePage(title: 'SmartCon Homepage'),
     );
@@ -64,59 +86,59 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     return Scaffold(
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-          child:Column(
-            children: <Widget> [
-              // HEADER IMAGE (100%)
-              Row(
-                  children: <Widget> [
-                    Expanded(
-                      child: Image.asset(
-                        'images/pageHeader.png',
-                        fit: BoxFit.fitWidth,
-                      ),
-                    ),
-                  ]
+          // Center is a layout widget. It takes a single child and positions it
+          // in the middle of the parent.
+          child: Column(
+        children: <Widget>[
+          // HEADER IMAGE (100%)
+          Row(children: <Widget>[
+            Container(
+              width: MediaQuery.of(context).size.width,
+              child: Image.asset('images/pageHeader.png', fit: BoxFit.fill),
+            ),
+          ]),
+          // CONTENT ROW
+          Row(children: <Widget>[
+            // MARGINS
+            Padding(
+              padding: EdgeInsets.only(
+                left: MediaQuery.of(context).size.width * 0.08,
+                right: MediaQuery.of(context).size.width * 0.08,
               ),
-              // CONTENT ROW
-              Row(
-                  children: <Widget> [
-                    // MARGINS
-                    Padding(
-                      padding:  EdgeInsets.only(
-                        left: MediaQuery.of(context).size.width * 0.08,
-                        right: MediaQuery.of(context).size.width * 0.08,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget> [
-                          Container(
-                            child: Text("A Title", style: Theme.of(context).textTheme.headline2,),
-                            alignment: Alignment.topLeft,
-                          ),
-                          Container(
-                            child: Text("A SUBTITLE", style: Theme.of(context).textTheme.headline3,),
-                            alignment: Alignment.topLeft,
-                          ),
-                          // A button that can be used as a link to other page
-                          RaisedButton(
-                            onPressed: (){
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => MyHomePage()),
-                              );
-                            },
-                            child: Text('Link to page'),
-                          )
-                        ],
-                      ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    child: Text(
+                      "A Title",
+                      style: Theme.of(context).textTheme.headline2,
                     ),
-                  ]
-              )
-            ],
-          )
-      ),
+                    alignment: Alignment.topLeft,
+                  ),
+                  Container(
+                    child: Text(
+                      "A SUBTITLE",
+                      style: Theme.of(context).textTheme.headline3,
+                    ),
+                    alignment: Alignment.topLeft,
+                  ),
+                  // A button that can be used as a link to other page
+                  RaisedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MyMainHomePage()),
+                      );
+                    },
+                    child: Text('Main Home Page first try'),
+                  )
+                ],
+              ),
+            ),
+          ])
+        ],
+      )),
     );
   }
 }
