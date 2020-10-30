@@ -124,6 +124,7 @@ For each user story you should write also the acceptance tests (textually in Ghe
 * **Value and effort**.
 
   *Value*: Must have
+  
   *Effort*: L
 
 #### Story II
@@ -142,6 +143,7 @@ For each user story you should write also the acceptance tests (textually in Ghe
 * **Value and effort**.
 
   *Value*: Must have
+  
   *Effort*: XL
 
 
@@ -160,6 +162,7 @@ For each user story you should write also the acceptance tests (textually in Ghe
 
 * **Value and effort**.
   *Value*: Could have
+  
   *Effort*: M
 
 #### Story IV
@@ -176,6 +179,7 @@ For each user story you should write also the acceptance tests (textually in Ghe
 
 * **Value and effort**.
   *Value*: Could have
+  
   *Effort*: L
 
 #### Story V
@@ -192,6 +196,7 @@ For each user story you should write also the acceptance tests (textually in Ghe
 
 * **Value and effort**.
   *Value*: Must have
+  
   *Effort*: XL
 
 ### Domain model
