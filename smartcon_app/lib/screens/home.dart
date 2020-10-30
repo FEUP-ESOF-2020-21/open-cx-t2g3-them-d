@@ -72,10 +72,7 @@ class MyHomePage extends StatelessWidget {
                           ),
                           RaisedButton(
                             onPressed: (){
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => Profile()),
-                              );
+                              Navigator.push( context, MaterialPageRoute(builder: (context) => Profile()), );
                             },
                             child: Text('Conference Suggestions'),
                           )

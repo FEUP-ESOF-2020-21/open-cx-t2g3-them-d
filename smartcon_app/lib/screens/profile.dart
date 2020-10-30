@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:smartcon_app/models/user.dart';
 import 'package:smartcon_app/services/database.dart';
 
+import 'conferenceSuggestions.dart';
+
 class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -172,8 +174,8 @@ class ProfileFormState extends State<ProfileForm> {
                           onPressed: () async {
                             if (_keyProfile.currentState.validate()) {
                               _keyProfile.currentState.save();
-                              print("DISTRICT: $_district CHOICES: $_selectedInterests");
                               await DatabaseService(uid: user.uid).updateProfile(_district ?? userData.district, _selectedInterests ?? userData.interests,);
+                              Navigator.push( context, MaterialPageRoute(builder: (context) => ConferenceSuggestions()), );
                             }
                           }
                       ),
