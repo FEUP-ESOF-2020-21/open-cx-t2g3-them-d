@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:smartcon_app/models/user.dart';
 import 'package:smartcon_app/services/database.dart';
 
-import 'conferenceSuggestions.dart';
+import 'conferenceSuggestions/conferenceSuggestions.dart';
 
 class Profile extends StatelessWidget {
   @override

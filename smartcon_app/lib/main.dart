@@ -39,6 +39,9 @@ class MyApp extends StatelessWidget {
             headline4: GoogleFonts.rubik(
               textStyle: TextStyle(color: Colors.white, fontSize: 12.0,  fontWeight: FontWeight.w500, ),
             ),
+            headline5: GoogleFonts.rubik(
+              textStyle: TextStyle(color: Color(0xFF637DEB), fontSize: 22.0,  fontWeight: FontWeight.w500, ),
+            ),
           ),
 
         ),

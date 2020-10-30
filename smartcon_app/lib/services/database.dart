@@ -36,7 +36,13 @@ class DatabaseService {
     return snapshot.docs.map((doc) {
       return Conference(
         name: doc.data()['name'],
-        category: doc.data()['category']
+        category: doc.data()['category'],
+        district: doc.data()['district'],
+        description: doc.data()['description'],
+        beginDate: doc.data()['beginDate'].toDate(),
+        endDate: doc.data()['endDate'].toDate(),
+        website: doc.data()['website'],
+        rating: doc.data()['rating']
       );
     }).toList();
   }

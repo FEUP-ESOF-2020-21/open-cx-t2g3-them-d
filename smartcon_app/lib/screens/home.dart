@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:smartcon_app/screens/profile.dart';
 import 'package:smartcon_app/services/auth.dart';
 
-import 'login.dart';
-
 class MyHomePage extends StatelessWidget {
 
   final AuthService _auth = AuthService();
