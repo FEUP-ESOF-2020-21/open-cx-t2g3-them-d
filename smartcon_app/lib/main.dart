@@ -30,20 +30,51 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
 
           textTheme: TextTheme(
+            // App Title - white
+            headline1: GoogleFonts.rubik(
+              textStyle: TextStyle(
+                color: Colors.white,
+                fontSize: 45.0,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            // Page Title - purple
             headline2: GoogleFonts.rubik(
-              textStyle: TextStyle(color: Color(0xFF637DEB), fontSize: 38.0,  fontWeight: FontWeight.w500,),
+              textStyle: TextStyle(
+                color: Color(0xFF637DEB),
+                fontSize: 38.0,
+                fontWeight: FontWeight.w500,),
             ),
+            // Page Subtitle - black
             headline3: GoogleFonts.rubik(
-              textStyle: TextStyle(color: Color(0xFF4A4444), fontSize: 20.0,  fontWeight: FontWeight.w500, ),
+              textStyle: TextStyle(
+                color: Color(0xFF4A4444),
+                fontSize: 20.0,  fontWeight:
+              FontWeight.w500, ),
             ),
+            // Form Buttons
             headline4: GoogleFonts.rubik(
-              textStyle: TextStyle(color: Colors.white, fontSize: 12.0,  fontWeight: FontWeight.w500, ),
+              textStyle: TextStyle(
+                color: Colors.white,
+                fontSize: 12.0,  fontWeight:
+              FontWeight.w500, ),
             ),
+            // Buttons Text - purple
             headline5: GoogleFonts.rubik(
-              textStyle: TextStyle(color: Color(0xFF637DEB), fontSize: 22.0,  fontWeight: FontWeight.w500, ),
+              textStyle: TextStyle(
+                color: Color(0xFF637DEB),
+                fontSize: 22.0,
+                fontWeight: FontWeight.w500, ),
+            ),
+            // Home Buttons Text - white
+            headline6: GoogleFonts.rubik(
+              textStyle: TextStyle(
+                color: Colors.white,
+                fontSize: 18.0,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
-
         ),
         home: Wrapper(),
       ),
