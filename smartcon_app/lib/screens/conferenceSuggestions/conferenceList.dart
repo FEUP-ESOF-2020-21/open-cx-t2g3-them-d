@@ -8,6 +8,14 @@ import 'package:smartcon_app/models/conference.dart';
 import 'package:smartcon_app/models/user.dart';
 
 class ConferenceList extends StatefulWidget {
+
+  const ConferenceList({Key key, this.filterDistrict, this.ratingOrder, this.beginDate, this.endDate}) : super(key: key);
+
+  final bool filterDistrict;
+  final bool ratingOrder;
+  final DateTime beginDate;
+  final DateTime endDate;
+
   @override
   _ConferenceListState createState() => _ConferenceListState();
 }
@@ -20,13 +28,33 @@ class _ConferenceListState extends State<ConferenceList> {
     List<Conference> suggestedConferences = [];
     final user = Provider.of<SmartconUser>(context);
 
+    bool isInterest(List<String> interests, String category){
+      return interests.contains(category);
+    }
+
+    bool isWithinDateRange(DateTime conferenceBegin, DateTime conferenceEnd){
+      return (conferenceBegin.isAfter(widget.beginDate) || conferenceBegin.isAtSameMomentAs(widget.beginDate)) &&
+          (conferenceEnd.isBefore(widget.endDate) ||  conferenceEnd.isAtSameMomentAs(widget.endDate) );
+    }
+
+    bool isDesiredDistrict(String conferenceDistrict, String userDistrict){
+      return !widget.filterDistrict || (widget.filterDistrict && conferenceDistrict == userDistrict);
+    }
+
     void setSuggestedConferences(UserData userData){
       suggestedConferences = [];
       conferences.forEach((conference) {
-        if (userData.interests.contains(conference.category)) {
+        if (isInterest(userData.interests, conference.category) &&
+            isWithinDateRange(conference.beginDate, conference.endDate) &&
+            isDesiredDistrict(conference.district, userData.district)) {
           suggestedConferences.add(conference);
         }
       });
+    }
+
+    void orderByRating(){
+      if(widget.ratingOrder)
+        suggestedConferences.sort((a, b) => a.rating.compareTo(b.rating));
     }
 
     return StreamBuilder<UserData>(
@@ -35,6 +63,7 @@ class _ConferenceListState extends State<ConferenceList> {
         if(snapshot.hasData) {
           UserData userData = snapshot.data;
           setSuggestedConferences(userData);
+          orderByRating();
 
           return ListView.builder(
             itemCount: suggestedConferences.length,
