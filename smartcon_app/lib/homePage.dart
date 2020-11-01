@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smartcon_app/searchConferences.dart';
 
 class MyMainHomePage extends StatefulWidget {
   MyMainHomePage({Key key, this.title}) : super(key: key);
@@ -69,7 +70,7 @@ class _MyMainHomePageState extends State<MyMainHomePage> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => MyMainHomePage()),
+              MaterialPageRoute(builder: (context) => SearchConferences()),
             );
           },
           child: Text(
