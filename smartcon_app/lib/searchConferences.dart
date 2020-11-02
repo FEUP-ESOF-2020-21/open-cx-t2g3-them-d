@@ -20,12 +20,11 @@ class _SearchConferences extends State<SearchConferences> {
   
   bool _rating = false;
   bool _near= false;
-  
+  List<DateTime> datas =[];
  
 
   @override
   Widget build(BuildContext context) {
-    List<DateTime> picked =[];
         return Scaffold(
             body: Center(
           // Center is a layout widget. It takes a single child and positions it
@@ -91,20 +90,7 @@ class _SearchConferences extends State<SearchConferences> {
                        Container(
                         child:  Row(
                           children:<Widget>[
-                            Container(
-                               decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.blueAccent,width:3.0),
-                                  borderRadius: BorderRadius.all(Radius.circular(10.0))
-                                ),
-                                width: 230.0,
-                                height: 40.0,
-                                
-                                child: Text(picked.length == 0
-                                    ? 'Must Pick a date'
-                                    : picked[0].toString(),
-                                    style: Theme.of(context).textTheme.headline6,textAlign: TextAlign.center),
-                                alignment: Alignment.center,
-                            ),
+                            
             
                             new MaterialButton(
                               color: Colors.blue,
@@ -112,7 +98,7 @@ class _SearchConferences extends State<SearchConferences> {
                                   borderRadius: BorderRadius.circular(10.0)),
                               highlightElevation: 40.0,
                               onPressed: () async {
-                                final picked = await DateRagePicker.showDatePicker(
+                                final List<DateTime> picked = await DateRagePicker.showDatePicker(
                                     context: context,
                                     initialFirstDate: new DateTime.now(),
                                     initialLastDate: (new DateTime.now()).add(new Duration(days: 7)),
@@ -122,20 +108,40 @@ class _SearchConferences extends State<SearchConferences> {
                                 if (picked != null && picked.length == 2) {
                                     print(picked);
                                 }
+                                datas=picked;
                               },
+                              
                               child: Text(
                                 "CHANGE",
                                 style: Theme.of(context).textTheme.headline6,
                                 textAlign: TextAlign.center,
                               )
-                              )
+                            ),
+
+                              
+                              Container(
+                               decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.blueAccent,width:3.0),
+                                  borderRadius: BorderRadius.all(Radius.circular(10.0))
+                                ),
+                                width: 230.0,
+                                height: 40.0,
+                                
+                                child: Text(datas.length==0 
+                                    ? 'Must Pick a date'
+                                    : "FROM: " +datas[0].toString().substring(0,10) + "\n TO: "  +datas[1].toString().substring(0,10), 
+                                    style: Theme.of(context).textTheme.headline6,textAlign: TextAlign.center),
+                                alignment: Alignment.center,
+                            ),
+                      
                           ]),
                        ),
 
-
-                       
-
-                        Container(
+                      Padding(
+                  padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.width * 0.04,
+                  ),
+                        child: Container(
                         child:  Row(
                           children:<Widget>[
                             Checkbox(
@@ -167,7 +173,9 @@ class _SearchConferences extends State<SearchConferences> {
                           ]
                           
                           ),
+                      )
                       ),
+
                        Container(
                           color: Colors.amber[600],
                           width: 350.0,
