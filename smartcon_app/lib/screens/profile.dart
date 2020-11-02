@@ -6,6 +6,7 @@ import 'package:smartcon_app/models/user.dart';
 import 'package:smartcon_app/services/database.dart';
 
 import 'conferenceSuggestions/conferenceSuggestions.dart';
+import 'conferenceSuggestions/searchConferences.dart';
 
 class Profile extends StatelessWidget {
   @override
@@ -170,12 +171,16 @@ class ProfileFormState extends State<ProfileForm> {
                     Container(
                       padding: EdgeInsets.all(8),
                       child: RaisedButton(
-                          child: Text('SAVE'),
+                          color: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              side: BorderSide(color: Colors.black26, width: 2)),
+                          child: Text('SAVE', style: TextStyle(color:Colors.black38, fontSize: 14.0,  fontWeight: FontWeight.w700, fontFamily: 'Rubik',)),
                           onPressed: () async {
                             if (_keyProfile.currentState.validate()) {
                               _keyProfile.currentState.save();
                               await DatabaseService(uid: user.uid).updateProfile(_district ?? userData.district, _selectedInterests ?? userData.interests,);
-                              Navigator.push( context, MaterialPageRoute(builder: (context) => ConferenceSuggestions()), );
+                              Navigator.push( context, MaterialPageRoute(builder: (context) => SearchConferences()), );
                             }
                           }
                       ),

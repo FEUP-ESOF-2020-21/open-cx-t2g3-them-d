@@ -19,6 +19,6 @@ class ConferenceSuggestionsState extends State<ConferenceSuggestions> {
 
     return StreamProvider<List<Conference>>.value(
         value: DatabaseService().conferences,
-        child: ConferenceList(filterDistrict:true, ratingOrder: true, beginDate: DateTime(2020,12,24), endDate: DateTime(2021,02,24)));
+        child: ConferenceList(filterDistrict:true, ratingOrder: true, dates: [DateTime(2020,12,24), DateTime(2021,02,24)]));
   }
 }

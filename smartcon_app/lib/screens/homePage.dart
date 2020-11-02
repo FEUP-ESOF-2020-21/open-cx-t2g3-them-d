@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:smartcon_app/screens/profile.dart';
 import 'package:smartcon_app/services/auth.dart';
+
+import 'conferenceSuggestions/searchConferences.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -84,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Profile()),
+                        MaterialPageRoute(builder: (context) => SearchConferences()),
                       );
                     },
                     child: Text(

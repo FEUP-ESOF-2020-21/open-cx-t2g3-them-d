@@ -9,12 +9,11 @@ import 'package:smartcon_app/models/user.dart';
 
 class ConferenceList extends StatefulWidget {
 
-  const ConferenceList({Key key, this.filterDistrict, this.ratingOrder, this.beginDate, this.endDate}) : super(key: key);
+  const ConferenceList({Key key, this.filterDistrict, this.ratingOrder, this.dates}) : super(key: key);
 
   final bool filterDistrict;
   final bool ratingOrder;
-  final DateTime beginDate;
-  final DateTime endDate;
+  final List<DateTime> dates;
 
   @override
   _ConferenceListState createState() => _ConferenceListState();
@@ -33,8 +32,9 @@ class _ConferenceListState extends State<ConferenceList> {
     }
 
     bool isWithinDateRange(DateTime conferenceBegin, DateTime conferenceEnd){
-      return (conferenceBegin.isAfter(widget.beginDate) || conferenceBegin.isAtSameMomentAs(widget.beginDate)) &&
-          (conferenceEnd.isBefore(widget.endDate) ||  conferenceEnd.isAtSameMomentAs(widget.endDate) );
+      return widget.dates.isNotEmpty &&
+        (conferenceBegin.isAfter(widget.dates[0]) || conferenceBegin.isAtSameMomentAs(widget.dates[0])) &&
+          (conferenceEnd.isBefore(widget.dates[1]) ||  conferenceEnd.isAtSameMomentAs(widget.dates[1]) );
     }
 
     bool isDesiredDistrict(String conferenceDistrict, String userDistrict){
@@ -54,7 +54,7 @@ class _ConferenceListState extends State<ConferenceList> {
 
     void orderByRating(){
       if(widget.ratingOrder)
-        suggestedConferences.sort((a, b) => a.rating.compareTo(b.rating));
+        suggestedConferences.sort((a, b) => b.rating.compareTo(a.rating));
     }
 
     return StreamBuilder<UserData>(
@@ -65,11 +65,15 @@ class _ConferenceListState extends State<ConferenceList> {
           setSuggestedConferences(userData);
           orderByRating();
 
-          return ListView.builder(
-            itemCount: suggestedConferences.length,
-            itemBuilder: (context, index) {
-              return ConferenceTile(conference: suggestedConferences[index]);
-            },
+          return Flexible(
+              child: ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: suggestedConferences.length,
+                itemBuilder: (context, index) {
+                  return ConferenceTile(conference: suggestedConferences[index]);
+                },
+            ),
           );
         }
         else{
@@ -105,7 +109,11 @@ class ConferenceTile extends StatelessWidget {
       return stars; }
 
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.only(
+        top: 20,
+        left: MediaQuery.of(context).size.width * 0.08,
+        right: MediaQuery.of(context).size.width * 0.08,
+      ),
       child: DecoratedBox(
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white, border: Border.all(width: 2.0, color: Colors.black26)),
             child: Padding(
@@ -137,11 +145,12 @@ class ConferenceTile extends StatelessWidget {
                     child: Text(conference.description, style: TextStyle(fontSize: 17.0, fontFamily: 'Rubik', color: Color(0xFF4A4444), fontWeight: FontWeight.w400)),
                     alignment: Alignment.topLeft,
                   ),
+                  SizedBox(height: 7),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        child: Text(DateFormat.yMMMd().format(conference.beginDate) + ' - ' + DateFormat.yMMMd().format(conference.endDate), style: TextStyle(fontSize: 17.0, fontFamily: 'Rubik', color: Colors.black38, fontWeight: FontWeight.w400)),
+                        child: Text(DateFormat.yMMMd().format(conference.beginDate) + '\n' + DateFormat.yMMMd().format(conference.endDate), style: TextStyle(fontSize: 17.0, fontFamily: 'Rubik', color: Colors.black38, fontWeight: FontWeight.w400)),
                         alignment: Alignment.topLeft,
                       ),
                       Container(

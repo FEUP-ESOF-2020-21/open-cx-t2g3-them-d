@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
             headline2: GoogleFonts.rubik(
               textStyle: TextStyle(
                 color: Color(0xFF637DEB),
-                fontSize: 38.0,
+                fontSize: 32.0,
                 fontWeight: FontWeight.w500,),
             ),
             // Page Subtitle - black
