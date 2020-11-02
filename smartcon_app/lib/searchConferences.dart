@@ -18,14 +18,14 @@ class SearchConferences extends StatefulWidget {
 
 class _SearchConferences extends State<SearchConferences> {
   
-  DateTime _dateTime;
   bool _rating = false;
   bool _near= false;
-
+  
  
 
   @override
   Widget build(BuildContext context) {
+    List<DateTime> picked =[];
         return Scaffold(
             body: Center(
           // Center is a layout widget. It takes a single child and positions it
@@ -99,60 +99,41 @@ class _SearchConferences extends State<SearchConferences> {
                                 width: 230.0,
                                 height: 40.0,
                                 
-                                child: Text(_dateTime == null
+                                child: Text(picked.length == 0
                                     ? 'Must Pick a date'
-                                    : _dateTime.toString()[0]+_dateTime.toString()[1]+_dateTime.toString()[2]+_dateTime.toString()[3]+_dateTime.toString()[4]+_dateTime.toString()[5]+_dateTime.toString()[6]+_dateTime.toString()[7]+_dateTime.toString()[8]+_dateTime.toString()[9],
+                                    : picked[0].toString(),
                                     style: Theme.of(context).textTheme.headline6,textAlign: TextAlign.center),
                                 alignment: Alignment.center,
                             ),
-                          ButtonTheme(
-                          minWidth: MediaQuery.of(context).size.width * 0.3,
-                          child: RaisedButton(
-                            child: Text(
-                              "CHANGE",
-                              style: Theme.of(context).textTheme.headline6,
-                              textAlign: TextAlign.center,
-                            ),
-                            color: Colors.blue,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0)),
-                            highlightElevation: 40.0,
-                            onPressed: () {
-                              showDatePicker(
-                                      context: context,
-                                      initialDate: _dateTime == null
-                                          ? DateTime.now()
-                                          : _dateTime,
-                                      firstDate: DateTime(2001),
-                                      lastDate: DateTime(2021))
-                                  .then((date) {
-                                setState(() {
-                                  _dateTime = date;
-                                });
-                              });
-                            },
-                          )),
-                          
+            
+                            new MaterialButton(
+                              color: Colors.blue,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0)),
+                              highlightElevation: 40.0,
+                              onPressed: () async {
+                                final picked = await DateRagePicker.showDatePicker(
+                                    context: context,
+                                    initialFirstDate: new DateTime.now(),
+                                    initialLastDate: (new DateTime.now()).add(new Duration(days: 7)),
+                                    firstDate: new DateTime(2020),
+                                    lastDate: new DateTime(2021)
+                                );
+                                if (picked != null && picked.length == 2) {
+                                    print(picked);
+                                }
+                              },
+                              child: Text(
+                                "CHANGE",
+                                style: Theme.of(context).textTheme.headline6,
+                                textAlign: TextAlign.center,
+                              )
+                              )
                           ]),
                        ),
 
 
-                     /*  MaterialButton(
-    color: Colors.deepOrangeAccent,
-    onPressed: () async {
-      final List<DateTime> picked = await DateRagePicker.showDatePicker(
-          context: context,
-          initialFirstDate: new DateTime.now(),
-          initialLastDate: (new DateTime.now()).add(new Duration(days: 7)),
-          firstDate: new DateTime(2015),
-          lastDate: new DateTime(2020)
-      );
-      if (picked != null && picked.length == 2) {
-          print(picked);
-      }
-    },
-    child: new Text("Pick date range")
-),*/
+                       
 
                         Container(
                         child:  Row(
@@ -218,17 +199,3 @@ class _SearchConferences extends State<SearchConferences> {
 
 
 
-
-/* SizedBox(
-                            width: 100,
-                            child:  LabeledCheckbox(
-                          label: 'This is the label text',
-                          padding: const EdgeInsets.symmetric(horizontal: 0.01),
-                          value: _rating,
-                          onChanged: (bool newValue) {
-                            setState(() {
-                              _rating = newValue;
-                            });
-                          },
-                        ),
-                          )*/
