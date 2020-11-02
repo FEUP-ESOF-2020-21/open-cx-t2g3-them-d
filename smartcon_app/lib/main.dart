@@ -13,7 +13,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'SmartCon',
       theme: ThemeData(
         // This is the theme of your application.
 
@@ -27,7 +26,7 @@ class MyApp extends StatelessWidget {
           headline2: GoogleFonts.rubik(
             textStyle: TextStyle(
               color: Color(0xFF637DEB),
-              fontSize: 38.0,
+              fontSize: 36.0,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -51,8 +50,16 @@ class MyApp extends StatelessWidget {
               fontSize: 22.0,
             ),
           ),
+          headline6: GoogleFonts.rubik(
+            textStyle: TextStyle(
+              color: Color(0xFF4A4444),
+              fontSize: 16.0,
+              fontWeight:FontWeight.bold,
+            ),
+          ),
         ),
       ),
+      title: 'SmartCon',
       home: SearchConferences(title: 'SmartCon Homepage'),
     );
   }

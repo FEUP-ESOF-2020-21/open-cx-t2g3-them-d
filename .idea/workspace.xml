@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="add333cc-9787-4a52-973e-67af93d72cb2" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/smartcon_app/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/smartcon_app/lib/main.dart" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[Pixel_3_API_30]" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1jhPpfLOwhRlhvW4Iq7VfYWiHs7" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../flutter/flutter" />
+    <property name="settings.editor.selected.configurable" value="dart.settings" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="pub get" />
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="FlutterRunConfigurationType" factoryName="Flutter">
+      <option name="filePath" value="$PROJECT_DIR$/smartcon_app/lib/main.dart" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter" nameIsGenerated="true">
+      <option name="filePath" value="$PROJECT_DIR$/smartcon_app/lib/main.dart" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="add333cc-9787-4a52-973e-67af93d72cb2" name="Default Changelist" comment="" />
+      <created>1604253535020</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1604253535020</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="586" y="198" key="#Inspections" timestamp="1604262577323">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="586" y="198" key="#Inspections/0.0.1920.1040@0.0.1920.1040" timestamp="1604262577323" />
+    <state x="552" y="161" key="#Plugins" timestamp="1604253662409">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="161" key="#Plugins/0.0.1920.1040@0.0.1920.1040" timestamp="1604253662409" />
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1604262649556">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1604262649556" />
+    <state x="689" y="310" key="#com.intellij.ide.util.TreeFileChooserDialog" timestamp="1604262298625">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="689" y="310" key="#com.intellij.ide.util.TreeFileChooserDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1604262298625" />
+    <state x="92" y="92" width="1736" height="856" key="AVDManager" timestamp="1604309318744">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="92" y="92" width="1736" height="856" key="AVDManager/0.0.1920.1040@0.0.1920.1040" timestamp="1604309318744" />
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1604260991118">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1604260991118" />
+    <state width="1340" height="266" key="GridCell.Tab.0.bottom" timestamp="1604262711815">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1340" height="266" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1604262711815" />
+    <state width="1340" height="266" key="GridCell.Tab.0.center" timestamp="1604262711815">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1340" height="266" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1604262711815" />
+    <state width="1340" height="266" key="GridCell.Tab.0.left" timestamp="1604262711815">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1340" height="266" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1604262711815" />
+    <state width="1340" height="266" key="GridCell.Tab.0.right" timestamp="1604262711815">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1340" height="266" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1604262711815" />
+    <state x="461" y="165" key="SettingsEditor" timestamp="1604262047808">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="461" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1604262047808" />
+    <state x="616" y="242" width="672" height="677" key="run.anything.popup" timestamp="1604262533003">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="616" y="242" width="672" height="677" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1604262533003" />
+  </component>
+</project>
