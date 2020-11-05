@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:smartcon_app/models/user.dart';
+import 'package:smartcon_app/screens/conferenceSuggestions/conferenceList.dart';
+import 'package:smartcon_app/screens/profile.dart';
 import 'package:smartcon_app/services/auth.dart';
+import 'package:smartcon_app/services/database.dart';
 
 import 'conferenceSuggestions/searchConferences.dart';
 
@@ -85,7 +90,7 @@ class _HomePageState extends State<HomePage> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => SearchConferences()),
+                        MaterialPageRoute(builder: (context) => WrapperConferences()),
                       );
                     },
                     child: Text(
@@ -162,5 +167,29 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ])));
+  }
+}
+
+class WrapperConferences extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // Return either Manage Profile or Search conferences
+    final user = Provider.of<SmartconUser>(context);
+
+    return StreamBuilder<UserData>(
+        stream: DatabaseService(uid: user.uid).userData,
+        builder: (context, snapshot) {
+          if(snapshot.hasData){
+            UserData userData = snapshot.data;
+
+            if(userData.district != '' && userData.interests.isNotEmpty)
+             return SearchConferences();
+            else
+              return Profile();
+          }
+          else{
+            return Container();
+          }
+        });
   }
 }
