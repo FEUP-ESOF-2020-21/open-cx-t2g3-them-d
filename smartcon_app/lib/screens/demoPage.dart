@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:smartcon_app/screens/profile.dart';
-import 'package:smartcon_app/services/auth.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class MyHomePage extends StatelessWidget {
-
-  final AuthService _auth = AuthService();
-
+class DemoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +28,7 @@ class MyHomePage extends StatelessWidget {
                             ),
                             child: RaisedButton(
                               onPressed: () async {
-                                await _auth.signOutGoogle();
+                                MaterialPageRoute(builder: (context) => DemoPage());
                               },
                               color: Color(0xFF6E96EF),
                               child: Padding(
@@ -69,11 +65,27 @@ class MyHomePage extends StatelessWidget {
                             alignment: Alignment.topLeft,
                           ),
                           RaisedButton(
-                            onPressed: (){
-                              Navigator.push( context, MaterialPageRoute(builder: (context) => Profile()), );
-                            },
-                            child: Text('Conference Suggestions'),
-                          )
+                              color: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  side: BorderSide(color: Colors.black26, width: 2)),
+                              child: Text('SAVE', style: TextStyle(color:Colors.black38, fontSize: 14.0,  fontWeight: FontWeight.w700, fontFamily: 'Rubik',)),
+                              onPressed: () async {
+                                MaterialPageRoute(builder: (context) => DemoPage());
+                              }
+                          ),
+                          Container(
+                            child: Text(
+                                "Some normal text",
+                                style: TextStyle(
+                                  fontFamily: 'Rubik',
+                                  color: Colors.black87,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w400
+                                )
+                            ),
+                            alignment: Alignment.topLeft,
+                          ),
                         ],
                       ),
                     ),
