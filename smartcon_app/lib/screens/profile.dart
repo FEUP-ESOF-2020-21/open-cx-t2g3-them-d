@@ -4,8 +4,6 @@ import 'package:chips_choice/chips_choice.dart';
 import 'package:provider/provider.dart';
 import 'package:smartcon_app/models/user.dart';
 import 'package:smartcon_app/services/database.dart';
-
-import 'conferenceSuggestions/conferenceSuggestions.dart';
 import 'conferenceSuggestions/searchConferences.dart';
 
 class Profile extends StatelessWidget {
