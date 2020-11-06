@@ -112,11 +112,11 @@ Have you ever wondered about the main reason why attendees go to conferences? Fr
 #### Story I
 
 * **Story**.
-As an Attendee, I want to be able to get conference suggestions based on my interests, location and availability so that the set of results is straightforward and accurate.
+As an Attendee, I want to be able to get conference suggestions based on my profile and availability so that the set of results is straightforward and accurate.
 
 * **User interface mockups**.
 
-  ![](./images/mockups/HomeStory1.png)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](./images/mockups/ManageProfile.png)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![](./images/mockups/SearchConferences.png)
+  ![](./images/mockups/HomeStory1.png)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![](./images/mockups/SearchConferences.png)
 
 * **Acceptance tests**.
 For each user story you should write also the acceptance tests (textually in Gherkin), i.e., a description of scenarios (situations) that will help to confirm that the system satisfies the requirements addressed by the user story.
@@ -198,6 +198,24 @@ For each user story you should write also the acceptance tests (textually in Ghe
   *Value*: Must have
   
   *Effort*: XL
+  
+#### Story VI
+
+* **Story**.
+As an Attendee, I want to be able to change my saved interests and desired location.
+
+* **User interface mockups**.
+
+  ![](./images/mockups/ManageProfile.png)
+
+* **Acceptance tests**.
+For each user story you should write also the acceptance tests (textually in Gherkin), i.e., a description of scenarios (situations) that will help to confirm that the system satisfies the requirements addressed by the user story.
+
+* **Value and effort**.
+  *Value*: Must have
+  
+  *Effort*: L
+
 
 ### Domain model
 
