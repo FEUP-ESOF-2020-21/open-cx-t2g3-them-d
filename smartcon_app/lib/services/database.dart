@@ -18,6 +18,20 @@ class DatabaseService {
     });
   }
 
+
+  Future<void> addConference(Conference conference) async {
+    return await conferencesCollection.doc(uid).set({
+      'name': conference.name,
+      'category': conference.category,
+      'district': conference.district,
+      'website': conference.website,
+      'description': conference.description,
+      'beginDate': conference.beginDate,
+      'endDate': conference.endDate,
+      'rating': conference.rating,
+    });
+  }
+
   // user data from snapshots
   UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
     return UserData(

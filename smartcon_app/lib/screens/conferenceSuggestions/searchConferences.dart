@@ -28,7 +28,7 @@ class _SearchConferences extends State<SearchConferences> {
         _dates = picked;
         datesStr = "FROM: " + _dates[0].toString().substring(0,10) + "\nTO: " + _dates[1].toString().substring(0,10);
       });
-    }
+  }
 
   @override
   Widget build(BuildContext context) {

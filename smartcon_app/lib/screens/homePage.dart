@@ -6,6 +6,7 @@ import 'package:smartcon_app/screens/profile.dart';
 import 'package:smartcon_app/services/auth.dart';
 import 'package:smartcon_app/services/database.dart';
 
+import 'conferenceSuggestions/insertConference.dart';
 import 'conferenceSuggestions/searchConferences.dart';
 
 class HomePage extends StatefulWidget {
@@ -157,7 +158,7 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => HomePage()),
+                      MaterialPageRoute(builder: (context) => InsertConference()),
                     );
                   },
                   child: Text(

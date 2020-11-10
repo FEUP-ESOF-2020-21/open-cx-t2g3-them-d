@@ -107,6 +107,7 @@ class ProfileFormState extends State<ProfileForm> {
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: DropDownFormField(
+                        titleText: 'District',
                         hintText: 'Choose a district',
                         value: _district ??  userData.district,
                         onSaved: (value) {

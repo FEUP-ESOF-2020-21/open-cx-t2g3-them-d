@@ -1,23 +1,56 @@
 import 'package:flutter/material.dart';
-
+import 'package:date_range_picker/date_range_picker.dart' as DateRagePicker;
 import 'package:dropdown_formfield/dropdown_formfield.dart';
+import 'package:smartcon_app/models/conference.dart';
+import 'package:smartcon_app/services/auth.dart';
+import 'package:smartcon_app/services/database.dart';
 
-class insertConference extends StatefulWidget {
+import '../homePage.dart';
+
+class InsertConference extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return insertConferenceState();
+    return InsertConferenceState();
   }
 }
 
-class insertConferenceState extends State<insertConference> {
+class InsertConferenceState extends State<InsertConference> {
+
+  final AuthService _auth = AuthService();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   String _name;
   String _district;
-  String _dateTime;
+  List<DateTime> _dates = [];
   String _category;
   String _description;
   String _website;
+  Conference _conference;
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  String datesStr =  'Must Pick a date';
+  _onDateChanged(picked){
+    setState((){
+      _dates = picked;
+      datesStr = "FROM: " + _dates[0].toString().substring(0,10) + "\nTO: " + _dates[1].toString().substring(0,10);
+    });
+  }
+
+  _saveConference() async {
+    _conference = new Conference(
+        name: _name,
+        category: _category,
+        district: _district,
+        website: _website,
+        description: _description,
+        beginDate: _dates[0],
+        endDate: _dates[0],
+        rating: 0,
+    );
+
+    await DatabaseService().addConference(_conference);
+    Navigator.push( context, MaterialPageRoute(builder: (context) => HomePage()), );
+
+  }
 
   Widget _buildName() {
     return TextFormField(
@@ -45,7 +78,9 @@ class insertConferenceState extends State<insertConference> {
 
   Widget _buildDistrict() {
     return DropDownFormField(
+      titleText: 'District',
       hintText: 'Choose a district',
+      value: _district,
       onSaved: (value) {
         setState(() {
           _district = value;
@@ -90,45 +125,62 @@ class insertConferenceState extends State<insertConference> {
   }
 
   Widget _buildDate() {
-    return Stack(children: [
-      MaterialButton(
-          minWidth: 100,
-          color: Colors.blueGrey[50],
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-          onPressed: () async {
-            showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(2020),
-                    lastDate: DateTime(2222))
-                .then((date) {
-              setState(() {
-                _dateTime = date.toString();
-              });
-            });
-          },
-          child: Text(
-            "Date",
-            textAlign: TextAlign.center,
-          )),
-      Container(
-        decoration: BoxDecoration(
-            borderRadius: new BorderRadius.circular(10.0),
-            border: Border.all(width: 0.5)),
-        width: 345.0,
-        height: 40.0,
-        child: Text(
-            _dateTime == null ? 'Must Pick a date' : _dateTime.substring(0, 10),
-            textAlign: TextAlign.center),
-        alignment: Alignment.center,
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 0.84,
+      child: Row(
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width * 0.54,
+              height: 50.0,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(width: 2.0, color: Colors.black26),
+                  borderRadius: BorderRadius.all(Radius.circular(10.0))
+              ),
+
+              child: Text( datesStr, style: TextStyle(color: Colors.black87, fontSize: 15.0,  fontWeight: FontWeight.w400, fontFamily: 'Rubik',)),
+              padding: EdgeInsets.only(left: 10),
+              alignment: Alignment.centerLeft,
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.3,
+              child: ButtonTheme(
+                height: 50,
+                child: MaterialButton(
+                    color: Color(0xFF6E96EF),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0)),
+                    highlightElevation: 40.0,
+                    onPressed: () async {
+                      final List<DateTime> picked = await DateRagePicker.showDatePicker(
+                          context: context,
+                          initialFirstDate: new DateTime.now(),
+                          initialLastDate: (new DateTime.now()).add(new Duration(days: 7)),
+                          firstDate: DateTime(2020),
+                          lastDate: DateTime(2222),
+                      );
+                      if (picked != null && picked.length == 2) {
+                        print(picked);
+                        _onDateChanged(picked);
+                      }
+                    },
+                    child: Text(
+                      "Date",
+                      style: Theme.of(context).textTheme.headline6,
+                      textAlign: TextAlign.center,
+                    )),
+              ),
+            ),
+          ]
       ),
-    ]);
+    );
   }
 
   Widget _buildCategory() {
     return DropDownFormField(
-      hintText: 'Categoty',
+      titleText: 'Category',
+      hintText: 'Category',
+      value: _category,
       onSaved: (value) {
         setState(() {
           _category = value;
@@ -147,36 +199,44 @@ class insertConferenceState extends State<insertConference> {
       },
       dataSource: [
         {
-          "display": "Academic Conference",
-          "value": "Academic Conference",
+          "display": "Technology",
+          "value": "Technology",
         },
         {
-          "display": "Business Conference",
+          "display": "Art & Design",
           "value": "Business Conference",
         },
         {
-          "display": "Cultural Conference",
-          "value": "Cultural Conference",
+          "display": "Cultural",
+          "value": "Cultural",
         },
         {
-          "display": "Diplomatic Conference",
-          "value": "Diplomatic Conference",
+          "display": "Finance",
+          "value": "Finance",
         },
         {
-          "display": "Environmental Conference",
-          "value": "Environmental Conference",
+          "display": "Environmental",
+          "value": "Environmental",
         },
         {
-          "display": "Journalism Conference",
-          "value": "Journalism Conference",
+          "display": "Sports",
+          "value": "Sports",
         },
         {
-          "display": "Technology Conference",
-          "value": "Technology Conference",
+          "display": "Literature",
+          "value": "Literature",
         },
         {
-          "display": "Music Conference",
-          "value": "Music Conference",
+          "display": "Marketing",
+          "value": "Marketing",
+        },
+        {
+          "display": "Scientific",
+          "value": "Scientific",
+        },
+        {
+          "display": "Wellness",
+          "value": "Wellness",
         },
       ],
       textField: 'display',
@@ -229,7 +289,7 @@ class insertConferenceState extends State<insertConference> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      body: SingleChildScrollView(
           // Center is a layout widget. It takes a single child and positions it
           // in the middle of the parent.
           child: Column(children: <Widget>[
@@ -247,8 +307,7 @@ class insertConferenceState extends State<insertConference> {
                   ),
                   child: RaisedButton(
                     onPressed: () async {
-                      MaterialPageRoute(
-                          builder: (context) => insertConference());
+                      await _auth.signOutGoogle();
                     },
                     color: Color(0xFF6E96EF),
                     child: Padding(
@@ -300,28 +359,23 @@ class insertConferenceState extends State<insertConference> {
                 SizedBox(height: 15),
                 _buildWebsite(),
                 SizedBox(height: 15),
-                RaisedButton(
-                  child: Text(
-                    'Submit',
-                    style: TextStyle(color: Colors.blue, fontSize: 16),
+                Container(
+                  padding: EdgeInsets.all(8),
+                  child: RaisedButton(
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          side: BorderSide(color: Colors.black26, width: 2)),
+                      child: Text('NEXT', style: TextStyle(color:Colors.black38, fontSize: 14.0,  fontWeight: FontWeight.w700, fontFamily: 'Rubik',)),
+                    onPressed: () {
+                      if (!_formKey.currentState.validate())
+                        return;
+                      _formKey.currentState.save();
+                      _saveConference();
+                      //Send to API
+                    },
                   ),
-                  onPressed: () {
-                    if (!_formKey.currentState.validate()) {
-                      return;
-                    }
-
-                    _formKey.currentState.save();
-
-                    print(_name);
-                    print(_district);
-                    print(_category);
-                    print(_description);
-                    print(_dateTime);
-                    print(_website);
-
-                    //Send to API
-                  },
-                )
+                ),
               ],
             ),
           ),
