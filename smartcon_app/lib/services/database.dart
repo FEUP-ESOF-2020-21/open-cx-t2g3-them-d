@@ -29,6 +29,7 @@ class DatabaseService {
       'beginDate': conference.beginDate,
       'endDate': conference.endDate,
       'rating': conference.rating,
+      'sessions': conference.sessions
     });
   }
 
