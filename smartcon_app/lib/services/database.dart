@@ -65,4 +65,16 @@ class DatabaseService {
   Stream<List<Conference>> get conferences {
     return conferencesCollection.snapshots().map(_conferenceListFromSnapshot);
   }
+
+  // category list from snapshots
+  List<String> _categoryListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot .docs.map((doc) {
+      return doc.data()['category'].toString();
+    }).toSet().toList();
+  }
+
+  // get categories stream
+  Stream<List<String>> get categories {
+    return conferencesCollection.snapshots().map(_categoryListFromSnapshot);
+  }
 }
