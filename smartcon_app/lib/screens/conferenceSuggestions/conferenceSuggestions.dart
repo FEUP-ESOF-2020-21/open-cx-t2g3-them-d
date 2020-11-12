@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smartcon_app/screens/conferenceSuggestions/conferenceList.dart';
 import 'package:smartcon_app/models/conference.dart';
+import 'package:smartcon_app/screens/conferenceSuggestions/conferenceList.dart';
 import 'package:smartcon_app/services/database.dart';
 
 class ConferenceSuggestions extends StatefulWidget {

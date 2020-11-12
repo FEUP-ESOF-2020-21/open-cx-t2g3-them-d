@@ -1,15 +1,21 @@
-import 'package:smartcon_app/models/session.dart';
+
 
 class Conference {
-  final String name;
-  final String category;
-  final String district;
-  final String website;
-  final String description;
-  final DateTime beginDate;
-  final DateTime endDate;
-  final int rating;
-  final List<Session> sessions;
+  final String confId;
+  String name;
+  String category;
+  String district;
+  String website;
+  String description;
+  DateTime beginDate;
+  DateTime endDate;
+  int rating;
 
-  Conference({this.name, this.category, this.district, this.description, this.beginDate, this.endDate, this.website, this.rating, this.sessions});
+  Conference({this.confId, this.name, this.category, this.district, this.description, this.beginDate, this.endDate, this.website, this.rating});
+
+  Conference.onlyId({this.confId});
+
+  @override
+  bool operator == (covariant Conference other) => other.confId == this.confId;
+
 }

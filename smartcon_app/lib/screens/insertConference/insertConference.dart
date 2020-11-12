@@ -1,11 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:date_range_picker/date_range_picker.dart' as DateRagePicker;
 import 'package:dropdown_formfield/dropdown_formfield.dart';
+import 'package:flutter/material.dart';
 import 'package:smartcon_app/models/conference.dart';
 import 'package:smartcon_app/models/session.dart';
 import 'package:smartcon_app/services/auth.dart';
 import 'package:smartcon_app/services/database.dart';
-
 import '../homePage.dart';
 
 class InsertConference extends StatefulWidget {
@@ -47,7 +46,6 @@ class InsertConferenceState extends State<InsertConference> {
         beginDate: _dates[0],
         endDate: _dates[0],
         rating: 0,
-        sessions: _sessions
     );
 
     await DatabaseService().addConference(_conference);

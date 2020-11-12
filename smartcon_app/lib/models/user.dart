@@ -11,3 +11,11 @@ class UserData {
 
   UserData({this.uid, this.district, this.interests});
 }
+
+class UserConference {
+  final String uid;
+  final String conferenceId;
+  final List<String> sessions;
+
+  UserConference({this.uid, this.conferenceId, this.sessions});
+}

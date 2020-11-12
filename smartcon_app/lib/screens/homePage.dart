@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smartcon_app/models/user.dart';
-import 'package:smartcon_app/screens/conferenceSuggestions/conferenceList.dart';
 import 'package:smartcon_app/screens/profile.dart';
+import 'package:smartcon_app/screens/sessionSuggestions/sessionSuggestionsCode.dart';
 import 'package:smartcon_app/services/auth.dart';
 import 'package:smartcon_app/services/database.dart';
-
-import 'conferenceSuggestions/insertConference.dart';
 import 'conferenceSuggestions/searchConferences.dart';
+import 'insertConference/insertConference.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -21,7 +20,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
+        body: SingleChildScrollView(
             child: Column(children: <Widget>[
               Stack(
                 children: <Widget>[
@@ -115,7 +114,7 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => HomePage()),
+                      MaterialPageRoute(builder: (context) => SessionSuggestionsCode()),
                     );
                   },
                   child: Text(
