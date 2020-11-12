@@ -6,6 +6,7 @@ import 'package:smartcon_app/services/database.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:smartcon_app/models/conference.dart';
 import 'package:smartcon_app/models/user.dart';
+import 'package:dart_date/dart_date.dart';
 
 class ConferenceList extends StatefulWidget {
 
@@ -33,8 +34,8 @@ class _ConferenceListState extends State<ConferenceList> {
 
     bool isWithinDateRange(DateTime conferenceBegin, DateTime conferenceEnd){
       return widget.dates.isNotEmpty &&
-        (conferenceBegin.isAfter(widget.dates[0]) || conferenceBegin.isAtSameMomentAs(widget.dates[0])) &&
-          (conferenceEnd.isBefore(widget.dates[1]) ||  conferenceEnd.isAtSameMomentAs(widget.dates[1]) );
+        (conferenceBegin.isAfter(widget.dates[0]) || conferenceBegin.isSameDay(widget.dates[0])) &&
+          (conferenceEnd.isBefore(widget.dates[1]) ||  conferenceEnd.isSameDay(widget.dates[1]) );
     }
 
     bool isDesiredDistrict(String conferenceDistrict, String userDistrict){

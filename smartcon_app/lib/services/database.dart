@@ -18,6 +18,21 @@ class DatabaseService {
     });
   }
 
+
+  Future<void> addConference(Conference conference) async {
+    return await conferencesCollection.doc(uid).set({
+      'name': conference.name,
+      'category': conference.category,
+      'district': conference.district,
+      'website': conference.website,
+      'description': conference.description,
+      'beginDate': conference.beginDate,
+      'endDate': conference.endDate,
+      'rating': conference.rating,
+      'sessions': conference.sessions
+    });
+  }
+
   // user data from snapshots
   UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
     return UserData(
@@ -50,5 +65,17 @@ class DatabaseService {
   // get conferences stream
   Stream<List<Conference>> get conferences {
     return conferencesCollection.snapshots().map(_conferenceListFromSnapshot);
+  }
+
+  // category list from snapshots
+  List<String> _categoryListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot .docs.map((doc) {
+      return doc.data()['category'].toString();
+    }).toSet().toList();
+  }
+
+  // get categories stream
+  Stream<List<String>> get categories {
+    return conferencesCollection.snapshots().map(_categoryListFromSnapshot);
   }
 }
