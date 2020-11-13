@@ -10,10 +10,9 @@ class Wrapper extends StatelessWidget {
     // Return either Home or Login
     final user = Provider.of<SmartconUser>(context);
 
-    if(user == null){
+    if (user == null) {
       return LoginPage();
-    }
-    else {
+    } else {
       return HomePage();
     }
   }

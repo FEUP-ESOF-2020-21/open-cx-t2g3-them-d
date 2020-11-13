@@ -7,6 +7,7 @@ import 'package:smartcon_app/services/auth.dart';
 import 'package:smartcon_app/services/database.dart';
 
 import '../homePage.dart';
+import '../sessionSuggestions/conferenceSessions.dart';
 
 class InsertConference extends StatefulWidget {
   @override
@@ -16,7 +17,6 @@ class InsertConference extends StatefulWidget {
 }
 
 class InsertConferenceState extends State<InsertConference> {
-
   final AuthService _auth = AuthService();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -29,11 +29,14 @@ class InsertConferenceState extends State<InsertConference> {
   Conference _conference;
   List<Session> _sessions;
 
-  String datesStr =  'Must Pick a date';
-  _onDateChanged(picked){
-    setState((){
+  String datesStr = 'Must Pick a date';
+  _onDateChanged(picked) {
+    setState(() {
       _dates = picked;
-      datesStr = "FROM: " + _dates[0].toString().substring(0,10) + "\nTO: " + _dates[1].toString().substring(0,10);
+      datesStr = "FROM: " +
+          _dates[0].toString().substring(0, 10) +
+          "\nTO: " +
+          _dates[1].toString().substring(0, 10);
     });
   }
 
@@ -47,12 +50,13 @@ class InsertConferenceState extends State<InsertConference> {
         beginDate: _dates[0],
         endDate: _dates[0],
         rating: 0,
-        sessions: _sessions
-    );
+        sessions: _sessions);
 
     await DatabaseService().addConference(_conference);
-    Navigator.push( context, MaterialPageRoute(builder: (context) => HomePage()), );
-
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => HomePage()),
+    );
   }
 
   Widget _buildName() {
@@ -130,52 +134,56 @@ class InsertConferenceState extends State<InsertConference> {
   Widget _buildDate() {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.84,
-      child: Row(
-          children: [
-            Container(
-              width: MediaQuery.of(context).size.width * 0.54,
-              height: 50.0,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(width: 2.0, color: Colors.black26),
-                  borderRadius: BorderRadius.all(Radius.circular(10.0))
-              ),
-
-              child: Text( datesStr, style: TextStyle(color: Colors.black87, fontSize: 15.0,  fontWeight: FontWeight.w400, fontFamily: 'Rubik',)),
-              padding: EdgeInsets.only(left: 10),
-              alignment: Alignment.centerLeft,
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width * 0.3,
-              child: ButtonTheme(
-                height: 50,
-                child: MaterialButton(
-                    color: Color(0xFF6E96EF),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0)),
-                    highlightElevation: 40.0,
-                    onPressed: () async {
-                      final List<DateTime> picked = await DateRagePicker.showDatePicker(
-                          context: context,
-                          initialFirstDate: new DateTime.now(),
-                          initialLastDate: (new DateTime.now()).add(new Duration(days: 7)),
-                          firstDate: DateTime(2020),
-                          lastDate: DateTime(2222),
-                      );
-                      if (picked != null && picked.length == 2) {
-                        print(picked);
-                        _onDateChanged(picked);
-                      }
-                    },
-                    child: Text(
-                      "Date",
-                      style: Theme.of(context).textTheme.headline6,
-                      textAlign: TextAlign.center,
-                    )),
-              ),
-            ),
-          ]
-      ),
+      child: Row(children: [
+        Container(
+          width: MediaQuery.of(context).size.width * 0.54,
+          height: 50.0,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(width: 2.0, color: Colors.black26),
+              borderRadius: BorderRadius.all(Radius.circular(10.0))),
+          child: Text(datesStr,
+              style: TextStyle(
+                color: Colors.black87,
+                fontSize: 15.0,
+                fontWeight: FontWeight.w400,
+                fontFamily: 'Rubik',
+              )),
+          padding: EdgeInsets.only(left: 10),
+          alignment: Alignment.centerLeft,
+        ),
+        Container(
+          width: MediaQuery.of(context).size.width * 0.3,
+          child: ButtonTheme(
+            height: 50,
+            child: MaterialButton(
+                color: Color(0xFF6E96EF),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0)),
+                highlightElevation: 40.0,
+                onPressed: () async {
+                  final List<DateTime> picked =
+                      await DateRagePicker.showDatePicker(
+                    context: context,
+                    initialFirstDate: new DateTime.now(),
+                    initialLastDate:
+                        (new DateTime.now()).add(new Duration(days: 7)),
+                    firstDate: DateTime(2020),
+                    lastDate: DateTime(2222),
+                  );
+                  if (picked != null && picked.length == 2) {
+                    print(picked);
+                    _onDateChanged(picked);
+                  }
+                },
+                child: Text(
+                  "Date",
+                  style: Theme.of(context).textTheme.headline6,
+                  textAlign: TextAlign.center,
+                )),
+          ),
+        ),
+      ]),
     );
   }
 
@@ -365,16 +373,26 @@ class InsertConferenceState extends State<InsertConference> {
                 Container(
                   padding: EdgeInsets.all(8),
                   child: RaisedButton(
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          side: BorderSide(color: Colors.black26, width: 2)),
-                      child: Text('NEXT', style: TextStyle(color:Colors.black38, fontSize: 14.0,  fontWeight: FontWeight.w700, fontFamily: 'Rubik',)),
+                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        side: BorderSide(color: Colors.black26, width: 2)),
+                    child: Text('NEXT',
+                        style: TextStyle(
+                          color: Colors.black38,
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w700,
+                          fontFamily: 'Rubik',
+                        )),
                     onPressed: () {
-                      if (!_formKey.currentState.validate())
-                        return;
-                      _formKey.currentState.save();
-                      _saveConference();
+                      /* if (!_formKey.currentState.validate()) return;*/
+                      /* _formKey.currentState.save();*/
+                      /* _saveConference();*/
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => conferenceSessions()),
+                      );
                       //Send to API
                     },
                   ),

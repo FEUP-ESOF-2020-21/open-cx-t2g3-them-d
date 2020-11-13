@@ -420,6 +420,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.19-nullsafety.2"
+  time_range:
+    dependency: "direct main"
+    description:
+      name: time_range
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.5.0"
   timeago:
     dependency: transitive
     description:
