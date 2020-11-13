@@ -6,7 +6,7 @@ import 'package:smartcon_app/models/user.dart';
 import 'package:smartcon_app/wrapper.dart';
 import 'package:provider/provider.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
@@ -43,28 +43,32 @@ class MyApp extends StatelessWidget {
               textStyle: TextStyle(
                 color: Color(0xFF637DEB),
                 fontSize: 32.0,
-                fontWeight: FontWeight.w500,),
+                fontWeight: FontWeight.w500,
+              ),
             ),
             // Page Subtitle - black
             headline3: GoogleFonts.rubik(
               textStyle: TextStyle(
                 color: Color(0xFF4A4444),
-                fontSize: 20.0,  fontWeight:
-              FontWeight.w500, ),
+                fontSize: 20.0,
+                fontWeight: FontWeight.w500,
+              ),
             ),
             // Form Buttons
             headline4: GoogleFonts.rubik(
               textStyle: TextStyle(
                 color: Colors.white,
-                fontSize: 12.0,  fontWeight:
-              FontWeight.w500, ),
+                fontSize: 12.0,
+                fontWeight: FontWeight.w500,
+              ),
             ),
             // Buttons Text - purple
             headline5: GoogleFonts.rubik(
               textStyle: TextStyle(
                 color: Color(0xFF637DEB),
                 fontSize: 22.0,
-                fontWeight: FontWeight.w500, ),
+                fontWeight: FontWeight.w500,
+              ),
             ),
             // Home Buttons Text - white
             headline6: GoogleFonts.rubik(

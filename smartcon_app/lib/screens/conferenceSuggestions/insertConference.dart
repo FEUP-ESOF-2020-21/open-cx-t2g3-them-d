@@ -386,8 +386,8 @@ class InsertConferenceState extends State<InsertConference> {
                         )),
                     onPressed: () {
                       /* if (!_formKey.currentState.validate()) return;*/
-                      /* _formKey.currentState.save();*/
-                      /* _saveConference();*/
+                      _formKey.currentState.save();
+                      _saveConference();
                       Navigator.push(
                         context,
                         MaterialPageRoute(

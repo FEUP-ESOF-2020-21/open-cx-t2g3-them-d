@@ -7,6 +7,7 @@ import 'package:smartcon_app/screens/sessionSuggestions/conferenceSessions.dart'
 import 'package:smartcon_app/services/auth.dart';
 import 'package:smartcon_app/services/database.dart';
 import 'package:time_range/time_range.dart';
+import 'package:smartcon_app/screens/sessionSuggestions/sessionQuestion.dart';
 
 import '../homePage.dart';
 
@@ -684,12 +685,12 @@ class _newSession extends State<newSession> {
                         )),
                     onPressed: () {
                       if (!_formKey.currentState.validate()) return;
-                      /*  _formKey.currentState.save();
-                      _saveConference();*/
+                      _formKey.currentState.save();
+                      _saveConference();
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => conferenceSessions()),
+                            builder: (context) => sessionQuestion()),
                       );
                       //Send to API
                     },
