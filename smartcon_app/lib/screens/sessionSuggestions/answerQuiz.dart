@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smartcon_app/models/session.dart';
 import 'package:smartcon_app/services/database.dart';
+import 'package:grouped_buttons/grouped_buttons.dart';
 
 class AnswerQuiz extends StatefulWidget {
 
@@ -15,112 +17,173 @@ class AnswerQuiz extends StatefulWidget {
 
 class _AnswerQuizState extends State<AnswerQuiz> {
   int _questionIdx = 0;
+  String buttonString = '';
+  List<String> _checked = List<String>();
+  List<int> finalAnswers = List<int>();
 
-  void _nextQuestion(){
-    setState(() {
-      _questionIdx++;
-    });
+  Future _nextQuestion(quiz) {
+    if(quiz.length != 1 && _questionIdx < quiz.length - 1){
+      setState(() {
+        _count_checked();
+        _questionIdx++;
+      });
+    }
+    else{
+      setState(() {
+        _count_checked();
+      });
+      print(finalAnswers);
+      // TODO REDIRECT ANSWERS TO GENERATE SUGGESTIONS
+    }
+  }
+
+  _count_checked(){
+    finalAnswers.add(_checked.length);
+    _checked = [];
   }
 
   Widget _buildQuestion(SessionQuestion question) {
     return Column(
       children: [
         // Conference Name
-        Container(
-          width: MediaQuery.of(context).size.width * 0.84,
-          child: Text( question.question,
-              style: TextStyle(
-                  fontFamily: 'Rubik',
-                  color: Colors.black87,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w400
-              )),
-          alignment: Alignment.topLeft,
+        Row(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                left: MediaQuery.of(context).size.width * 0.08,
+                right: MediaQuery.of(context).size.width * 0.08,
+                bottom: 10
+              ),
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.84,
+                child: Text(question.question,
+                    style: TextStyle(
+                        fontFamily: 'Rubik',
+                        color: Colors.black87,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w400
+                    )),
+              ),
+            ),
+          ],
         ),
+
+        // Options
+        Row(
+          children: [
+            Flexible(
+              child: CheckboxGroup(
+                orientation: GroupedButtonsOrientation.VERTICAL,
+                margin: const EdgeInsets.only(left: 12.0),
+                onSelected: (List selected) => setState((){
+                  _checked = selected;
+                }),
+                labels: question.options,
+                checked: _checked,
+                itemBuilder: (Checkbox checkbox, Text optionText, int i){
+                  return Row(
+                          children: <Widget>[
+                            checkbox,
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.84 - 20,
+                              child: optionText,
+                            )
+                          ],
+                        );
+                },
+              )
+            ),
+          ],
+        )
       ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
+
     return StreamBuilder<List<SessionQuestion>>(
         stream: DatabaseService().getQuizQuestions(widget.conferenceId),
         builder: (context, snapshot) {
           if(snapshot.hasData){
             List<SessionQuestion> quiz = snapshot.data;
+            (quiz.length != 1 && _questionIdx < quiz.length - 1) ? buttonString = 'Next': buttonString = 'Save';
 
             return Scaffold(
-              body: Column(
-                children: <Widget> [
-                  Row(
-                      children: <Widget> [
-                        Stack(
-                          children: [
-                            // Header
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              child: Image.asset(
-                                  'images/pageHeader.png',
-                                  fit: BoxFit.fill
-                              ),
-                            ),
-                          ],
-                        ),
-                      ]
-                  ),
-                  // CONTENT ROW
-                  Row(
-                      children: <Widget> [
-                        // MARGINS
-                        Padding(
-                          padding:  EdgeInsets.only(
-                            left: MediaQuery.of(context).size.width * 0.08,
-                            right: MediaQuery.of(context).size.width * 0.08,
+              body: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget> [
+                    // HEADER IMAGE
+                    Row(children: <Widget> [
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          child: Image.asset(
+                              'images/pageHeader.png',
+                              fit: BoxFit.fill
                           ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget> [
-                              // Conference Name
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.84,
-                                child: Text( widget.conferenceName, style: Theme.of(context).textTheme.headline2,),
-                                alignment: Alignment.topLeft,
-                              ),
-                              SizedBox(height: 10),
+                        ),
+                    ]
+                    ),
 
-                              // Answer Quiz Title
-                              Container(
-                                child: Text("ANSWER QUIZ", style: Theme.of(context).textTheme.headline3,),
-                                alignment: Alignment.topLeft,
-                              ),
-                              SizedBox(height: 10),
-
-                              // Question Widget
-                              quiz.isNotEmpty ? _buildQuestion(quiz[_questionIdx]) : Container(height:0),
-
-                              // Save Button
-                              Container(
-                                padding: EdgeInsets.all(8),
-                                child: RaisedButton(
-                                  onPressed: _nextQuestion,
-                                  color: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      side: BorderSide(
-                                          color: Colors.black26, width: 2)),
-                                  child: Text('NEXT', style: TextStyle(
-                                    color: Colors.black38,
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.w700,
-                                    fontFamily: 'Rubik',)),
+                    // Page Title Row
+                    Row(
+                        children: <Widget> [
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: MediaQuery.of(context).size.width * 0.08,
+                                right: MediaQuery.of(context).size.width * 0.08),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  width: MediaQuery.of(context).size.width * 0.84,
+                                  child: Text( widget.conferenceName, style: Theme.of(context).textTheme.headline2,),
+                                  alignment: Alignment.topLeft,
                                 ),
-                              ),
-                            ],
+                                SizedBox(height: 10),
+
+                                // Answer Quiz Title
+                                Container(
+                                  width: MediaQuery.of(context).size.width * 0.84,
+                                  child: Text("ANSWER QUIZ", style: Theme.of(context).textTheme.headline3,),
+                                  alignment: Alignment.topLeft,
+                                ),
+                              ],
+                            ),
+                          ),
+                          // Conference Name
+                        ]
+                    ),
+
+                    SizedBox(height: 20),
+                    // Question Widget
+                    quiz.isNotEmpty ? _buildQuestion(quiz[_questionIdx]) : Container(height:0),
+
+                    // Next Button
+                    Row(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.08,
+                            right: MediaQuery.of(context).size.width * 0.08, top:20),
+                          child: RaisedButton(
+                            onPressed: () async {_nextQuestion(quiz);},
+                            color: Colors.white,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                side: BorderSide(
+                                    color: Colors.black26, width: 2)),
+                            child: Text(buttonString, style: TextStyle(
+                              color: Colors.black38,
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w700,
+                              fontFamily: 'Rubik',)),
                           ),
                         ),
-                      ]
-                  )
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
             );
           }
@@ -129,6 +192,37 @@ class _AnswerQuizState extends State<AnswerQuiz> {
             return Text('Result: ${snapshot.data}');
           }
         }
+    );
+  }
+}
+
+class OptionTile extends StatelessWidget {
+
+  final String option;
+  OptionTile({ this.option });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(
+        top: 20,
+        left: MediaQuery.of(context).size.width * 0.08,
+        right: MediaQuery.of(context).size.width * 0.08,
+      ),
+      child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    child: Text(option, style: TextStyle(
+                        fontFamily: 'Rubik',
+                        color: Colors.black87,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w400
+                    )),
+                    alignment: Alignment.topLeft,
+                  ),
+                ]
+            ),
     );
   }
 }
