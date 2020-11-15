@@ -109,9 +109,9 @@ Have you ever wondered about the main reason why attendees go to conferences? Fr
 
 ### User stories
 
-#### Story I
+#### Story I - Conference Suggestions
 
-* **Story**.
+* **Story**
 As an Attendee, I want to be able to get conference suggestions based on my profile and availability so that the set of results is straightforward and accurate.
 
 * **User interface mockups**.
@@ -127,7 +127,7 @@ For each user story you should write also the acceptance tests (textually in Ghe
   
   *Effort*: L
 
-#### Story II
+#### Story II - Session Suggestions
 
 * **Story**.
 As an Attendee, I want to have the possibility of getting the right session suggestions according to my knowledge level on the conference’s matter.
@@ -147,7 +147,7 @@ For each user story you should write also the acceptance tests (textually in Ghe
   *Effort*: XL
 
 
-#### Story III
+#### Story III - Rate Conference
 
 * **Story**.
 As an Attendee, I want to be able to rate a conference I attended to, to inform other people of my opinion on its quality and help other people when they are searching for conferences to attend to.
@@ -165,7 +165,7 @@ For each user story you should write also the acceptance tests (textually in Ghe
   
   *Effort*: M
 
-#### Story IV
+#### Story IV - Insert Conference
 
 * **Story**.
 As a member of the Conference staff, I want to be able to insert a conference into the app database in order to promote it to possible attendees.
@@ -182,7 +182,7 @@ For each user story you should write also the acceptance tests (textually in Ghe
   
   *Effort*: L
 
-#### Story V
+#### Story V - Add Sessions and Quiz to a Conference
 
 * **Story**.
 As a member of the Conference staff, I want to be able to test the attendees’ knowledge in order to have an audience that is inquisitive and capable of understanding the matter discussed in each session. 
@@ -199,7 +199,7 @@ For each user story you should write also the acceptance tests (textually in Ghe
   
   *Effort*: XL
   
-#### Story VI
+#### Story VI - Manage Profile
 
 * **Story**.
 As an Attendee, I want to be able to change my saved interests and desired location.
