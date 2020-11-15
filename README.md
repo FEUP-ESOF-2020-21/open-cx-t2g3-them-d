@@ -52,50 +52,70 @@ Have you ever wondered about the main reason why attendees go to conferences? Fr
 
 #### Manage Profile
 * **Actor**: Attendee
-* **Description**: This use case exists so that the attendees can specify their interests and location.
-* **Preconditions and Post conditions**: 
-* **Normal Flow**: 
-  1. The attendee selects his interests from a set of options
-  2. The attendee selects his location from a set of options
+* **Description**: This use case exists so that the attendees can specify and change their interests and location.
+* **Preconditions and Post conditions**: The user must log in with google to be able to access this functionality.
+* **Normal Flow**:
+  1. The attendee logs in with his google account.
+  1. The attendee presses a button to see conference suggestions.
+  2. The attendee presses a button to manage his profile.
   3. The attendee clicks a button to save his profile.
-
 * **Alternative Flows and Exceptions**: 
+   When a new user signs up he must build his profile.
+  1. The attendee presses a button to see conference suggestions.
+  2. The attendee fills his profile.
+  3. The attendee clicks a button to save his profile.
 
 #### See conference recommendations
 * **Actor**: Attendee
 * **Description**: This use case exists so that the attendees can choose  which conference to go to from an already filtered set based on their interests, location, availability and feedback to previous editions.  
-* **Preconditions and Post conditions**: In order to choose a conference from a filtered set of conferences the attendees must previously define their profile by filling out a form when installing the app.
+* **Preconditions and Post conditions**: In order to choose a conference from a filtered set of conferences the attendees must previously define their profile.
 * **Normal Flow**: 
-  1. The attendee fills his profile 
-  2. The attendee presses the button to see conference suggestions
-  3. The attendee can select the date range and filter the conferences by feedback by checking an checkbox
-* **Alternative Flows and Exceptions**: 
+  1. The attendee presses a button to see conference suggestions.
+  2. The attendee can select the date range and filter the conferences by rating or location by checking an checkbox.
+* **Alternative Flows and Exceptions**:
+  When a new user tries to get conference suggestions he his first asked to fill his profile.
+  1. The attendee presses a button to see conference suggestions.
+  2. The attendee fills his profile.
+  3. The attendee can select the date range and filter the conferences by rating or location by checking an checkbox.
 
 #### See session suggestions
 * **Actor**: Attendee
 * **Description**: This use case exists so that the attendees can see which sessions are most recommended based on their knowledge about the conference main topics.
 * **Preconditions and Post conditions**: In order to see the set of filtered sessions the attendee must first enter the conference code which they have decided to attend. They must also answer the quiz provided by the conference organization.
 * **Normal Flow**: 
-  1. The attendee presses the button to insert the code of the chosen conference
-  2. The attendee enters the code
-  3. The attendee presses the button to see session suggestions
-  4. The attendee answers the quiz made by the conference organization
-  5. The attendee sees the suggestions
+  1. The attendee presses the button to get session suggestions.
+  2. The attendee his asked for the code of the conference.
+  3. The attendee enters the code of the conference.
+  4. The attendee presses the button to see session suggestions.
+  5. The attendee answers the quiz made by the conference organization
+  6. The attendee sees the suggestions.
 * **Alternative Flows and Exceptions**: 
-  1. The attendee presses the button to insert the code of the chosen conference
-  2. The attendee enters the code
-  3. The attendee sees the suggestions that were previously obtained
+  When the user has already filled the quiz for a conference he his directed to the suggestions that were previously obtained.
+  1. The attendee presses the button to get session suggestions.
+  2. The attendee his asked for the code of the conference.
+  3. The attendee enters the code of the conference.
+  4. The attendee sees the suggestions that were previously obtained.
+  
+  When the user enters an invalid conference code.
+  1. The attendee presses the button to get session suggestions.
+  2. The attendee his asked for the code of the conference.
+  3. The attendee enters the code of the conference.
+  4. The attendee gets a warning alerting that the code is invalid.
 
 #### Give feedback
 * **Actor**: Attendee
 * **Description**: This use case exists so that the attendees can rate a conference they attended.
 * **Preconditions and Post conditions**: In order to rate a conference it must have already occurred.
 * **Normal Flow**: 
-  1. The attendee presses the button to insert the code of the chosen conference
-  2. The attendee enters the code
-  3. The attendee presses the button to rate the conference
-  3. The attendee rates the conference
+  1. The attendee presses the button to insert the code of the chosen conference.
+  2. The attendee enters the code.
+  3. The attendee presses the button to rate the conference.
+  4. The attendee rates the conference.
 * **Alternative Flows and Exceptions**: 
+  When the user enters an invalid conference code.
+  1. The attendee presses the button to insert the code of the chosen conference.
+  2. The attendee enters the code.
+  3. The attendee gets a warning alerting that the code is invalid.
 
 #### Insert conference with quiz
 * **Actor**: Conference Staff
@@ -104,8 +124,7 @@ Have you ever wondered about the main reason why attendees go to conferences? Fr
 * **Normal Flow**: 
   1. The conference staff presses the button to add a new conference to the app.
   2. The conference staff  types the conference information.
-  3. The conference staff inserts a set of multiple choice questions
-* **Alternative Flows and Exceptions**: 
+  3. The conference staff inserts a set of multiple choice questions.
 
 ### User stories
 
