@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:smartcon_app/models/session.dart';
-import 'package:smartcon_app/screens/profile.dart';
 import 'package:smartcon_app/services/database.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SessionSuggestions extends StatelessWidget {
 
@@ -80,31 +81,25 @@ class SessionSuggestions extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Container(
-                              child: Text("A Title", style: Theme
+                              child: Text(conferenceName, style: Theme
                                   .of(context)
                                   .textTheme
                                   .headline2,),
                               alignment: Alignment.topLeft,
                             ),
                             Container(
-                              child: Text("A SUBTITLE", style: Theme
+                              child: Text("SUGGESTED SESSIONS", style: Theme
                                   .of(context)
                                   .textTheme
                                   .headline3,),
                               alignment: Alignment.topLeft,
                             ),
-                            RaisedButton(
-                              onPressed: () {
-                                Navigator.push(context, MaterialPageRoute(
-                                    builder: (context) => Profile()),);
-                              },
-                              child: Text('Conference Suggestions'),
-                            )
                           ],
                         ),
                       ),
                     ]
-                )
+                ),
+                SessionList(sessions: sessions)
               ],
             ),
           );
@@ -114,6 +109,109 @@ class SessionSuggestions extends StatelessWidget {
           return Container();
         }
       }
+    );
+  }
+}
+
+class SessionList extends StatefulWidget {
+
+  const SessionList({Key key, this.sessions}) : super(key: key);
+
+  final List<Session> sessions;
+
+  @override
+  _SessionListState createState() => _SessionListState();
+}
+
+class _SessionListState extends State<SessionList> {
+  @override
+  Widget build(BuildContext context) {
+
+    return Flexible(
+      child: ListView.builder(
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: widget.sessions.length,
+        itemBuilder: (context, index) {
+          return SessionTile(session: widget.sessions[index]);
+        },
+      ),
+    );
+  }
+}
+
+class SessionTile extends StatelessWidget {
+
+  final Session session;
+  SessionTile({ this.session });
+
+  _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Padding(
+      padding: EdgeInsets.only(
+        top: 20,
+        left: MediaQuery.of(context).size.width * 0.08,
+        right: MediaQuery.of(context).size.width * 0.08,
+      ),
+      child: DecoratedBox(
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white, border: Border.all(width: 2.0, color: Colors.black26)),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+              children: <Widget>[
+                Container(
+                  child: Text(session.name.toUpperCase(), style: Theme.of(context).textTheme.headline5,),
+                  alignment: Alignment.topLeft,
+                ),
+                SizedBox(height: 2),
+                Container(
+                  child: Text(session.topics[0], style: Theme.of(context).textTheme.headline3,),
+                  alignment: Alignment.topLeft,
+                ),
+                SizedBox(height: 2),
+                Container(
+                  child: Text(session.speakers[0], style: TextStyle(fontSize: 17.0, fontFamily: 'Rubik', color: Colors.black38, fontWeight: FontWeight.w400)),
+                  alignment: Alignment.topLeft,
+                ),
+                SizedBox(height: 7),
+                Container(
+                  child: Text(DateFormat.Hm().format(session.date), style: TextStyle(fontSize: 17.0, fontFamily: 'Rubik', color: Color(0xFF4A4444), fontWeight: FontWeight.w400)),
+                  alignment: Alignment.topLeft,
+                ),
+                SizedBox(height: 7),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      child: Text(DateFormat.yMMMd().format(session.date), style: TextStyle(fontSize: 17.0, fontFamily: 'Rubik', color: Colors.black38, fontWeight: FontWeight.w400)),
+                      alignment: Alignment.topLeft,
+                    ),
+                    Container(
+                        child: RaisedButton(
+                          color: Color(0xFF6E96EF),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12)),
+                          onPressed: () async { _launchURL(session.website);},
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text("MORE", style: Theme.of(context).textTheme.headline4,),
+                          ),)
+                    )
+                  ],
+                ),
+              ]
+          ),
+        ),
+      ),
     );
   }
 }
