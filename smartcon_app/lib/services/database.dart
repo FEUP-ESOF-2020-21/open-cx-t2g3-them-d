@@ -16,7 +16,7 @@ class DatabaseService {
   // SESSION SUGGESTIONS DATA
 
   List<SessionQuestion> _conferenceQuizFromSnapshot(QuerySnapshot snapshot) {
-    return snapshot .docs.map((doc) {
+    return snapshot.docs.map((doc) {
       return  SessionQuestion(
         sessionId: doc.id,
         question: doc.data()['question'],
@@ -31,7 +31,7 @@ class DatabaseService {
   }
 
   List<Session> _conferenceSessionsFromSnapshot(QuerySnapshot snapshot) {
-    return snapshot .docs.map((doc) {
+    return snapshot.docs.map((doc) {
       return  Session(
         sessionId: doc.id,
         name: doc.data()['name'],

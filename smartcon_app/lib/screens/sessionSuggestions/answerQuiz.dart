@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:smartcon_app/models/session.dart';
+import 'package:smartcon_app/models/user.dart';
+import 'package:smartcon_app/screens/sessionSuggestions/sessionSuggestions.dart';
 import 'package:smartcon_app/services/database.dart';
 import 'package:grouped_buttons/grouped_buttons.dart';
 
@@ -21,7 +24,10 @@ class _AnswerQuizState extends State<AnswerQuiz> {
   List<String> _checked = List<String>();
   List<int> finalAnswers = List<int>();
 
-  Future _nextQuestion(quiz) {
+  Future<Widget> _nextQuestion(List<SessionQuestion> quiz) async {
+
+    final user = Provider.of<SmartconUser>(context, listen: false);
+
     if(quiz.length != 1 && _questionIdx < quiz.length - 1){
       setState(() {
         _count_checked();
@@ -33,7 +39,17 @@ class _AnswerQuizState extends State<AnswerQuiz> {
         _count_checked();
       });
       print(finalAnswers);
-      // TODO REDIRECT ANSWERS TO GENERATE SUGGESTIONS
+
+      for(int i = 0; i < quiz.length; i++){
+        if(finalAnswers[i] >= quiz[i].required){
+          await DatabaseService(uid: user.uid).addSessionSuggestion(widget.conferenceId, quiz[i].sessionId);
+        }
+      }
+
+      List<String> sessions = await DatabaseService(uid: user.uid).getSuggestedSessions(widget.conferenceId);
+      Navigator.push( context, MaterialPageRoute(builder: (context) =>
+          SessionSuggestions(conferenceId: widget.conferenceId, conferenceName: widget.conferenceName, suggestedSessionIds: sessions,)), );
+
     }
   }
 

@@ -40,7 +40,8 @@ class SessionSuggestionsCodeState extends State<SessionSuggestionsCode> {
             AnswerQuiz(conferenceId: _code, conferenceName: conferenceName,)), );
       }
       else{
-        Navigator.push( context, MaterialPageRoute(builder: (context) => SessionSuggestions(sessionIds: sessions)), );
+        Navigator.push( context, MaterialPageRoute(builder: (context) =>
+            SessionSuggestions(conferenceId: _code, conferenceName: conferenceName, suggestedSessionIds: sessions)), );
       }
     }
 
