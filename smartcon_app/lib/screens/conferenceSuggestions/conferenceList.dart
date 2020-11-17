@@ -125,6 +125,7 @@ class ConferenceTile extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
+                          width: MediaQuery.of(context).size.width * 0.84 - 32 - 24 * conference.rating,
                           child: Text(conference.name.toUpperCase(), style: Theme.of(context).textTheme.headline5,),
                           alignment: Alignment.topLeft,
                         ),

@@ -156,6 +156,27 @@ class SessionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    List<Row> _listToWidgets(List<String> strList) {
+      List<Row> list = [];
+      for(int i = 0; i < strList.length; i++){
+        list.add(
+            Row(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.42 - 16,
+                  child: Text(strList[i],
+                      style: TextStyle(
+                          fontSize: 17.0,
+                          fontFamily: 'Rubik',
+                          color: Colors.black54,
+                          fontWeight: FontWeight.w600)),
+                ),
+              ],
+            ));
+      }
+      return list;
+    }
+
     return Padding(
       padding: EdgeInsets.only(
         top: 20,
@@ -172,28 +193,49 @@ class SessionTile extends StatelessWidget {
                   child: Text(session.name.toUpperCase(), style: Theme.of(context).textTheme.headline5,),
                   alignment: Alignment.topLeft,
                 ),
-                SizedBox(height: 2),
-                Container(
-                  child: Text(session.topics[0], style: Theme.of(context).textTheme.headline3,),
-                  alignment: Alignment.topLeft,
+                SizedBox(height: 10),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.42 - 16,
+                          child: Text('Topics', style: Theme.of(context).textTheme.headline3,),
+                          alignment: Alignment.topLeft,
+                        ),
+                        SizedBox(height: 2),
+                        Column(
+                          children: _listToWidgets(session.topics),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.42 - 16,
+                          child: Text('Speakers', style: Theme.of(context).textTheme.headline3,),
+                          alignment: Alignment.topLeft,
+                        ),
+                        Column(
+                          children: _listToWidgets(session.speakers),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-                SizedBox(height: 2),
-                Container(
-                  child: Text(session.speakers[0], style: TextStyle(fontSize: 17.0, fontFamily: 'Rubik', color: Colors.black38, fontWeight: FontWeight.w400)),
-                  alignment: Alignment.topLeft,
-                ),
-                SizedBox(height: 7),
-                Container(
-                  child: Text(DateFormat.Hm().format(session.date), style: TextStyle(fontSize: 17.0, fontFamily: 'Rubik', color: Color(0xFF4A4444), fontWeight: FontWeight.w400)),
-                  alignment: Alignment.topLeft,
-                ),
-                SizedBox(height: 7),
+                SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      child: Text(DateFormat.yMMMd().format(session.date), style: TextStyle(fontSize: 17.0, fontFamily: 'Rubik', color: Colors.black38, fontWeight: FontWeight.w400)),
-                      alignment: Alignment.topLeft,
+                      width: MediaQuery.of(context).size.width * 0.42 - 16,
+                      child: Text(DateFormat.yMMMd().format(session.date) + ' - ' + DateFormat.Hm().format(session.date),
+                          style: TextStyle(
+                              fontSize: 17.0,
+                              fontFamily: 'Rubik',
+                              color: Colors.black54,
+                              fontWeight: FontWeight.w600)),
                     ),
                     Container(
                         child: RaisedButton(
