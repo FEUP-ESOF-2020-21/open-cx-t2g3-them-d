@@ -4,7 +4,7 @@ import 'package:smartcon_app/models/session.dart';
 import 'package:smartcon_app/services/database.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class SessionSuggestions extends StatelessWidget {
+class SessionSuggestions extends StatefulWidget {
 
   const SessionSuggestions({Key key, this.conferenceId, this.conferenceName, this.suggestedSessionIds}) : super(key: key);
 
@@ -12,10 +12,19 @@ class SessionSuggestions extends StatelessWidget {
   final String conferenceName;
   final List<String> suggestedSessionIds;
 
+  @override
+  _SessionSuggestionsState createState() => _SessionSuggestionsState();
+}
+
+class _SessionSuggestionsState extends State<SessionSuggestions> {
+  bool _all = false;
+
   List<Session> _getSuggestedSessions(List<Session> sessions){
+    if(_all) return sessions;
+
     List<Session> suggested = List<Session>();
     for(int i = 0; i < sessions.length; i++){
-      if(suggestedSessionIds.contains(sessions[i].sessionId))
+      if(widget.suggestedSessionIds.contains(sessions[i].sessionId))
         suggested.add(sessions[i]);
     }
     return suggested;
@@ -24,7 +33,7 @@ class SessionSuggestions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: DatabaseService().getConferenceSessions(conferenceId),
+      stream: DatabaseService().getConferenceSessions(widget.conferenceId),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<Session> sessions = _getSuggestedSessions(snapshot.data);
@@ -46,17 +55,28 @@ class SessionSuggestions extends StatelessWidget {
                                 fit: BoxFit.fill
                             ),
                           ),
+
+                          // Toogle See All Sessions / See Suggested Sessions
                           Padding(
-                            padding: EdgeInsets.only(
-                              left: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width * 0.08,
-                              top: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width * 0.08,
-                            ),
+                              padding:  EdgeInsets.only(
+                                left: MediaQuery.of(context).size.width * 0.08,
+                                top: MediaQuery.of(context).size.width * 0.08,
+                              ),
+                              child: RaisedButton(
+                                onPressed: (){
+                                  setState((){ _all = !_all; });
+                                  },
+                                color: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    side: BorderSide(color: Color(0xFF6E96EF), width: 2)),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(_all ? 'SEE ALL SESSIONS': 'SEE SUGGESTED SESSIONS',
+                                    style: TextStyle(color: Color(0xFF6E96EF), fontSize: 14.0,  fontWeight: FontWeight.w700, fontFamily: 'Rubik',),),
+                                ),
+                                elevation: 5,
+                              )
                           ),
                         ],
                       ),
@@ -81,7 +101,8 @@ class SessionSuggestions extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Container(
-                              child: Text(conferenceName, style: Theme
+                              width: MediaQuery.of(context).size.width * 0.84,
+                              child: Text(widget.conferenceName, style: Theme
                                   .of(context)
                                   .textTheme
                                   .headline2,),

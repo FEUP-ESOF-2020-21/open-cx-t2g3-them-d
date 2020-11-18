@@ -89,7 +89,8 @@ class SessionSuggestionsCodeState extends State<SessionSuggestionsCode> {
                     //Send to API
                   },
                 ),
-              ),])
+              ),
+            ])
     );
   }
 
