@@ -5,7 +5,7 @@ import 'package:smartcon_app/screens/profile.dart';
 import 'package:smartcon_app/screens/sessionSuggestions/sessionSuggestionsCode.dart';
 import 'package:smartcon_app/services/auth.dart';
 import 'package:smartcon_app/services/database.dart';
-
+import '../wrapper.dart';
 import 'conferenceSuggestions/searchConferences.dart';
 import 'insertConference/insertConference.dart';
 
@@ -63,6 +63,10 @@ class _HomePageState extends State<HomePage> {
                       ),
                       child: RaisedButton(
                         onPressed: () async {
+                          Navigator.pushAndRemoveUntil(context,
+                              MaterialPageRoute(builder: (BuildContext context) => Wrapper()),
+                                  (Route<dynamic> route) => route is HomePage
+                          );
                           await _auth.signOutGoogle();
                         },
                         color: Color(0xFF6E96EF),

@@ -50,7 +50,10 @@ class InsertConferenceState extends State<InsertConference> {
     );
 
     await DatabaseService().addConference(_conference);
-    Navigator.push( context, MaterialPageRoute(builder: (context) => HomePage()), );
+    Navigator.pushAndRemoveUntil(context,
+        MaterialPageRoute(builder: (BuildContext context) => HomePage()),
+            (Route<dynamic> route) => route is HomePage
+    );
 
   }
 
@@ -256,10 +259,10 @@ class InsertConferenceState extends State<InsertConference> {
           borderSide: new BorderSide(),
         ),
       ),
-      keyboardType: TextInputType.phone,
+      keyboardType: TextInputType.text,
       validator: (String value) {
         if (value.isEmpty) {
-          return 'Phone number is Required';
+          return 'Description is Required';
         }
 
         return null;
@@ -280,7 +283,7 @@ class InsertConferenceState extends State<InsertConference> {
           borderSide: new BorderSide(),
         ),
       ),
-      keyboardType: TextInputType.number,
+      keyboardType: TextInputType.url,
       validator: (String value) {},
       onSaved: (String value) {
         _website = value;

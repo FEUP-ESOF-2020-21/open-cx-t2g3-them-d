@@ -226,7 +226,7 @@ class _AnswerQuizState extends State<AnswerQuiz> {
           }
           else{
             print("Waiting for conference quiz");
-            return Text('Result: ${snapshot.data}');
+            return Container();
           }
         }
     );
