@@ -304,6 +304,7 @@ Scenario: Attendee changes his profile preferences or location
   And I have clicked the Session Suggestions button
   When I tap the Manage Profile button
   Then I will be able to change my Interests and District
+  And I will be able to Save Profile by clicking the button
 ```
 
 ```gherkin
@@ -312,6 +313,7 @@ Scenario: Attendee creates his profile preferences or location
   And I have not configured my profile yet
   When I click the Session Suggestions button
   Then I will be able to set my Interests and District
+  And I will be able to Save Profile by clicking the button
 ```
 
 * **Value and effort**.
