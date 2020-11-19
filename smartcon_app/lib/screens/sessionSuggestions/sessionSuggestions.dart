@@ -21,7 +21,6 @@ class _SessionSuggestionsState extends State<SessionSuggestions> {
 
   List<Session> _getSuggestedSessions(List<Session> sessions){
     if(_all) return sessions;
-
     List<Session> suggested = List<Session>();
     for(int i = 0; i < sessions.length; i++){
       if(widget.suggestedSessionIds.contains(sessions[i].sessionId))
@@ -35,93 +34,105 @@ class _SessionSuggestionsState extends State<SessionSuggestions> {
     return StreamBuilder(
       stream: DatabaseService().getConferenceSessions(widget.conferenceId),
       builder: (context, snapshot) {
+        print(widget.conferenceId);
         if (snapshot.hasData) {
           List<Session> sessions = _getSuggestedSessions(snapshot.data);
 
           return Scaffold(
-            body: Column(
-              children: <Widget>[
-                Row(
-                    children: <Widget>[
-                      Stack(
-                        children: [
-                          Container(
-                            width: MediaQuery
-                                .of(context)
-                                .size
-                                .width,
-                            child: Image.asset(
-                                'images/pageHeader.png',
-                                fit: BoxFit.fill
-                            ),
-                          ),
+            body: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
 
-                          // Toogle See All Sessions / See Suggested Sessions
-                          Padding(
-                              padding:  EdgeInsets.only(
-                                left: MediaQuery.of(context).size.width * 0.08,
-                                top: MediaQuery.of(context).size.width * 0.08,
+                  // Header - Image + Button
+                  Row(
+                      children: <Widget>[
+                        Stack(
+                          children: [
+                            Container(
+                              width: MediaQuery
+                                  .of(context)
+                                  .size
+                                  .width,
+                              child: Image.asset(
+                                  'images/pageHeader.png',
+                                  fit: BoxFit.fill
                               ),
-                              child: RaisedButton(
-                                onPressed: (){
-                                  setState((){ _all = !_all; });
-                                  },
-                                color: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    side: BorderSide(color: Color(0xFF6E96EF), width: 2)),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(_all ? 'SEE ALL SESSIONS': 'SEE SUGGESTED SESSIONS',
-                                    style: TextStyle(color: Color(0xFF6E96EF), fontSize: 14.0,  fontWeight: FontWeight.w700, fontFamily: 'Rubik',),),
-                                ),
-                                elevation: 5,
-                              )
-                          ),
-                        ],
-                      ),
-                    ]
-                ),
-                // CONTENT ROW
-                Row(
-                    children: <Widget>[
-                      // MARGINS
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: MediaQuery
-                              .of(context)
-                              .size
-                              .width * 0.08,
-                          right: MediaQuery
-                              .of(context)
-                              .size
-                              .width * 0.08,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Container(
-                              width: MediaQuery.of(context).size.width * 0.84,
-                              child: Text(widget.conferenceName, style: Theme
-                                  .of(context)
-                                  .textTheme
-                                  .headline2,),
-                              alignment: Alignment.topLeft,
                             ),
-                            Container(
-                              child: Text("SUGGESTED SESSIONS", style: Theme
-                                  .of(context)
-                                  .textTheme
-                                  .headline3,),
-                              alignment: Alignment.topLeft,
+
+                            // Toogle See All Sessions / See Suggested Sessions
+                            Padding(
+                                padding:  EdgeInsets.only(
+                                  left: MediaQuery.of(context).size.width * 0.08,
+                                  top: MediaQuery.of(context).size.width * 0.08,
+                                ),
+                                child: RaisedButton(
+                                  onPressed: (){
+                                    setState((){ _all = !_all; });
+                                    },
+                                  color: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      side: BorderSide(color: Color(0xFF6E96EF), width: 2)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(!_all ? 'SEE ALL SESSIONS': 'SEE SUGGESTED SESSIONS',
+                                      style: TextStyle(color: Color(0xFF6E96EF), fontSize: 14.0,  fontWeight: FontWeight.w700, fontFamily: 'Rubik',),),
+                                  ),
+                                  elevation: 5,
+                                )
                             ),
                           ],
                         ),
-                      ),
-                    ]
-                ),
-                SessionList(sessions: sessions)
-              ],
+                      ]
+                  ),
+
+                  // Content Row
+                  Row(
+                      children: <Widget>[
+                        // MARGINS
+                        Padding(
+                          padding: EdgeInsets.only(
+                            left: MediaQuery
+                                .of(context)
+                                .size
+                                .width * 0.08,
+                            right: MediaQuery
+                                .of(context)
+                                .size
+                                .width * 0.08,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.84,
+                                child: Text(widget.conferenceName, style: Theme
+                                    .of(context)
+                                    .textTheme
+                                    .headline2,),
+                                alignment: Alignment.topLeft,
+                              ),
+                              Container(
+                                child: Text("SUGGESTED SESSIONS", style: Theme
+                                    .of(context)
+                                    .textTheme
+                                    .headline3,),
+                                alignment: Alignment.topLeft,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ]
+                  ),
+
+                  Row(
+                    children: [
+                      SessionList(sessions: sessions),
+                    ],
+                  )
+                ],
+              ),
             ),
           );
         }
@@ -189,8 +200,8 @@ class SessionTile extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 17.0,
                           fontFamily: 'Rubik',
-                          color: Colors.black54,
-                          fontWeight: FontWeight.w600)),
+                          color: Color(0xFF585858),
+                          fontWeight: FontWeight.w400)),
                 ),
               ],
             ));
@@ -245,18 +256,45 @@ class SessionTile extends StatelessWidget {
                     ),
                   ],
                 ),
+                SizedBox(height: 10),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.84 - 32,
+                          child: Text('Description', style: Theme.of(context).textTheme.headline3,),
+                        ),
+                        Row(
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.84 - 32,
+                              child: Text(session.description,
+                                  style: TextStyle(
+                                  fontSize: 17.0,
+                                  fontFamily: 'Rubik',
+                                  color: Color(0xFF585858),
+                                  fontWeight: FontWeight.w400))
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
                 SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      width: MediaQuery.of(context).size.width * 0.42 - 16,
+                      width: MediaQuery.of(context).size.width * 0.5,
                       child: Text(DateFormat.yMMMd().format(session.date) + ' - ' + DateFormat.Hm().format(session.date),
                           style: TextStyle(
                               fontSize: 17.0,
                               fontFamily: 'Rubik',
-                              color: Colors.black54,
-                              fontWeight: FontWeight.w600)),
+                              color: Color(0xFF585858),
+                              fontWeight: FontWeight.w400)),
                     ),
                     Container(
                         child: RaisedButton(

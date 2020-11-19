@@ -5,6 +5,7 @@ import 'package:smartcon_app/screens/profile.dart';
 import 'package:smartcon_app/screens/sessionSuggestions/sessionSuggestionsCode.dart';
 import 'package:smartcon_app/services/auth.dart';
 import 'package:smartcon_app/services/database.dart';
+
 import 'conferenceSuggestions/searchConferences.dart';
 import 'insertConference/insertConference.dart';
 

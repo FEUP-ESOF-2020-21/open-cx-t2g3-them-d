@@ -22,6 +22,8 @@ class DatabaseService {
         question: doc.data()['question'],
         options: List.from(doc.data()['options']),
         required: doc.data()['required'],
+        type: doc.data()['questionType'],
+        answers: List.from(doc.data()['answers']),
       );
     }).toList();
   }
@@ -39,6 +41,7 @@ class DatabaseService {
         speakers: List.from(doc.data()['speakers']),
         date: doc.data()['date'].toDate(),
         website: doc.data()['website'],
+        description: doc.data()['description']
       );
     }).toList();
   }

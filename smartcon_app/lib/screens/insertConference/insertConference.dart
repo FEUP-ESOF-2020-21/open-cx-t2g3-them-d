@@ -5,6 +5,7 @@ import 'package:smartcon_app/models/conference.dart';
 import 'package:smartcon_app/models/session.dart';
 import 'package:smartcon_app/services/auth.dart';
 import 'package:smartcon_app/services/database.dart';
+
 import '../homePage.dart';
 
 class InsertConference extends StatefulWidget {
@@ -63,7 +64,7 @@ class InsertConferenceState extends State<InsertConference> {
           borderSide: new BorderSide(),
         ),
       ),
-      maxLength: 10,
+      maxLength: 30,
       validator: (String value) {
         if (value.isEmpty) {
           return 'Name is Required';

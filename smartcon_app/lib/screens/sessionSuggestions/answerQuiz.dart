@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:grouped_buttons/grouped_buttons.dart';
 import 'package:provider/provider.dart';
 import 'package:smartcon_app/models/session.dart';
 import 'package:smartcon_app/models/user.dart';
 import 'package:smartcon_app/screens/sessionSuggestions/sessionSuggestions.dart';
 import 'package:smartcon_app/services/database.dart';
-import 'package:grouped_buttons/grouped_buttons.dart';
 
 class AnswerQuiz extends StatefulWidget {
 
@@ -22,7 +22,7 @@ class _AnswerQuizState extends State<AnswerQuiz> {
   int _questionIdx = 0;
   String buttonString = '';
   List<String> _checked = List<String>();
-  List<int> finalAnswers = List<int>();
+  List<List<String>> finalAnswers = List<List<String>>();
 
   Future<Widget> _nextQuestion(List<SessionQuestion> quiz) async {
 
@@ -30,31 +30,52 @@ class _AnswerQuizState extends State<AnswerQuiz> {
 
     if(quiz.length != 1 && _questionIdx < quiz.length - 1){
       setState(() {
-        _count_checked();
+        _save_checked();
         _questionIdx++;
       });
     }
     else{
       setState(() {
-        _count_checked();
+        _save_checked();
       });
-      print(finalAnswers);
 
+      var wrongAnswer;
       for(int i = 0; i < quiz.length; i++){
-        if(finalAnswers[i] >= quiz[i].required){
-          await DatabaseService(uid: user.uid).addSessionSuggestion(widget.conferenceId, quiz[i].sessionId);
+        wrongAnswer = false;
+        if(quiz[i].type == 'conceptKnowledge'){
+          print('Concept knowledge');
+          if(finalAnswers[i].length >= quiz[i].required){
+            await DatabaseService(uid: user.uid).addSessionSuggestion(widget.conferenceId, quiz[i].sessionId);
+          }
         }
+        else if(quiz[i].type == 'right/wrong'){
+          print('Right/Wrong');
+          // The answer is correct
+          for(int j = 0; j < finalAnswers[i].length; j++){
+            if(!quiz[i].answers.contains( quiz[i].options.indexOf(finalAnswers[i][j]))) {
+              wrongAnswer = true;
+              break;
+            }
+            print('correct answer');
+          }
+          if(!wrongAnswer)
+            await DatabaseService(uid: user.uid).addSessionSuggestion(widget.conferenceId, quiz[i].sessionId);
+        }
+        else
+          print('Error - unknown question type');
       }
 
       List<String> sessions = await DatabaseService(uid: user.uid).getSuggestedSessions(widget.conferenceId);
+      Navigator.of(context).pop();
       Navigator.push( context, MaterialPageRoute(builder: (context) =>
           SessionSuggestions(conferenceId: widget.conferenceId, conferenceName: widget.conferenceName, suggestedSessionIds: sessions,)), );
 
     }
   }
 
-  _count_checked(){
-    finalAnswers.add(_checked.length);
+  _save_checked(){
+    finalAnswers.add(_checked);
+    print(finalAnswers);
     _checked = [];
   }
 
