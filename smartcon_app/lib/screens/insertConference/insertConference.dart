@@ -17,7 +17,6 @@ class InsertConference extends StatefulWidget {
 
 class InsertConferenceState extends State<InsertConference> {
 
-  final AuthService _auth = AuthService();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   String _name;
@@ -27,7 +26,6 @@ class InsertConferenceState extends State<InsertConference> {
   String _description;
   String _website;
   Conference _conference;
-  List<Session> _sessions;
 
   String datesStr =  'Must Pick a date';
   _onDateChanged(picked){
@@ -299,34 +297,9 @@ class InsertConferenceState extends State<InsertConference> {
           // in the middle of the parent.
           child: Column(children: <Widget>[
         Row(children: <Widget>[
-          Stack(
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width,
-                child: Image.asset('images/pageHeader.png', fit: BoxFit.fill),
-              ),
-              Padding(
-                  padding: EdgeInsets.only(
-                    left: MediaQuery.of(context).size.width * 0.08,
-                    top: MediaQuery.of(context).size.width * 0.08,
-                  ),
-                  child: RaisedButton(
-                    onPressed: () async {
-                      await _auth.signOutGoogle();
-                    },
-                    color: Color(0xFF6E96EF),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "SIGN OUT",
-                        style: Theme.of(context).textTheme.headline4,
-                      ),
-                    ),
-                    elevation: 5,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12)),
-                  )),
-            ],
+          Container(
+            width: MediaQuery.of(context).size.width,
+            child: Image.asset('images/pageHeader.png', fit: BoxFit.fill),
           ),
         ]),
         Padding(
@@ -339,7 +312,7 @@ class InsertConferenceState extends State<InsertConference> {
                 children: <Widget>[
                   Container(
                     child: Text(
-                      "InsertConference",
+                      "Insert Conference",
                       style: Theme.of(context).textTheme.headline2,
                     ),
                     alignment: Alignment.topLeft,
