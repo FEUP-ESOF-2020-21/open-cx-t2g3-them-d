@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:date_range_picker/date_range_picker.dart' as DateRagePicker;
 import 'package:dropdown_formfield/dropdown_formfield.dart';
+import 'package:flutter/material.dart';
 import 'package:smartcon_app/models/conference.dart';
 import 'package:smartcon_app/models/session.dart';
 import 'package:smartcon_app/services/auth.dart';
@@ -47,11 +47,13 @@ class InsertConferenceState extends State<InsertConference> {
         beginDate: _dates[0],
         endDate: _dates[0],
         rating: 0,
-        sessions: _sessions
     );
 
     await DatabaseService().addConference(_conference);
-    Navigator.push( context, MaterialPageRoute(builder: (context) => HomePage()), );
+    Navigator.pushAndRemoveUntil(context,
+        MaterialPageRoute(builder: (BuildContext context) => HomePage()),
+            (Route<dynamic> route) => route is HomePage
+    );
 
   }
 
@@ -65,7 +67,7 @@ class InsertConferenceState extends State<InsertConference> {
           borderSide: new BorderSide(),
         ),
       ),
-      maxLength: 10,
+      maxLength: 30,
       validator: (String value) {
         if (value.isEmpty) {
           return 'Name is Required';
@@ -257,10 +259,10 @@ class InsertConferenceState extends State<InsertConference> {
           borderSide: new BorderSide(),
         ),
       ),
-      keyboardType: TextInputType.phone,
+      keyboardType: TextInputType.text,
       validator: (String value) {
         if (value.isEmpty) {
-          return 'Phone number is Required';
+          return 'Description is Required';
         }
 
         return null;
@@ -281,7 +283,7 @@ class InsertConferenceState extends State<InsertConference> {
           borderSide: new BorderSide(),
         ),
       ),
-      keyboardType: TextInputType.number,
+      keyboardType: TextInputType.url,
       validator: (String value) {},
       onSaved: (String value) {
         _website = value;
