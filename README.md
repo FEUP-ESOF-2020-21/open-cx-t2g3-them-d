@@ -308,8 +308,9 @@ Scenario: Attendee changes his profile preferences or location
 
 ```gherkin
 Scenario: Attendee creates his profile preferences or location
-  Given I have not Signed In
-  When I Sign In for the first time
+  Given I have Signed In
+  And I have not configured my profile yet
+  When I click the Session Suggestions button
   Then I will be able to set my Interests and District
 ```
 
