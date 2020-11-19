@@ -56,9 +56,9 @@ Have you ever wondered about the main reason why attendees go to conferences? Fr
 * **Preconditions and Post conditions**: The user must log in with google to be able to access this functionality.
 * **Normal Flow**:
   1. The attendee logs in with his google account.
-  1. The attendee presses a button to see conference suggestions.
-  2. The attendee presses a button to manage his profile.
-  3. The attendee clicks a button to save his profile.
+  2. The attendee presses a button to see conference suggestions.
+  3. The attendee presses a button to manage his profile.
+  4. The attendee clicks a button to save his profile.
 * **Alternative Flows and Exceptions**: 
    When a new user signs up he must build his profile.
   1. The attendee presses a button to see conference suggestions.
@@ -143,7 +143,21 @@ As an Attendee, I want to be able to get conference suggestions based on my prof
   ![](./images/mockups/HomeStory1.png)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![](./images/mockups/SearchConferences.png)
 
 * **Acceptance tests**.
-For each user story you should write also the acceptance tests (textually in Gherkin), i.e., a description of scenarios (situations) that will help to confirm that the system satisfies the requirements addressed by the user story.
+```gherkin
+Scenario: Attendee searches conferences with profile preconfigured
+  Given I have saved my Profile Preferences
+  When I tap the Search Conferences button
+  And I select a Date range
+  Then I get Conference Suggestions according to Preferences and Date
+  And I can sort these by Rating and Location.
+```
+
+```gherkin
+Scenario: Attendee searches conferences without configuring profile
+  Given I have not saved my Profile Preferences
+  When I tap the Search Conferences button
+  Then I will be prompted the Manage Profile form
+```
 
 * **Value and effort**.
 
@@ -162,7 +176,31 @@ As an Attendee, I want to have the possibility of getting the right session sugg
 
 
 * **Acceptance tests**.
-For each user story you should write also the acceptance tests (textually in Gherkin), i.e., a description of scenarios (situations) that will help to confirm that the system satisfies the requirements addressed by the user story.
+```gherkin
+Scenario: Attendee searches session sugestions using a conference code never used before
+  Given I have a valid Conference Code
+  When I tap the Session Suggestions button
+  And I insert the Conference Code
+  Then I will be given the Quiz for the corresponding conference
+  And I will get Session Suggestions according to my answers
+```
+
+```gherkin
+Scenario: Attendee searches session sugestions using a conference code used before
+  Given I have a valid Conference Code
+  And I have already filled the Quiz for that Conference
+  When I tap the Session Suggestions button
+  And I insert the Conference Code
+  Then I will get the previously obtained Session Suggestions
+```
+
+```gherkin
+Scenario: Attendee searches session sugestions using an invalid conference code
+  Given I have an invalid Conference Code
+  When I tap the Session Suggestions button
+  And I insert the Conference Code
+  Then I will get a Warning alerting that the code is invalid
+```
 
 * **Value and effort**.
 
@@ -182,7 +220,22 @@ As an Attendee, I want to be able to rate a conference I attended to, to inform 
 
 
 * **Acceptance tests**.
-For each user story you should write also the acceptance tests (textually in Gherkin), i.e., a description of scenarios (situations) that will help to confirm that the system satisfies the requirements addressed by the user story.
+```gherkin
+Scenario: Attendee rates a conference using a conference code
+  Given I have a Conference Code
+  When I tap the Leave Feedback button
+  And I insert the Conference Code
+  Then I will be able to choose the Rating for the conference
+  And Leave Feedback
+```
+
+```gherkin
+Scenario: Attendee rates a conference using an invalid conference code
+  Given I have an invalid Conference Code
+  When I tap the Leave Feedback button
+  And I insert the Conference Code
+  Then I will get a Warning alerting that the code is invalid
+```
 
 * **Value and effort**.
   *Value*: Could have
@@ -199,7 +252,13 @@ As a member of the Conference staff, I want to be able to insert a conference in
   ![](./images/mockups/HomeStory4.png)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](./images/mockups/InsertConference.png)
 
 * **Acceptance tests**.
-For each user story you should write also the acceptance tests (textually in Gherkin), i.e., a description of scenarios (situations) that will help to confirm that the system satisfies the requirements addressed by the user story.
+```gherkin
+Scenario: Conference staff member inserts a conference into the app
+  Given I have Signed In
+  When I tap the Insert Conference button
+  Then I will be able to fill a form with the Conference name, date and relevant data
+  And I will be redirected to a form in order to Add Sessions and Quiz.
+```
 
 * **Value and effort**.
   *Value*: Could have
@@ -216,7 +275,13 @@ As a member of the Conference staff, I want to be able to test the attendees’ 
   ![](./images/mockups/SetSessions.png)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![](./images/mockups/AddSession.png)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![](./images/mockups/AddSessionQuestion.png)
 
 * **Acceptance tests**.
-For each user story you should write also the acceptance tests (textually in Gherkin), i.e., a description of scenarios (situations) that will help to confirm that the system satisfies the requirements addressed by the user story.
+```gherkin
+Scenario: Conference staff member inserts a session and respective question to its conference
+  Given I have inserted a conference
+  When I tap the Add Session button
+  Then I will be able to fill a form with the Session name, topic and relevant data
+  And add a question to the Quiz related to such Session
+```
 
 * **Value and effort**.
   *Value*: Must have
@@ -233,7 +298,20 @@ As an Attendee, I want to be able to change my saved interests and desired locat
   ![](./images/mockups/ManageProfile.png)
 
 * **Acceptance tests**.
-For each user story you should write also the acceptance tests (textually in Gherkin), i.e., a description of scenarios (situations) that will help to confirm that the system satisfies the requirements addressed by the user story.
+```gherkin
+Scenario: Attendee changes his profile preferences or location
+  Given I have Signed In
+  And I have clicked the Session Suggestions button
+  When I tap the Manage Profile button
+  Then I will be able to change my Interests and District
+```
+
+```gherkin
+Scenario: Attendee creates his profile preferences or location
+  Given I have not Signed In
+  When I Sign In for the first time
+  Then I will be able to set my Interests and District
+```
 
 * **Value and effort**.
   *Value*: Must have
