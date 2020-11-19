@@ -40,7 +40,7 @@ SmartCon not only simplifies conference choices by evaluating user's preferences
 ---
 ## Elevator Pitch
 
-Have you ever wondered about the main reason why attendees go to conferences? From finding solutions to problems to engaging in unique experiences, there are probably a few different answers. However, one of the most important and relevant reasons is to learn. And, unfortunately, at large and popular conferences, it is not uncommon for attendees to feel overwhelmed and lost while trying to navigate through many parallel sessions. That is why Smartcon focuses on users knowledge to suggest the sessions which are most relevant for the user in a given conference.
+Have you ever wondered about the main reason why attendees go to conferences? From finding solutions to problems to engaging in unique experiences, there are probably a few different answers. However, one of the most important and relevant reasons is to learn. And, unfortunately, it is not uncommon for attendees to feel overwhelmed while trying to navigate through many parallel sessions. That is why Smartcon focuses on users knowledge to suggest the sessions which are most relevant for the user in a given conference.
 
 
 ---
@@ -127,6 +127,11 @@ Have you ever wondered about the main reason why attendees go to conferences? Fr
   3. The conference staff inserts a set of multiple choice questions.
 
 ### User stories
+
+#### User Stories Map
+
+![](./images/Smartcon_guidemap.png)
+
 
 #### Story I - Conference Suggestions
 
@@ -272,6 +277,14 @@ It should describe also the technologies considered and justify the selections m
 To help on validating all the architectural, design and technological decisions made, we usually implement a vertical prototype, a thin vertical slice of the system.
 
 In this subsection please describe in more detail which, and how, user(s) story(ies) were implemented.
+
+---
+
+## Implementation
+
+### Product increment #1
+Changelogs for the first increment can be found [here](https://github.com/FEUP-ESOF-2020-21/open-cx-t2g3-them-d/releases) - v0.1.0.
+
 ---
 
 ## Test
