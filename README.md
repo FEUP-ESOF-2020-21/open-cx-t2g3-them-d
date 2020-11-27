@@ -35,12 +35,12 @@ Thank you!
 
 ## Product Vision
 
-SmartCon is an app aimed at simplifying conference choices, allowing its users to filter these by preference, ranking and availability. Additionally, SmartCon takes into account the users’ knowledge level to suggest relevant sessions in a specific conference.
+SmartCon not only simplifies conference choices by evaluating user's preferences, but also generates relevant session suggestions for a conference by assessing the knowledge level of the user on session topics.
 
 ---
 ## Elevator Pitch
 
-Have you ever wondered about the main reason why attendees go to conferences? From finding solutions to problems to engaging in unique experiences, there are probably a few different answers. However, one of the most important and relevant reasons is to learn. And, unfortunately, at large and popular conferences, it is not uncommon for attendees to feel overwhelmed and lost while trying to navigate through many parallel sessions. That is why our app will focus on users knowlege to suggest the sessions which are most relevant for the user. The user, after filtering the desired conference based on its interests and previous feedback, will need to answer a small quiz, created by the conference organization. That will allow the app to build the participant's knowledge profile and suggest the most relevant sessions of the conference.
+Have you ever wondered about the main reason why attendees go to conferences? From finding solutions to problems to engaging in unique experiences, there are probably a few different answers. However, one of the most important and relevant reasons is to learn. And, unfortunately, it is not uncommon for attendees to feel overwhelmed while trying to navigate through many parallel sessions. That is why Smartcon focuses on users knowledge to suggest the sessions which are most relevant for the user in a given conference.
 
 
 ---
@@ -52,50 +52,70 @@ Have you ever wondered about the main reason why attendees go to conferences? Fr
 
 #### Manage Profile
 * **Actor**: Attendee
-* **Description**: This use case exists so that the attendees can specify their interests and location.
-* **Preconditions and Post conditions**: 
-* **Normal Flow**: 
-  1. The attendee selects his interests from a set of options
-  2. The attendee selects his location from a set of options
-  3. The attendee clicks a button to save his profile.
-
+* **Description**: This use case exists so that the attendees can specify and change their interests and location.
+* **Preconditions and Post conditions**: The user must log in with google to be able to access this functionality.
+* **Normal Flow**:
+  1. The attendee logs in with his google account.
+  2. The attendee presses a button to see conference suggestions.
+  3. The attendee presses a button to manage his profile.
+  4. The attendee clicks a button to save his profile.
 * **Alternative Flows and Exceptions**: 
+   When a new user signs up he must build his profile.
+  1. The attendee presses a button to see conference suggestions.
+  2. The attendee fills his profile.
+  3. The attendee clicks a button to save his profile.
 
 #### See conference recommendations
 * **Actor**: Attendee
 * **Description**: This use case exists so that the attendees can choose  which conference to go to from an already filtered set based on their interests, location, availability and feedback to previous editions.  
-* **Preconditions and Post conditions**: In order to choose a conference from a filtered set of conferences the attendees must previously define their profile by filling out a form when installing the app.
+* **Preconditions and Post conditions**: In order to choose a conference from a filtered set of conferences the attendees must previously define their profile.
 * **Normal Flow**: 
-  1. The attendee fills his profile 
-  2. The attendee presses the button to see conference suggestions
-  3. The attendee can select the date range and filter the conferences by feedback by checking an checkbox
-* **Alternative Flows and Exceptions**: 
+  1. The attendee presses a button to see conference suggestions.
+  2. The attendee can select the date range and filter the conferences by rating or location by checking an checkbox.
+* **Alternative Flows and Exceptions**:
+  When a new user tries to get conference suggestions he his first asked to fill his profile.
+  1. The attendee presses a button to see conference suggestions.
+  2. The attendee fills his profile.
+  3. The attendee can select the date range and filter the conferences by rating or location by checking an checkbox.
 
 #### See session suggestions
 * **Actor**: Attendee
 * **Description**: This use case exists so that the attendees can see which sessions are most recommended based on their knowledge about the conference main topics.
 * **Preconditions and Post conditions**: In order to see the set of filtered sessions the attendee must first enter the conference code which they have decided to attend. They must also answer the quiz provided by the conference organization.
 * **Normal Flow**: 
-  1. The attendee presses the button to insert the code of the chosen conference
-  2. The attendee enters the code
-  3. The attendee presses the button to see session suggestions
-  4. The attendee answers the quiz made by the conference organization
-  5. The attendee sees the suggestions
+  1. The attendee presses the button to get session suggestions.
+  2. The attendee his asked for the code of the conference.
+  3. The attendee enters the code of the conference.
+  4. The attendee presses the button to see session suggestions.
+  5. The attendee answers the quiz made by the conference organization
+  6. The attendee sees the suggestions.
 * **Alternative Flows and Exceptions**: 
-  1. The attendee presses the button to insert the code of the chosen conference
-  2. The attendee enters the code
-  3. The attendee sees the suggestions that were previously obtained
+  When the user has already filled the quiz for a conference he his directed to the suggestions that were previously obtained.
+  1. The attendee presses the button to get session suggestions.
+  2. The attendee his asked for the code of the conference.
+  3. The attendee enters the code of the conference.
+  4. The attendee sees the suggestions that were previously obtained.
+  
+  When the user enters an invalid conference code.
+  1. The attendee presses the button to get session suggestions.
+  2. The attendee his asked for the code of the conference.
+  3. The attendee enters the code of the conference.
+  4. The attendee gets a warning alerting that the code is invalid.
 
 #### Give feedback
 * **Actor**: Attendee
 * **Description**: This use case exists so that the attendees can rate a conference they attended.
 * **Preconditions and Post conditions**: In order to rate a conference it must have already occurred.
 * **Normal Flow**: 
-  1. The attendee presses the button to insert the code of the chosen conference
-  2. The attendee enters the code
-  3. The attendee presses the button to rate the conference
-  3. The attendee rates the conference
+  1. The attendee presses the button to insert the code of the chosen conference.
+  2. The attendee enters the code.
+  3. The attendee presses the button to rate the conference.
+  4. The attendee rates the conference.
 * **Alternative Flows and Exceptions**: 
+  When the user enters an invalid conference code.
+  1. The attendee presses the button to insert the code of the chosen conference.
+  2. The attendee enters the code.
+  3. The attendee gets a warning alerting that the code is invalid.
 
 #### Insert conference with quiz
 * **Actor**: Conference Staff
@@ -104,14 +124,18 @@ Have you ever wondered about the main reason why attendees go to conferences? Fr
 * **Normal Flow**: 
   1. The conference staff presses the button to add a new conference to the app.
   2. The conference staff  types the conference information.
-  3. The conference staff inserts a set of multiple choice questions
-* **Alternative Flows and Exceptions**: 
+  3. The conference staff inserts a set of multiple choice questions.
 
 ### User stories
 
-#### Story I
+#### User Stories Map
 
-* **Story**.
+![](./images/Smartcon_guidemap.png)
+
+
+#### Story I - Conference Suggestions
+
+* **Story**
 As an Attendee, I want to be able to get conference suggestions based on my profile and availability so that the set of results is straightforward and accurate.
 
 * **User interface mockups**.
@@ -119,7 +143,21 @@ As an Attendee, I want to be able to get conference suggestions based on my prof
   ![](./images/mockups/HomeStory1.png)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![](./images/mockups/SearchConferences.png)
 
 * **Acceptance tests**.
-For each user story you should write also the acceptance tests (textually in Gherkin), i.e., a description of scenarios (situations) that will help to confirm that the system satisfies the requirements addressed by the user story.
+```gherkin
+Scenario: Attendee searches conferences with profile preconfigured
+  Given I have saved my Profile Preferences
+  When I tap the Search Conferences button
+  And I select a Date range
+  Then I get Conference Suggestions according to Preferences and Date
+  And I can sort these by Rating and Location.
+```
+
+```gherkin
+Scenario: Attendee searches conferences without configuring profile
+  Given I have not saved my Profile Preferences
+  When I tap the Search Conferences button
+  Then I will be prompted the Manage Profile form
+```
 
 * **Value and effort**.
 
@@ -127,7 +165,7 @@ For each user story you should write also the acceptance tests (textually in Ghe
   
   *Effort*: L
 
-#### Story II
+#### Story II - Session Suggestions
 
 * **Story**.
 As an Attendee, I want to have the possibility of getting the right session suggestions according to my knowledge level on the conference’s matter.
@@ -138,7 +176,31 @@ As an Attendee, I want to have the possibility of getting the right session sugg
 
 
 * **Acceptance tests**.
-For each user story you should write also the acceptance tests (textually in Gherkin), i.e., a description of scenarios (situations) that will help to confirm that the system satisfies the requirements addressed by the user story.
+```gherkin
+Scenario: Attendee searches session sugestions using a conference code never used before
+  Given I have a valid Conference Code
+  When I tap the Session Suggestions button
+  And I insert the Conference Code
+  Then I will be given the Quiz for the corresponding conference
+  And I will get Session Suggestions according to my answers
+```
+
+```gherkin
+Scenario: Attendee searches session sugestions using a conference code used before
+  Given I have a valid Conference Code
+  And I have already filled the Quiz for that Conference
+  When I tap the Session Suggestions button
+  And I insert the Conference Code
+  Then I will get the previously obtained Session Suggestions
+```
+
+```gherkin
+Scenario: Attendee searches session sugestions using an invalid conference code
+  Given I have an invalid Conference Code
+  When I tap the Session Suggestions button
+  And I insert the Conference Code
+  Then I will get a Warning alerting that the code is invalid
+```
 
 * **Value and effort**.
 
@@ -147,7 +209,7 @@ For each user story you should write also the acceptance tests (textually in Ghe
   *Effort*: XL
 
 
-#### Story III
+#### Story III - Rate Conference
 
 * **Story**.
 As an Attendee, I want to be able to rate a conference I attended to, to inform other people of my opinion on its quality and help other people when they are searching for conferences to attend to.
@@ -158,14 +220,29 @@ As an Attendee, I want to be able to rate a conference I attended to, to inform 
 
 
 * **Acceptance tests**.
-For each user story you should write also the acceptance tests (textually in Gherkin), i.e., a description of scenarios (situations) that will help to confirm that the system satisfies the requirements addressed by the user story.
+```gherkin
+Scenario: Attendee rates a conference using a conference code
+  Given I have a Conference Code
+  When I tap the Leave Feedback button
+  And I insert the Conference Code
+  Then I will be able to choose the Rating for the conference
+  And Leave Feedback
+```
+
+```gherkin
+Scenario: Attendee rates a conference using an invalid conference code
+  Given I have an invalid Conference Code
+  When I tap the Leave Feedback button
+  And I insert the Conference Code
+  Then I will get a Warning alerting that the code is invalid
+```
 
 * **Value and effort**.
   *Value*: Could have
   
   *Effort*: M
 
-#### Story IV
+#### Story IV - Insert Conference
 
 * **Story**.
 As a member of the Conference staff, I want to be able to insert a conference into the app database in order to promote it to possible attendees.
@@ -175,14 +252,20 @@ As a member of the Conference staff, I want to be able to insert a conference in
   ![](./images/mockups/HomeStory4.png)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](./images/mockups/InsertConference.png)
 
 * **Acceptance tests**.
-For each user story you should write also the acceptance tests (textually in Gherkin), i.e., a description of scenarios (situations) that will help to confirm that the system satisfies the requirements addressed by the user story.
+```gherkin
+Scenario: Conference staff member inserts a conference into the app
+  Given I have Signed In
+  When I tap the Insert Conference button
+  Then I will be able to fill a form with the Conference name, date and relevant data
+  And I will be redirected to a form in order to Add Sessions and Quiz.
+```
 
 * **Value and effort**.
   *Value*: Could have
   
   *Effort*: L
 
-#### Story V
+#### Story V - Add Sessions and Quiz to a Conference
 
 * **Story**.
 As a member of the Conference staff, I want to be able to test the attendees’ knowledge in order to have an audience that is inquisitive and capable of understanding the matter discussed in each session. 
@@ -192,14 +275,20 @@ As a member of the Conference staff, I want to be able to test the attendees’ 
   ![](./images/mockups/SetSessions.png)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![](./images/mockups/AddSession.png)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![](./images/mockups/AddSessionQuestion.png)
 
 * **Acceptance tests**.
-For each user story you should write also the acceptance tests (textually in Gherkin), i.e., a description of scenarios (situations) that will help to confirm that the system satisfies the requirements addressed by the user story.
+```gherkin
+Scenario: Conference staff member inserts a session and respective question to its conference
+  Given I have inserted a conference
+  When I tap the Add Session button
+  Then I will be able to fill a form with the Session name, topic and relevant data
+  And add a question to the Quiz related to such Session
+```
 
 * **Value and effort**.
   *Value*: Must have
   
   *Effort*: XL
   
-#### Story VI
+#### Story VI - Manage Profile
 
 * **Story**.
 As an Attendee, I want to be able to change my saved interests and desired location.
@@ -209,7 +298,23 @@ As an Attendee, I want to be able to change my saved interests and desired locat
   ![](./images/mockups/ManageProfile.png)
 
 * **Acceptance tests**.
-For each user story you should write also the acceptance tests (textually in Gherkin), i.e., a description of scenarios (situations) that will help to confirm that the system satisfies the requirements addressed by the user story.
+```gherkin
+Scenario: Attendee changes his profile preferences or location
+  Given I have Signed In
+  And I have clicked the Session Suggestions button
+  When I tap the Manage Profile button
+  Then I will be able to change my Interests and District
+  And I will be able to Save Profile by clicking the button
+```
+
+```gherkin
+Scenario: Attendee creates his profile preferences or location
+  Given I have Signed In
+  And I have not configured my profile yet
+  When I click the Session Suggestions button
+  Then I will be able to set my Interests and District
+  And I will be able to Save Profile by clicking the button
+```
 
 * **Value and effort**.
   *Value*: Must have
@@ -253,6 +358,14 @@ It should describe also the technologies considered and justify the selections m
 To help on validating all the architectural, design and technological decisions made, we usually implement a vertical prototype, a thin vertical slice of the system.
 
 In this subsection please describe in more detail which, and how, user(s) story(ies) were implemented.
+
+---
+
+## Implementation
+
+### Product increment #1
+Changelogs for the first increment can be found [here](https://github.com/FEUP-ESOF-2020-21/open-cx-t2g3-them-d/releases) - v0.1.0.
+
 ---
 
 ## Test

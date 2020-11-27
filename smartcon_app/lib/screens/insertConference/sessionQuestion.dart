@@ -2,9 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smartcon_app/models/conference.dart';
-import 'package:smartcon_app/screens/homePage.dart';
-import 'package:smartcon_app/screens/sessionSuggestions/newSession.dart';
-import 'package:smartcon_app/screens/sessionSuggestions/conferenceSessions.dart';
+import 'package:smartcon_app/screens/insertConference/newSession.dart';
+import 'package:smartcon_app/screens/insertConference/conferenceSessions.dart';
 import 'package:smartcon_app/services/database.dart';
 
 class sessionQuestion extends StatefulWidget {

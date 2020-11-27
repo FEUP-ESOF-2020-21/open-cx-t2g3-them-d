@@ -1,13 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:date_range_picker/date_range_picker.dart' as DateRagePicker;
 import 'package:dropdown_formfield/dropdown_formfield.dart';
+import 'package:flutter/material.dart';
 import 'package:smartcon_app/models/conference.dart';
-import 'package:smartcon_app/models/session.dart';
-import 'package:smartcon_app/services/auth.dart';
 import 'package:smartcon_app/services/database.dart';
-
 import '../homePage.dart';
-import '../sessionSuggestions/conferenceSessions.dart';
+import 'conferenceSessions.dart';
 
 class InsertConference extends StatefulWidget {
   @override
@@ -17,7 +14,6 @@ class InsertConference extends StatefulWidget {
 }
 
 class InsertConferenceState extends State<InsertConference> {
-  final AuthService _auth = AuthService();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   String _name;
@@ -27,7 +23,6 @@ class InsertConferenceState extends State<InsertConference> {
   String _description;
   String _website;
   Conference _conference;
-  List<Session> _sessions;
 
   String datesStr = 'Must Pick a date';
   _onDateChanged(picked) {
@@ -49,13 +44,12 @@ class InsertConferenceState extends State<InsertConference> {
         description: _description,
         beginDate: _dates[0],
         endDate: _dates[0],
-        rating: 0,
-        sessions: _sessions);
+        rating: 0);
 
     await DatabaseService().addConference(_conference);
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => HomePage()),
+    Navigator.pushAndRemoveUntil(context,
+        MaterialPageRoute(builder: (BuildContext context) => HomePage()),
+            (Route<dynamic> route) => route is HomePage
     );
   }
 
@@ -69,7 +63,7 @@ class InsertConferenceState extends State<InsertConference> {
           borderSide: new BorderSide(),
         ),
       ),
-      maxLength: 10,
+      maxLength: 30,
       validator: (String value) {
         if (value.isEmpty) {
           return 'Name is Required';
@@ -265,10 +259,10 @@ class InsertConferenceState extends State<InsertConference> {
           borderSide: new BorderSide(),
         ),
       ),
-      keyboardType: TextInputType.phone,
+      keyboardType: TextInputType.text,
       validator: (String value) {
         if (value.isEmpty) {
-          return 'Phone number is Required';
+          return 'Description is Required';
         }
 
         return null;
@@ -289,7 +283,7 @@ class InsertConferenceState extends State<InsertConference> {
           borderSide: new BorderSide(),
         ),
       ),
-      keyboardType: TextInputType.number,
+      keyboardType: TextInputType.url,
       validator: (String value) {},
       onSaved: (String value) {
         _website = value;
@@ -305,34 +299,9 @@ class InsertConferenceState extends State<InsertConference> {
           // in the middle of the parent.
           child: Column(children: <Widget>[
         Row(children: <Widget>[
-          Stack(
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width,
-                child: Image.asset('images/pageHeader.png', fit: BoxFit.fill),
-              ),
-              Padding(
-                  padding: EdgeInsets.only(
-                    left: MediaQuery.of(context).size.width * 0.08,
-                    top: MediaQuery.of(context).size.width * 0.08,
-                  ),
-                  child: RaisedButton(
-                    onPressed: () async {
-                      await _auth.signOutGoogle();
-                    },
-                    color: Color(0xFF6E96EF),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "SIGN OUT",
-                        style: Theme.of(context).textTheme.headline4,
-                      ),
-                    ),
-                    elevation: 5,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12)),
-                  )),
-            ],
+          Container(
+            width: MediaQuery.of(context).size.width,
+            child: Image.asset('images/pageHeader.png', fit: BoxFit.fill),
           ),
         ]),
         Padding(
@@ -345,7 +314,7 @@ class InsertConferenceState extends State<InsertConference> {
                 children: <Widget>[
                   Container(
                     child: Text(
-                      "InsertConference",
+                      "Insert Conference",
                       style: Theme.of(context).textTheme.headline2,
                     ),
                     alignment: Alignment.topLeft,
@@ -385,7 +354,6 @@ class InsertConferenceState extends State<InsertConference> {
                           fontFamily: 'Rubik',
                         )),
                     onPressed: () {
-                      /* if (!_formKey.currentState.validate()) return;*/
                       _formKey.currentState.save();
                       _saveConference();
                       Navigator.push(

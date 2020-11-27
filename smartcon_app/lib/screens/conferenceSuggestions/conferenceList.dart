@@ -1,12 +1,12 @@
+import 'package:dart_date/dart_date.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:smartcon_app/services/database.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:smartcon_app/models/conference.dart';
 import 'package:smartcon_app/models/user.dart';
-import 'package:dart_date/dart_date.dart';
+import 'package:smartcon_app/services/database.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ConferenceList extends StatefulWidget {
 
@@ -125,6 +125,7 @@ class ConferenceTile extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
+                          width: MediaQuery.of(context).size.width * 0.84 - 32 - 24 * conference.rating,
                           child: Text(conference.name.toUpperCase(), style: Theme.of(context).textTheme.headline5,),
                           alignment: Alignment.topLeft,
                         ),

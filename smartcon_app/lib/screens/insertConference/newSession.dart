@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:date_range_picker/date_range_picker.dart' as DateRagePicker;
-import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:smartcon_app/models/conference.dart';
-import 'package:smartcon_app/models/session.dart';
-import 'package:smartcon_app/screens/sessionSuggestions/conferenceSessions.dart';
 import 'package:smartcon_app/services/auth.dart';
 import 'package:smartcon_app/services/database.dart';
 import 'package:time_range/time_range.dart';
-import 'package:smartcon_app/screens/sessionSuggestions/sessionQuestion.dart';
+import 'package:smartcon_app/screens/insertConference/sessionQuestion.dart';
 
 import '../homePage.dart';
 
@@ -168,7 +165,7 @@ class _insertTopics extends State<insertTopics> {
               MaterialPageRoute(builder: (context) => newSession()),
             );
           },
-          child: Text("  DONE  ",
+          child: Text("DONE",
               style: TextStyle(
                 color: Colors.black38,
                 fontSize: 14.0,
@@ -189,13 +186,15 @@ class insertSpeakers extends StatefulWidget {
 }
 
 class _insertSpeakers extends State<insertSpeakers> {
-  String _speaker1;
-  String _speaker2;
-  String _speaker3;
-  String _speaker4;
-  String _speaker5;
+
   @override
   Widget build(BuildContext context) {
+    String _speaker1;
+    String _speaker2;
+    String _speaker3;
+    String _speaker4;
+    String _speaker5;
+
     return Scaffold(
       // Center is a layout widget. It takes a single child and positions it
       // in the middle of the parent.
@@ -222,7 +221,7 @@ class _insertSpeakers extends State<insertSpeakers> {
               borderSide: new BorderSide(),
             ),
           ),
-          maxLength: 10,
+          maxLength: 50,
           validator: (String value) {
             if (value.isEmpty) {
               return 'Name is Required';
@@ -359,7 +358,7 @@ class newSession extends StatefulWidget {
 }
 
 class _newSession extends State<newSession> {
-  final AuthService _auth = AuthService();
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   String _name;
@@ -369,7 +368,6 @@ class _newSession extends State<newSession> {
   String _description;
   String _website;
   Conference _conference;
-  List<Session> _sessions;
 
   String datesStr = 'Must Pick a date';
   _onDateChanged(picked) {
@@ -391,8 +389,7 @@ class _newSession extends State<newSession> {
         description: _description,
         beginDate: _dates[0],
         endDate: _dates[0],
-        rating: 0,
-        sessions: _sessions);
+        rating: 0);
 
     await DatabaseService().addConference(_conference);
     Navigator.push(
@@ -426,10 +423,10 @@ class _newSession extends State<newSession> {
   }
 
   Widget _buildTopics() {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.84,
-      child: Row(children: <Widget>[
-        RaisedButton(
+    return Row(children: <Widget>[
+      ButtonTheme(
+        minWidth: MediaQuery.of(context).size.width * 0.84,
+        child: RaisedButton(
           color: Colors.white,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
@@ -442,7 +439,7 @@ class _newSession extends State<newSession> {
             );
           },
           child: Text(
-              "                            INSERT TOPICS                            ",
+              "INSERT TOPICS",
               style: TextStyle(
                 color: Colors.black38,
                 fontSize: 14.0,
@@ -450,40 +447,40 @@ class _newSession extends State<newSession> {
                 fontFamily: 'Rubik',
               )),
         ),
-      ]
-          //Manage Profile Button
-          ),
-    );
+      ),
+    ]
+        //Manage Profile Button
+        );
   }
 
   Widget _buildSpeakers() {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.84,
-      child: Row(children: <Widget>[
-        RaisedButton(
-          color: Colors.white,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
-              side: BorderSide(color: Colors.black26, width: 2)),
-          highlightElevation: 40.0,
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => insertSpeakers()),
-            );
-          },
-          child: Text(
-              "                         INSERT SPEAKERS                        ",
-              style: TextStyle(
-                color: Colors.black38,
-                fontSize: 14.0,
-                fontWeight: FontWeight.w700,
-                fontFamily: 'Rubik',
-              )),
-        ),
-      ]
-          //Manage Profile Button
+    return Row(
+      children: [
+        ButtonTheme(
+          minWidth: MediaQuery.of(context).size.width * 0.84,
+          child: MaterialButton(
+            color: Colors.white,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+                side: BorderSide(color: Colors.black26, width: 2)),
+            highlightElevation: 40.0,
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => insertSpeakers()),
+              );
+            },
+            child: Text(
+                "INSERT SPEAKERS",
+                style: TextStyle(
+                  color: Colors.black38,
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w700,
+                  fontFamily: 'Rubik',
+                )),
           ),
+        ),
+      ],
     );
   }
 
@@ -553,7 +550,7 @@ class _newSession extends State<newSession> {
           borderSide: new BorderSide(),
         ),
       ),
-      keyboardType: TextInputType.number,
+      keyboardType: TextInputType.url,
       validator: (String value) {},
       onSaved: (String value) {
         _website = value;
@@ -603,37 +600,12 @@ class _newSession extends State<newSession> {
           // Center is a layout widget. It takes a single child and positions it
           // in the middle of the parent.
           child: Column(children: <Widget>[
-        Row(children: <Widget>[
-          Stack(
-            children: [
+            Row(children: <Widget>[
               Container(
                 width: MediaQuery.of(context).size.width,
                 child: Image.asset('images/pageHeader.png', fit: BoxFit.fill),
               ),
-              Padding(
-                  padding: EdgeInsets.only(
-                    left: MediaQuery.of(context).size.width * 0.08,
-                    top: MediaQuery.of(context).size.width * 0.08,
-                  ),
-                  child: RaisedButton(
-                    onPressed: () async {
-                      await _auth.signOutGoogle();
-                    },
-                    color: Color(0xFF6E96EF),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "SIGN OUT",
-                        style: Theme.of(context).textTheme.headline4,
-                      ),
-                    ),
-                    elevation: 5,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12)),
-                  )),
-            ],
-          ),
-        ]),
+            ]),
         Padding(
             padding: EdgeInsets.only(
               left: MediaQuery.of(context).size.width * 0.08,
