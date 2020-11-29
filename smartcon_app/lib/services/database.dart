@@ -153,6 +153,7 @@ class DatabaseService {
     return await conferencesCollection.doc(conferenceId).collection('sessions').doc().set({
       'name': session.name,
       'speakers': session.speakers,
+      'topics' : session.topics,
       'website': session.website,
       'description': session.description,
       'date': session.date,

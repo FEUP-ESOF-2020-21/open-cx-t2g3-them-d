@@ -1,189 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:date_range_picker/date_range_picker.dart' as DateRagePicker;
-import 'package:smartcon_app/models/conference.dart';
 import 'package:smartcon_app/models/session.dart';
 import 'package:time_range/time_range.dart';
-import 'package:smartcon_app/screens/insertConference/sessionQuestion.dart';
 import 'package:smartcon_app/screens/insertConference/insertSpeakers.dart';
-
-class insertTopics extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return _insertTopics();
-  }
-}
-
-class _insertTopics extends State<insertTopics> {
-  String _topic1;
-  String _topic2;
-  String _topic3;
-  String _topic4;
-  String _topic5;
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      // Center is a layout widget. It takes a single child and positions it
-      // in the middle of the parent.
-      body: Column(children: <Widget>[
-        Container(
-          width: MediaQuery.of(context).size.width,
-          child: Image.asset('images/pageHeader.png', fit: BoxFit.fill),
-        ),
-        SizedBox(height: 50),
-        Container(
-          child: Text(
-            "Insert Topics",
-            style: Theme.of(context).textTheme.headline5,
-          ),
-          alignment: Alignment.topCenter,
-        ),
-        SizedBox(height: 50),
-        TextFormField(
-          decoration: new InputDecoration(
-            labelText: "Topic 1",
-            fillColor: Colors.white,
-            border: new OutlineInputBorder(
-              borderRadius: new BorderRadius.circular(10.0),
-              borderSide: new BorderSide(),
-            ),
-          ),
-          maxLength: 10,
-          validator: (String value) {
-            if (value.isEmpty) {
-              return 'Name is Required';
-            }
-
-            return null;
-          },
-          onSaved: (String value) {
-            _topic1 = value;
-          },
-        ),
-        Container(
-          child: TextFormField(
-            decoration: new InputDecoration(
-              labelText: "Topic 2",
-              fillColor: Colors.white,
-              border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(10.0),
-                borderSide: new BorderSide(),
-              ),
-            ),
-            maxLength: 10,
-            validator: (String value) {
-              if (value.isEmpty) {
-                return 'Name is Required';
-              }
-
-              return null;
-            },
-            onSaved: (String value) {
-              _topic2 = value;
-            },
-          ),
-        ),
-        Container(
-          child: TextFormField(
-            decoration: new InputDecoration(
-              labelText: "Topic 3",
-              fillColor: Colors.white,
-              border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(10.0),
-                borderSide: new BorderSide(),
-              ),
-            ),
-            maxLength: 10,
-            validator: (String value) {
-              if (value.isEmpty) {
-                return 'Name is Required';
-              }
-
-              return null;
-            },
-            onSaved: (String value) {
-              _topic3 = value;
-            },
-          ),
-        ),
-        Container(
-          child: TextFormField(
-            decoration: new InputDecoration(
-              labelText: "Topic 4",
-              fillColor: Colors.white,
-              border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(10.0),
-                borderSide: new BorderSide(),
-              ),
-            ),
-            maxLength: 10,
-            validator: (String value) {
-              if (value.isEmpty) {
-                return 'Name is Required';
-              }
-
-              return null;
-            },
-            onSaved: (String value) {
-              _topic4 = value;
-            },
-          ),
-        ),
-        Container(
-          child: TextFormField(
-            decoration: new InputDecoration(
-              labelText: "Topic 5",
-              fillColor: Colors.white,
-              border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(10.0),
-                borderSide: new BorderSide(),
-              ),
-            ),
-            maxLength: 10,
-            validator: (String value) {
-              if (value.isEmpty) {
-                return 'Name is Required';
-              }
-
-              return null;
-            },
-            onSaved: (String value) {
-              _topic5 = value;
-            },
-          ),
-        ),
-        RaisedButton(
-          color: Colors.white,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
-              side: BorderSide(color: Colors.black26, width: 2)),
-          highlightElevation: 40.0,
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => NewSession()),
-            );
-          },
-          child: Text("DONE",
-              style: TextStyle(
-                color: Colors.black38,
-                fontSize: 14.0,
-                fontWeight: FontWeight.w700,
-                fontFamily: 'Rubik',
-              )),
-        ),
-      ]),
-    );
-  }
-}
+import 'insertTopics.dart';
 
 class NewSession extends StatefulWidget {
-  Session session = Session.emptySession();
+  Session session;
   final state = _NewSessionState();
 
   @override
   _NewSessionState createState() => state;
-
-  bool isValid() => state.validate();
 }
 
 class _NewSessionState extends State<NewSession> {
@@ -194,14 +20,15 @@ class _NewSessionState extends State<NewSession> {
   DateTime _date;
   String dateStr = 'Must Pick a date';
   String _description;
-  String _website;
+  String _website = "";
   List<String> _speakers = new List<String>();
+  List<String> _topics = new List<String>();
 
   _buildSession(){
     widget.session = new Session(
         name: _name,
         speakers: _speakers,
-        /*topics: _topics, hour??*/
+        topics: _topics,
         website: _website,
         description: _description,
         date: _date,);
@@ -249,11 +76,12 @@ class _NewSessionState extends State<NewSession> {
               borderRadius: BorderRadius.circular(10.0),
               side: BorderSide(color: Colors.black26, width: 2)),
           highlightElevation: 40.0,
-          onPressed: () {
-            Navigator.push(
+          onPressed: () async {
+            var receivedTopics = await Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => insertTopics()),
+              MaterialPageRoute(builder: (context) => InsertTopics(topics: _topics)),
             );
+            if(receivedTopics != null) _topics = receivedTopics;
           },
           child: Text(
               "INSERT TOPICS",
@@ -375,6 +203,7 @@ class _NewSessionState extends State<NewSession> {
 
   Widget _buildDescription() {
     return TextFormField(
+      keyboardType: TextInputType.text,
       decoration: new InputDecoration(
         labelText: "Description",
         fillColor: Colors.white,
@@ -383,12 +212,11 @@ class _NewSessionState extends State<NewSession> {
           borderSide: new BorderSide(),
         ),
       ),
-      keyboardType: TextInputType.text,
       validator: (String value) {
 
       },
       onSaved: (String value) {
-        _website = value;
+        _description = value;
       },
     );
   }
@@ -508,16 +336,11 @@ class _NewSessionState extends State<NewSession> {
     );
   }
 
-  // form validator
-  bool validate() {
-    var valid = _sessionFormKey.currentState.validate();
-    if (valid) _sessionFormKey.currentState.save();
-    return valid;
-  }
-
   //on save forms
   void onSave() {
-    if (_sessionFormKey.currentState.validate() && _speakers.length != 0) {
+    if (_sessionFormKey.currentState.validate() && _speakers.length != 0 && _topics.length != 0) {
+      _sessionFormKey.currentState.save();
+      _buildSession();
       Navigator.pop(context, widget.session);
     }
   }

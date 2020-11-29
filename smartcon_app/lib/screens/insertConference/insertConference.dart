@@ -250,7 +250,7 @@ class InsertConferenceState extends State<InsertConference> {
           borderSide: new BorderSide(),
         ),
       ),
-      keyboardType: TextInputType.text,
+      keyboardType: TextInputType.multiline,
       validator: (String value) {
         if (value.isEmpty) {
           return 'Description is Required';

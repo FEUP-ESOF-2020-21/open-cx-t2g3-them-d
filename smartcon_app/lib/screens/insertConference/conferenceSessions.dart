@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smartcon_app/models/conference.dart';
 import 'package:smartcon_app/models/session.dart';
+import 'package:smartcon_app/screens/common/sessionTile.dart';
 import 'package:smartcon_app/screens/insertConference/newSession.dart';
 import 'package:smartcon_app/services/database.dart';
 
@@ -21,39 +22,60 @@ class _conferenceSessions extends State<conferenceSessions> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start, children: <
-          Widget>[
-          // HEADER IMAGE (100%)
-          Row(children: <Widget>[
-            Container(
-              width: MediaQuery.of(context).size.width,
-              child: Image.asset('images/pageHeader.png', fit: BoxFit.fill),
-            ),
-          ]),
-
-          // CONTENT ROW
-          Row(children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(
-                left: MediaQuery.of(context).size.width * 0.08,
-                right: MediaQuery.of(context).size.width * 0.08,
+      body: SingleChildScrollView(
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start, children: <
+            Widget>[
+            // HEADER IMAGE (100%)
+            Row(children: <Widget>[
+              Container(
+                width: MediaQuery.of(context).size.width,
+                child: Image.asset('images/pageHeader.png', fit: BoxFit.fill),
               ),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    // Page title
-                    Container(
-                      child: Text(
-                        "Conference Sessions",
-                        style: Theme.of(context).textTheme.headline2,
+            ]),
+
+            // CONTENT ROW
+            Row(children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.width * 0.08,
+                  right: MediaQuery.of(context).size.width * 0.08,
+                ),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      // Page title
+                      Container(
+                        child: Text(
+                          "Conference Sessions",
+                          style: Theme.of(context).textTheme.headline2,
+                        ),
+                        alignment: Alignment.topLeft,
                       ),
-                      alignment: Alignment.topLeft,
+                    ]),
+              )
+            ]),
+
+            Row(
+              children: widget.sessions.length <= 0
+                      ? [Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Text("Add Session by tapping + button",style: TextStyle(fontSize: 17.0, fontFamily: 'Rubik', color: Colors.black38, fontWeight: FontWeight.w400)),
+                  )]
+                      : [Flexible(
+                    child: ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      addAutomaticKeepAlives: true,
+                      itemCount: widget.sessions.length,
+                      itemBuilder: (context, index) {
+                        return SessionTile(session: widget.sessions[index]);
+                      },
                     ),
-                  ]),
+                  ),]
             )
-          ])
-        ]),
+          ]),
+      ),
       floatingActionButton:
       Stack(
           children: <Widget>[
@@ -89,7 +111,9 @@ class _conferenceSessions extends State<conferenceSessions> {
   //on add form
   void onAddForm() async{
     Session session = await Navigator.push( context, MaterialPageRoute( builder: (context) => NewSession()),);
-    setState(() async {
+    if(session == null) return;
+    else print('not null');
+    setState(() {
       widget.sessions.add(session);
     });
   }
