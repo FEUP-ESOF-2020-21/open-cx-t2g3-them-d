@@ -268,7 +268,7 @@ class _sessionQuestion extends State<sessionQuestion> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => newSession()),
+                        MaterialPageRoute(builder: (context) => NewSession()),
                       );
                     },
                     child: Text("BACK",

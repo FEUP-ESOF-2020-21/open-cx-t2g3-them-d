@@ -1,13 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:smartcon_app/models/conference.dart';
-import 'package:smartcon_app/screens/homePage.dart';
+import 'package:smartcon_app/models/session.dart';
 import 'package:smartcon_app/screens/insertConference/newSession.dart';
 import 'package:smartcon_app/services/database.dart';
 
+import '../homePage.dart';
+
 class conferenceSessions extends StatefulWidget {
-  conferenceSessions({Key key}) : super(key: key);
+  Conference conference;
+  List<Session> sessions = List<Session>();
+
+  conferenceSessions({Key key, this.conference}) : super(key: key);
 
   @override
   _conferenceSessions createState() => _conferenceSessions();
@@ -17,10 +21,9 @@ class _conferenceSessions extends State<conferenceSessions> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child:
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: <
-                Widget>[
+      body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start, children: <
+          Widget>[
           // HEADER IMAGE (100%)
           Row(children: <Widget>[
             Container(
@@ -47,57 +50,64 @@ class _conferenceSessions extends State<conferenceSessions> {
                       ),
                       alignment: Alignment.topLeft,
                     ),
-
-                    //Manage Profile Button
-                    SizedBox(height: 10),
-                    RaisedButton(
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          side: BorderSide(color: Colors.black26, width: 2)),
-                      highlightElevation: 40.0,
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => newSession()),
-                        );
-                      },
-                      child: Text("ADD SESSION",
-                          style: TextStyle(
-                            color: Colors.black38,
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w700,
-                            fontFamily: 'Rubik',
-                          )),
-                    ),
-                    //Manage Profile Button
-                    SizedBox(height: 450),
-                    RaisedButton(
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          side: BorderSide(color: Colors.black26, width: 2)),
-                      highlightElevation: 40.0,
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => HomePage()),
-                        );
-                      },
-                      child: Text("DONE",
-                          style: TextStyle(
-                            color: Colors.black38,
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w700,
-                            fontFamily: 'Rubik',
-                          )),
-                    ),
                   ]),
             )
           ])
         ]),
+      floatingActionButton:
+      Stack(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.08),
+              child: Align(
+                alignment: Alignment.bottomLeft,
+                child: FloatingActionButton(
+                  heroTag: "btn1",
+                  child: Icon(Icons.add),
+                  backgroundColor: Color(0xFF5BBDB8),
+                  onPressed: onAddForm,
+                  foregroundColor: Colors.white,
+                ),
+              ),
+            ),
+
+            Align(
+              alignment: Alignment.bottomRight,
+              child: FloatingActionButton(
+                heroTag: "btn2",
+                child: Icon(Icons.done),
+                backgroundColor: Color(0xFF5BBDB8),
+                onPressed: onSave,
+                foregroundColor: Colors.white,
+              ),
+            ),
+          ]
       ),
     );
   }
+
+  //on add form
+  void onAddForm() async{
+    Session session = await Navigator.push( context, MaterialPageRoute( builder: (context) => NewSession()),);
+    setState(() async {
+      widget.sessions.add(session);
+    });
+  }
+
+  //on save forms
+  void onSave() async{
+    if (widget.sessions.length != 0) {
+      String conferenceId = await DatabaseService().addConference(widget.conference);
+
+      for(var session in widget.sessions){
+        await DatabaseService().addSession(conferenceId, session);
+      }
+    }
+
+    Navigator.pushAndRemoveUntil(context,
+        MaterialPageRoute(builder: (BuildContext context) => HomePage()),
+            (Route<dynamic> route) => route is HomePage
+    );
+  }
+
 }

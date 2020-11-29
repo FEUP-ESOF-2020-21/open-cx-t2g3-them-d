@@ -129,19 +129,33 @@ class DatabaseService {
   }
 
   // Insert Conference into Database
-  Future<void> addConference(Conference conference) async {
-    return await conferencesCollection.doc(uid).set({
-      'name': conference.name,
-      'category': conference.category,
-      'district': conference.district,
-      'website': conference.website,
-      'description': conference.description,
-      'beginDate': conference.beginDate,
-      'endDate': conference.endDate,
-      'rating': conference.rating,
-    });
+    addConference(Conference conference) async {
+    var newConference = await conferencesCollection.doc();
+
+     newConference.set({
+       'name': conference.name,
+       'category': conference.category,
+       'district': conference.district,
+       'website': conference.website,
+       'description': conference.description,
+       'beginDate': conference.beginDate,
+       'endDate': conference.endDate,
+       'rating': conference.rating,
+     });
+
+    return newConference.id;
   }
 
+  // Sessions
 
-
+  // Insert Session into Database
+  Future<void> addSession(String conferenceId, Session session) async {
+    return await conferencesCollection.doc(conferenceId).collection('sessions').doc().set({
+      'name': session.name,
+      'speakers': session.speakers,
+      'website': session.website,
+      'description': session.description,
+      'date': session.date,
+    });
+  }
 }

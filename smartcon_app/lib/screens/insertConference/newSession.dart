@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:date_range_picker/date_range_picker.dart' as DateRagePicker;
 import 'package:smartcon_app/models/conference.dart';
-import 'package:smartcon_app/services/auth.dart';
-import 'package:smartcon_app/services/database.dart';
+import 'package:smartcon_app/models/session.dart';
 import 'package:time_range/time_range.dart';
 import 'package:smartcon_app/screens/insertConference/sessionQuestion.dart';
-
-import '../homePage.dart';
+import 'package:smartcon_app/screens/insertConference/insertSpeakers.dart';
 
 class insertTopics extends StatefulWidget {
   @override
@@ -162,7 +160,7 @@ class _insertTopics extends State<insertTopics> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => newSession()),
+              MaterialPageRoute(builder: (context) => NewSession()),
             );
           },
           child: Text("DONE",
@@ -178,224 +176,43 @@ class _insertTopics extends State<insertTopics> {
   }
 }
 
-class insertSpeakers extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return _insertSpeakers();
-  }
-}
-
-class _insertSpeakers extends State<insertSpeakers> {
+class NewSession extends StatefulWidget {
+  Session session = Session.emptySession();
+  final state = _NewSessionState();
 
   @override
-  Widget build(BuildContext context) {
-    String _speaker1;
-    String _speaker2;
-    String _speaker3;
-    String _speaker4;
-    String _speaker5;
+  _NewSessionState createState() => state;
 
-    return Scaffold(
-      // Center is a layout widget. It takes a single child and positions it
-      // in the middle of the parent.
-      body: Column(children: <Widget>[
-        Container(
-          width: MediaQuery.of(context).size.width,
-          child: Image.asset('images/pageHeader.png', fit: BoxFit.fill),
-        ),
-        SizedBox(height: 50),
-        Container(
-          child: Text(
-            "Insert Speakers",
-            style: Theme.of(context).textTheme.headline5,
-          ),
-          alignment: Alignment.topCenter,
-        ),
-        SizedBox(height: 50),
-        TextFormField(
-          decoration: new InputDecoration(
-            labelText: "Speaker 1",
-            fillColor: Colors.white,
-            border: new OutlineInputBorder(
-              borderRadius: new BorderRadius.circular(10.0),
-              borderSide: new BorderSide(),
-            ),
-          ),
-          maxLength: 50,
-          validator: (String value) {
-            if (value.isEmpty) {
-              return 'Name is Required';
-            }
-
-            return null;
-          },
-          onSaved: (String value) {
-            _speaker1 = value;
-          },
-        ),
-        Container(
-          child: TextFormField(
-            decoration: new InputDecoration(
-              labelText: "Speaker 2",
-              fillColor: Colors.white,
-              border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(10.0),
-                borderSide: new BorderSide(),
-              ),
-            ),
-            maxLength: 10,
-            validator: (String value) {
-              if (value.isEmpty) {
-                return 'Name is Required';
-              }
-
-              return null;
-            },
-            onSaved: (String value) {
-              _speaker2 = value;
-            },
-          ),
-        ),
-        Container(
-          child: TextFormField(
-            decoration: new InputDecoration(
-              labelText: "Speaker 3",
-              fillColor: Colors.white,
-              border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(10.0),
-                borderSide: new BorderSide(),
-              ),
-            ),
-            maxLength: 10,
-            validator: (String value) {
-              if (value.isEmpty) {
-                return 'Name is Required';
-              }
-
-              return null;
-            },
-            onSaved: (String value) {
-              _speaker3 = value;
-            },
-          ),
-        ),
-        Container(
-          child: TextFormField(
-            decoration: new InputDecoration(
-              labelText: "Speaker 4",
-              fillColor: Colors.white,
-              border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(10.0),
-                borderSide: new BorderSide(),
-              ),
-            ),
-            maxLength: 10,
-            validator: (String value) {
-              if (value.isEmpty) {
-                return 'Name is Required';
-              }
-
-              return null;
-            },
-            onSaved: (String value) {
-              _speaker4 = value;
-            },
-          ),
-        ),
-        Container(
-          child: TextFormField(
-            decoration: new InputDecoration(
-              labelText: "Speaker 5",
-              fillColor: Colors.white,
-              border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(10.0),
-                borderSide: new BorderSide(),
-              ),
-            ),
-            maxLength: 10,
-            validator: (String value) {
-              if (value.isEmpty) {
-                return 'Name is Required';
-              }
-
-              return null;
-            },
-            onSaved: (String value) {
-              _speaker5 = value;
-            },
-          ),
-        ),
-        RaisedButton(
-          color: Colors.white,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
-              side: BorderSide(color: Colors.black26, width: 2)),
-          highlightElevation: 40.0,
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => newSession()),
-            );
-          },
-          child: Text("  DONE  ",
-              style: TextStyle(
-                color: Colors.black38,
-                fontSize: 14.0,
-                fontWeight: FontWeight.w700,
-                fontFamily: 'Rubik',
-              )),
-        ),
-      ]),
-    );
-  }
+  bool isValid() => state.validate();
 }
 
-class newSession extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return _newSession();
-  }
-}
+class _NewSessionState extends State<NewSession> {
 
-class _newSession extends State<newSession> {
-
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _sessionFormKey = GlobalKey<FormState>();
 
   String _name;
-  String _district;
-  List<DateTime> _dates = [];
-  String _category;
+  DateTime _date;
+  String dateStr = 'Must Pick a date';
   String _description;
   String _website;
-  Conference _conference;
+  List<String> _speakers = new List<String>();
+
+  _buildSession(){
+    widget.session = new Session(
+        name: _name,
+        speakers: _speakers,
+        /*topics: _topics, hour??*/
+        website: _website,
+        description: _description,
+        date: _date,);
+  }
 
   String datesStr = 'Must Pick a date';
   _onDateChanged(picked) {
     setState(() {
-      _dates = picked;
-      datesStr = "FROM: " +
-          _dates[0].toString().substring(0, 10) +
-          "\nTO: " +
-          _dates[1].toString().substring(0, 10);
+      _date = picked;
+      dateStr = _date.toString().substring(0, 10);
     });
-  }
-
-  _saveConference() async {
-    _conference = new Conference(
-        name: _name,
-        category: _category,
-        district: _district,
-        website: _website,
-        description: _description,
-        beginDate: _dates[0],
-        endDate: _dates[0],
-        rating: 0);
-
-    await DatabaseService().addConference(_conference);
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => HomePage()),
-    );
   }
 
   Widget _buildName() {
@@ -408,7 +225,7 @@ class _newSession extends State<newSession> {
           borderSide: new BorderSide(),
         ),
       ),
-      maxLength: 10,
+      maxLength: 50,
       validator: (String value) {
         if (value.isEmpty) {
           return 'Name is Required';
@@ -464,11 +281,12 @@ class _newSession extends State<newSession> {
                 borderRadius: BorderRadius.circular(10.0),
                 side: BorderSide(color: Colors.black26, width: 2)),
             highlightElevation: 40.0,
-            onPressed: () {
-              Navigator.push(
+            onPressed: () async {
+              var receivedSpeakers = await Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => insertSpeakers()),
+                MaterialPageRoute(builder: (context) => InsertSpeakers(speakers: _speakers,)),
               );
+              if(receivedSpeakers != null) _speakers = receivedSpeakers;
             },
             child: Text(
                 "INSERT SPEAKERS",
@@ -495,7 +313,7 @@ class _newSession extends State<newSession> {
               color: Colors.white,
               border: Border.all(width: 2.0, color: Colors.black26),
               borderRadius: BorderRadius.all(Radius.circular(10.0))),
-          child: Text(datesStr,
+          child: Text(dateStr,
               style: TextStyle(
                 color: Colors.black87,
                 fontSize: 15.0,
@@ -515,17 +333,14 @@ class _newSession extends State<newSession> {
                     borderRadius: BorderRadius.circular(10.0)),
                 highlightElevation: 40.0,
                 onPressed: () async {
-                  final List<DateTime> picked =
-                      await DateRagePicker.showDatePicker(
+                  final DateTime picked =
+                      await showDatePicker(
                     context: context,
-                    initialFirstDate: new DateTime.now(),
-                    initialLastDate:
-                        (new DateTime.now()).add(new Duration(days: 7)),
+                    initialDate: DateTime.now(),
                     firstDate: DateTime(2020),
                     lastDate: DateTime(2222),
                   );
-                  if (picked != null && picked.length == 2) {
-                    print(picked);
+                  if (picked != null && picked != _date) {
                     _onDateChanged(picked);
                   }
                 },
@@ -552,6 +367,26 @@ class _newSession extends State<newSession> {
       ),
       keyboardType: TextInputType.url,
       validator: (String value) {},
+      onSaved: (String value) {
+        _website = value;
+      },
+    );
+  }
+
+  Widget _buildDescription() {
+    return TextFormField(
+      decoration: new InputDecoration(
+        labelText: "Description",
+        fillColor: Colors.white,
+        border: new OutlineInputBorder(
+          borderRadius: new BorderRadius.circular(10.0),
+          borderSide: new BorderSide(),
+        ),
+      ),
+      keyboardType: TextInputType.text,
+      validator: (String value) {
+
+      },
       onSaved: (String value) {
         _website = value;
       },
@@ -595,18 +430,22 @@ class _newSession extends State<newSession> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: SingleChildScrollView(
           // Center is a layout widget. It takes a single child and positions it
           // in the middle of the parent.
           child: Column(children: <Widget>[
+            // HEADER
             Row(children: <Widget>[
               Container(
                 width: MediaQuery.of(context).size.width,
                 child: Image.asset('images/pageHeader.png', fit: BoxFit.fill),
               ),
             ]),
-        Padding(
+
+          // Title
+          Padding(
             padding: EdgeInsets.only(
               left: MediaQuery.of(context).size.width * 0.08,
               right: MediaQuery.of(context).size.width * 0.08,
@@ -621,58 +460,66 @@ class _newSession extends State<newSession> {
                     ),
                     alignment: Alignment.topLeft,
                   )
-                ])),
+          ])),
+
         // CONTENT ROW
-        Container(
-          margin: EdgeInsets.all(24),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                _buildName(),
-                _buildTopics(),
-                SizedBox(height: 15),
-                _buildSpeakers(),
-                SizedBox(height: 15),
-                _buildWebsite(),
-                SizedBox(height: 15),
-                _buildDate(),
-                SizedBox(height: 15),
-                _buildHour(),
-                SizedBox(height: 15),
-                Container(
-                  padding: EdgeInsets.all(8),
-                  child: RaisedButton(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        side: BorderSide(color: Colors.black26, width: 2)),
-                    child: Text('NEXT',
-                        style: TextStyle(
-                          color: Colors.black38,
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: 'Rubik',
-                        )),
-                    onPressed: () {
-                      if (!_formKey.currentState.validate()) return;
-                      _formKey.currentState.save();
-                      _saveConference();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => sessionQuestion()),
-                      );
-                      //Send to API
-                    },
+          Container(
+            margin: EdgeInsets.all(24),
+            child: Form(
+              key: _sessionFormKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  _buildName(),
+                  _buildTopics(),
+                  SizedBox(height: 15),
+                  _buildSpeakers(),
+                  SizedBox(height: 15),
+                  _buildWebsite(),
+                  SizedBox(height: 15),
+                  _buildDescription(),
+                  SizedBox(height: 15),
+                  _buildDate(),
+                  SizedBox(height: 15),
+                  _buildHour(),
+                  SizedBox(height: 15),
+                  Container(
+                    padding: EdgeInsets.all(8),
+                    child: RaisedButton(
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          side: BorderSide(color: Colors.black26, width: 2)),
+                      child: Text('NEXT',
+                          style: TextStyle(
+                            color: Colors.black38,
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: 'Rubik',
+                          )),
+                      onPressed: onSave,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
       ])),
     );
   }
+
+  // form validator
+  bool validate() {
+    var valid = _sessionFormKey.currentState.validate();
+    if (valid) _sessionFormKey.currentState.save();
+    return valid;
+  }
+
+  //on save forms
+  void onSave() {
+    if (_sessionFormKey.currentState.validate() && _speakers.length != 0) {
+      Navigator.pop(context, widget.session);
+    }
+  }
+
 }

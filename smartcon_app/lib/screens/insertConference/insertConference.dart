@@ -2,8 +2,6 @@ import 'package:date_range_picker/date_range_picker.dart' as DateRagePicker;
 import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:smartcon_app/models/conference.dart';
-import 'package:smartcon_app/services/database.dart';
-import '../homePage.dart';
 import 'conferenceSessions.dart';
 
 class InsertConference extends StatefulWidget {
@@ -21,7 +19,7 @@ class InsertConferenceState extends State<InsertConference> {
   List<DateTime> _dates = [];
   String _category;
   String _description;
-  String _website;
+  String _website = '';
   Conference _conference;
 
   String datesStr = 'Must Pick a date';
@@ -35,7 +33,7 @@ class InsertConferenceState extends State<InsertConference> {
     });
   }
 
-  _saveConference() async {
+  _buildConference(){
     _conference = new Conference(
         name: _name,
         category: _category,
@@ -45,12 +43,6 @@ class InsertConferenceState extends State<InsertConference> {
         beginDate: _dates[0],
         endDate: _dates[0],
         rating: 0);
-
-    await DatabaseService().addConference(_conference);
-    Navigator.pushAndRemoveUntil(context,
-        MaterialPageRoute(builder: (BuildContext context) => HomePage()),
-            (Route<dynamic> route) => route is HomePage
-    );
   }
 
   Widget _buildName() {
@@ -166,7 +158,6 @@ class InsertConferenceState extends State<InsertConference> {
                     lastDate: DateTime(2222),
                   );
                   if (picked != null && picked.length == 2) {
-                    print(picked);
                     _onDateChanged(picked);
                   }
                 },
@@ -353,16 +344,7 @@ class InsertConferenceState extends State<InsertConference> {
                           fontWeight: FontWeight.w700,
                           fontFamily: 'Rubik',
                         )),
-                    onPressed: () {
-                      _formKey.currentState.save();
-                      _saveConference();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => conferenceSessions()),
-                      );
-                      //Send to API
-                    },
+                    onPressed: onNext
                   ),
                 ),
               ],
@@ -371,5 +353,17 @@ class InsertConferenceState extends State<InsertConference> {
         ),
       ])),
     );
+  }
+
+  onNext(){
+      if (_formKey.currentState.validate()) {
+        _formKey.currentState.save();
+        _buildConference();
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => conferenceSessions(conference: _conference,)),
+        );
+      }
   }
 }
