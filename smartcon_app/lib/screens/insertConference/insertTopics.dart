@@ -56,7 +56,7 @@ class _InsertTopicsState extends State<InsertTopics> {
                   Container(
                     child: widget.topicsForms.length <= 0
                         ? Padding(
-                      padding: const EdgeInsets.only(top: 10),
+                      padding: const EdgeInsets.only(top: 20),
                       child: Text("Add Topic by tapping + button",style: TextStyle(fontSize: 17.0, fontFamily: 'Rubik', color: Colors.black38, fontWeight: FontWeight.w400)),
                     )
                         : ListView.builder(

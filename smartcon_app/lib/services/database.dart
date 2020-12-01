@@ -157,6 +157,11 @@ class DatabaseService {
       'website': session.website,
       'description': session.description,
       'date': session.date,
+      'question': session.question.question,
+      'answers': session.question.answers,
+      'options': session.question.options,
+      'type': session.question.type,
+      'required': session.question.required
     });
   }
 }

@@ -55,14 +55,16 @@ class _conferenceSessions extends State<conferenceSessions> {
                     ]),
               )
             ]),
-
+            SizedBox(height: 20),
             Row(
               children: widget.sessions.length <= 0
-                      ? [Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: Text("Add Session by tapping + button",style: TextStyle(fontSize: 17.0, fontFamily: 'Rubik', color: Colors.black38, fontWeight: FontWeight.w400)),
-                  )]
-                      : [Flexible(
+                ? [Padding(
+                      padding: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width * 0.08,
+                        right: MediaQuery.of(context).size.width * 0.08),
+                        child: Text("Add Session by tapping + button",style: TextStyle(fontSize: 17.0, fontFamily: 'Rubik', color: Colors.black38, fontWeight: FontWeight.w400)),
+                    )]
+                : [Flexible(
                     child: ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
@@ -109,10 +111,10 @@ class _conferenceSessions extends State<conferenceSessions> {
   }
 
   //on add form
-  void onAddForm() async{
+  void onAddForm() async {
     Session session = await Navigator.push( context, MaterialPageRoute( builder: (context) => NewSession()),);
     if(session == null) return;
-    else print('not null');
+
     setState(() {
       widget.sessions.add(session);
     });

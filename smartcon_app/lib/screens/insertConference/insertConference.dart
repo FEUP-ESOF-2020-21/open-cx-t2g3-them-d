@@ -60,7 +60,6 @@ class InsertConferenceState extends State<InsertConference> {
         if (value.isEmpty) {
           return 'Name is Required';
         }
-
         return null;
       },
       onSaved: (String value) {
@@ -250,12 +249,11 @@ class InsertConferenceState extends State<InsertConference> {
           borderSide: new BorderSide(),
         ),
       ),
-      keyboardType: TextInputType.multiline,
+      keyboardType: TextInputType.text,
       validator: (String value) {
         if (value.isEmpty) {
           return 'Description is Required';
         }
-
         return null;
       },
       onSaved: (String value) {

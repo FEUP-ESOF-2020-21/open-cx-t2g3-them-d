@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smartcon_app/models/session.dart';
+import 'package:smartcon_app/screens/insertConference/sessionQuestion.dart';
 import 'package:time_range/time_range.dart';
 import 'package:smartcon_app/screens/insertConference/insertSpeakers.dart';
 import 'insertTopics.dart';
@@ -57,7 +58,6 @@ class _NewSessionState extends State<NewSession> {
         if (value.isEmpty) {
           return 'Name is Required';
         }
-
         return null;
       },
       onSaved: (String value) {
@@ -213,7 +213,10 @@ class _NewSessionState extends State<NewSession> {
         ),
       ),
       validator: (String value) {
-
+        if (value.isEmpty) {
+          return 'Description is Required';
+        }
+        return null;
       },
       onSaved: (String value) {
         _description = value;
@@ -325,7 +328,7 @@ class _NewSessionState extends State<NewSession> {
                             fontWeight: FontWeight.w700,
                             fontFamily: 'Rubik',
                           )),
-                      onPressed: onSave,
+                      onPressed: onNext,
                     ),
                   ),
                 ],
@@ -337,10 +340,16 @@ class _NewSessionState extends State<NewSession> {
   }
 
   //on save forms
-  void onSave() {
+  Future<void> onNext() async {
     if (_sessionFormKey.currentState.validate() && _speakers.length != 0 && _topics.length != 0) {
       _sessionFormKey.currentState.save();
       _buildSession();
+
+      SessionQuestion question = await Navigator.push( context, MaterialPageRoute( builder: (context) => BuildSessionQuestion()),);
+      if(question == null) return null;
+
+      widget.session.addQuestion(question);
+
       Navigator.pop(context, widget.session);
     }
   }
