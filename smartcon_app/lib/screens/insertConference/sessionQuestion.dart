@@ -1,12 +1,12 @@
+import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:smartcon_app/models/conference.dart';
 import 'package:smartcon_app/models/session.dart';
-import 'package:smartcon_app/screens/insertConference/newSession.dart';
-import 'package:smartcon_app/screens/insertConference/conferenceSessions.dart';
 import 'package:smartcon_app/services/database.dart';
+
 
 class BuildSessionQuestion extends StatefulWidget {
   SessionQuestion sessionQuestion;
@@ -22,16 +22,38 @@ class _BuildSessionQuestion extends State<BuildSessionQuestion> {
 
   String _question;
   String _type = 'conceptKnowledge';
-  int _required;
+  String _required;
   List<String> _options = List<String>(4);
-  List<int> _answers = List<int>();
+  String _answer;
+
+  _letterToInt(str){
+    int result;
+    switch(str){
+      case 'A':
+        result = 0;
+        break;
+      case 'B':
+        result = 1;
+        break;
+      case 'C':
+        result = 2;
+        break;
+      case 'D':
+        result = 3;
+        break;
+      default:
+        result = -1;
+        break;
+    }
+    return result;
+  }
 
   _buildSessionQuestion(){
     widget.sessionQuestion = new SessionQuestion(
       question: _question,
       options: _options,
-      required: _required,
-      answers: _answers,
+      required: _required == null ? -1 : int.parse(_required),
+      answer: _answer == null ? -1 : _letterToInt(_answer),
       type: _type
       );
   }
@@ -64,36 +86,148 @@ class _BuildSessionQuestion extends State<BuildSessionQuestion> {
 
   Widget _buildRequired() {
     return Container(
-      alignment: Alignment.centerRight,
-      width: MediaQuery.of(context).size.width * 0.2,
-      height: 40,
-      child: TextFormField(
-        inputFormatters: <TextInputFormatter>[
-          FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-        ],
-        keyboardType: TextInputType.numberWithOptions(signed: false, decimal: false),
-        decoration: new InputDecoration(
-          fillColor: Colors.white,
-          border: new OutlineInputBorder(
-            borderRadius: new BorderRadius.circular(10.0),
-            borderSide: new BorderSide(),
-          ),
-        ),
-        validator: (value) {
-          var temp = int.tryParse(value);
-          if (value == null) return 'This field is required (0 to 4) - see explanation below (?)';
+        alignment: Alignment.centerRight,
+        width: MediaQuery.of(context).size.width * 0.3,
+        child: DropDownFormField(
+          contentPadding: EdgeInsets.fromLTRB(12, -20, 8, 0),
+          required: true,
+          titleText: '',
+          hintText: '',
+          value:  _required,
+          onSaved: (value) {
+            setState(() {
+              _required = value;
+            });
+          },
+          onChanged: (value) {
+            setState(() {
+              _required = value;
+            });
+          },
+          validator: (value) {
+            if (value == null) {
+              return 'Please choose an option';
+            }
+            return null;
+          },
+          dataSource: [
+            {
+              "display": "0",
+              "value": "0",
+            },
+            {
+              "display": "1",
+              "value": "1",
+            },
+            {
+              "display": "2",
+              "value": "2",
+            },
+            {
+              "display": "3",
+              "value": "3",
+            },
+            {
+              "display": "4",
+              "value": "4",
+            },
+          ],
+          textField: 'display',
+          valueField: 'value',
+        )
+    );
+  }
 
-          if (temp < 0 || temp > 4) {
-            return 'This field is required (0 to 4) - see explanation below (?)';
+  Widget _buildAnswer() {
+    return Container(
+      alignment: Alignment.centerRight,
+      width: MediaQuery.of(context).size.width * 0.3,
+      child: DropDownFormField(
+        contentPadding: EdgeInsets.fromLTRB(12, -20, 8, 0),
+        required: true,
+        titleText: '',
+        hintText: '',
+        value: _answer,
+        onSaved: (value) {
+          setState(() {
+            _answer = value;
+          });
+        },
+        onChanged: (value) {
+          setState(() {
+            _answer = value;
+          });
+        },
+        validator: (value) {
+          if (value == null) {
+            return 'Please choose a correct answer';
           }
           return null;
         },
-        onSaved: (value) {
-          var temp = int.tryParse(value);
-          _required = temp;
-        },
-      ),
+        dataSource: [
+          {
+            "display": "A",
+            "value": "A",
+          },
+          {
+            "display": "B",
+            "value": "B",
+          },
+          {
+            "display": "C",
+            "value": "C",
+          },
+          {
+            "display": "D",
+            "value": "D",
+          },
+        ],
+        textField: 'display',
+        valueField: 'value',
+      )
     );
+  }
+
+  Widget _buildForType(){
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if(_type == 'conceptKnowledge')
+          Row(
+            children: [
+              Container(
+                  width: MediaQuery.of(context).size.width * 0.84,
+                  child:
+                  Text(
+                      "How many concepts must the user know to enjoy the session?",
+                      style: TextStyle(
+                        color: Color(0xFF4A4444),
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.w400,
+                      ),
+                  )
+              ),
+            ],
+          ),
+        if(_type == 'conceptKnowledge')
+          SizedBox(height: 20),
+        Row(
+          children: [
+            Container(
+                width: MediaQuery.of(context).size.width * 0.54,
+                child: Text(
+                  _type == 'conceptKnowledge' ? "KNOLDGE REQUIRED " : "CORRECT OPTION ",
+                  style: TextStyle(
+                  color: Color(0xFF4A4444),
+                  fontSize: 17.0,
+                  fontWeight: FontWeight.w500,
+                  ),
+                ),
+            ),
+            _type == 'conceptKnowledge' ? _buildRequired() : _buildAnswer()
+          ],
+        ),
+    ]);
   }
 
   Widget _buildOption(optionIdx, letter) {
@@ -176,7 +310,7 @@ class _BuildSessionQuestion extends State<BuildSessionQuestion> {
                       Container(
                         width: MediaQuery.of(context).size.width * 0.84,
                         child: Text(
-                          "Make a Question to test Attendees knowledge",
+                          "Make a Question to test Attendees knowledge on the topics of the session",
                           style: TextStyle(
                             color: Colors.black87,
                             fontSize: 17.0,
@@ -188,6 +322,36 @@ class _BuildSessionQuestion extends State<BuildSessionQuestion> {
                       ),
                     ],
                   ),
+                ),
+
+                // Question Type
+                Column(
+                  children: <Widget>[
+                    ListTile(
+                      title: const Text('Concept Knowledge Question'),
+                      leading: Radio(
+                        value: 'conceptKnowledge',
+                        groupValue: _type,
+                        onChanged: (String value) {
+                          setState(() {
+                            _type = value;
+                          });
+                        },
+                      ),
+                    ),
+                    ListTile(
+                      title: const Text('Right/Wrong Question'),
+                      leading: Radio(
+                        value: 'right/wrong',
+                        groupValue: _type,
+                        onChanged: (String value) {
+                          setState(() {
+                            _type = value;
+                          });
+                        },
+                      ),
+                    ),
+                  ],
                 ),
 
                 SizedBox(height: 20,),
@@ -218,20 +382,7 @@ class _BuildSessionQuestion extends State<BuildSessionQuestion> {
                           _buildQuestion(),
 
                           SizedBox(height: 10),
-                          Row(
-                            children: [ Container(
-                              width: MediaQuery.of(context).size.width * 0.64,
-                              child: Text(
-                                "KNOLDGE REQUIRED ",
-                                style: TextStyle(
-                                  color: Color(0xFF4A4444),
-                                  fontSize: 17.0,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          _buildRequired()
-                          ]),
+                          _buildForType(),
 
                           SizedBox(height: 10),
                           _buildOption(0,'A. '),

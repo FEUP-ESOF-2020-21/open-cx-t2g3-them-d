@@ -23,7 +23,7 @@ class SessionQuestion {
   final List<String> options;
   final int required;
   final String type;
-  final List<int> answers;
+  final int answer;
 
-  SessionQuestion({this.sessionId='', this.question, this.options, this.required, this.type, this.answers});
+  SessionQuestion({this.sessionId='', this.question, this.options, this.required, this.type, this.answer});
 }

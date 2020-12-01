@@ -23,7 +23,7 @@ class DatabaseService {
         options: List.from(doc.data()['options']),
         required: doc.data()['required'],
         type: doc.data()['questionType'],
-        answers: List.from(doc.data()['answers']),
+        answer: doc.data()['answer'],
       );
     }).toList();
   }
@@ -158,7 +158,7 @@ class DatabaseService {
       'description': session.description,
       'date': session.date,
       'question': session.question.question,
-      'answers': session.question.answers,
+      'answer': session.question.answer,
       'options': session.question.options,
       'type': session.question.type,
       'required': session.question.required
