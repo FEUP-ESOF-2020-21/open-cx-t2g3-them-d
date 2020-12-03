@@ -132,7 +132,6 @@ Have you ever wondered about the main reason why attendees go to conferences? Fr
 
 ![](./images/Smartcon_guidemap.png)
 
-
 #### Story I - Conference Suggestions
 
 * **Story**
@@ -328,29 +327,34 @@ To better understand the context of the software system, it is very useful to ha
 
 ---
 
+
 ## Architecture and Design
  
 The architecture of a software system encompasses the set of key decisions about its overall organization. 
 
-A well written architecture document is brief but reduces the amount of time it takes new programmers to a project to understand the code to feel able to make modifications and enhancements.
+### Logical architecture
 
-To document the architecture requires describing the decomposition of the system in their parts (high-level components) and the key behaviors and collaborations between them. 
+The purpose of this subsection is to document the high-level logical structure of the code.
 
-In this section you should start by briefly describing the overall components of the project and their interrelations. You should also describe how you solved typical problems you may have encountered, pointing to well-known architectural and design patterns, if applicable.
+![](./images/logicalArchitecture.PNG)
+
+SmartCon's app high-level logical structure follows the Model-View-Controler Architectural Pattern (*MVC*). We chose this pattern as we find it the most appropried and simple structure for this type of projects.
+
+As shown on the diagram, the **Model** contains all the information related to each domain: User, Conference and Session. Every update on this domains is trigered by the Controler that also connects with the View. The **Controller** consists of interfaces that query the database and generate funcionalities according to que users inputs, as well as authentication functions. Finally, the **View** represents the concrete display of each app state.
+
 
 ### Physical architecture
 
-The purpose of this subsection is to document the high-level logical structure of the code, using a UML diagram with logical packages, without the worry of allocating to components, processes or machines.
+The goal of this subsection is to document the high-level physical structure of the software system.
 
-It can be beneficial to present the system both in a horizontal or vertical decomposition:
-* horizontal decomposition may define layers and implementation concepts, such as the user interface, business logic and concepts; 
-* vertical decomposition can define a hierarchy of subsystems that cover all layers of implementation.
+![](./images/physicalArchitecture.PNG)
 
-### Logical architecture
+SmartCon's app high-level physical structure consists of two main blocks and one main connection between them. 
+The user installs the SmartCon app on a smarphone and every time the app needs to connect to our database it does it via HTTPS requests, where is all the information available.
 
-The goal of this subsection is to document the high-level physical structure of the software system (machines, connections, software components installed, and their dependencies) using UML deployment diagrams or component diagrams (separate or integrated), showing the physical structure of the system.
+For this project the main technologie considered was Flutter for the mobile UI combined with Firebase to store all the data. 
+We chose Flutter because of its ability to easily customize anything that appears on the screen with the ready-to-use widgets. As for the database server we used Firebase as it is of easy integration with Flutter.
 
-It should describe also the technologies considered and justify the selections made. Examples of technologies relevant for openCX are, for example, frameworks for mobile applications (Flutter vs ReactNative vs ...), languages to program with microbit, and communication with things (beacons, sensors, etc.).
 
 
 ### Prototype
@@ -363,8 +367,7 @@ In this subsection please describe in more detail which, and how, user(s) story(
 
 ## Implementation
 
-### Product increment #1
-Changelogs for the first increment can be found [here](https://github.com/FEUP-ESOF-2020-21/open-cx-t2g3-them-d/releases) - v0.1.0.
+Changelogs for the increments made can be found [here](https://github.com/FEUP-ESOF-2020-21/open-cx-t2g3-them-d/releases)
 
 ---
 
