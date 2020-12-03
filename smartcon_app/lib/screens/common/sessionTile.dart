@@ -120,7 +120,7 @@ class SessionTile extends StatelessWidget {
                   children: [
                     Container(
                       width: MediaQuery.of(context).size.width * 0.5,
-                      child: Text(DateFormat.yMMMd().format(session.date) + ' - ' + DateFormat.Hm().format(session.date),
+                      child: Text(DateFormat.yMMMd().format(session.begin) + ' - ' + DateFormat.Hm().format(session.begin) + ' TO ' + DateFormat.Hm().format(session.end),
                           style: TextStyle(
                               fontSize: 17.0,
                               fontFamily: 'Rubik',

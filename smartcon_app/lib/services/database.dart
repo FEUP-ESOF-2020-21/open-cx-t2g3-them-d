@@ -39,7 +39,8 @@ class DatabaseService {
         name: doc.data()['name'],
         topics: List.from(doc.data()['topics']),
         speakers: List.from(doc.data()['speakers']),
-        date: doc.data()['date'].toDate(),
+        begin: doc.data()['begin'].toDate().toUtc().add(Duration(hours: 1)),
+        end: doc.data()['end'].toDate().toUtc().add(Duration(hours: 1)),
         website: doc.data()['website'],
         description: doc.data()['description']
       );
@@ -156,11 +157,12 @@ class DatabaseService {
       'topics' : session.topics,
       'website': session.website,
       'description': session.description,
-      'date': session.date,
+      'begin': session.begin,
+      'end': session.end,
       'question': session.question.question,
       'answer': session.question.answer,
       'options': session.question.options,
-      'type': session.question.type,
+      'questionType': session.question.type,
       'required': session.question.required
     });
   }

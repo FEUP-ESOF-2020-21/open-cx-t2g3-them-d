@@ -4,11 +4,12 @@ class Session {
   List<String> topics;
   List<String> speakers;
   String website;
-  DateTime date;
+  DateTime begin;
+  DateTime end;
   String description;
   SessionQuestion question;
 
-  Session({this.sessionId, this.name, this.topics, this.speakers, this.website, this.date, this.description});
+  Session({this.sessionId, this.name, this.topics, this.speakers, this.website, this.begin, this.end, this.description});
 
   Session.emptySession({this.sessionId='', this.name = '', this.website = '', this.description=''});
 

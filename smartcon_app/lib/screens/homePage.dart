@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smartcon_app/models/user.dart';
@@ -56,29 +57,58 @@ class _HomePageState extends State<HomePage> {
                         )
                     ),
                   ),
-                  Padding(
-                      padding:  EdgeInsets.only(
-                        left: MediaQuery.of(context).size.width * 0.08,
-                        top: MediaQuery.of(context).size.width * 0.08,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                          padding:  EdgeInsets.only(
+                            left: MediaQuery.of(context).size.width * 0.08,
+                            top: MediaQuery.of(context).size.width * 0.08,
+                          ),
+                          child: RaisedButton(
+                            onPressed: () async {
+                              Navigator.pushAndRemoveUntil(context,
+                                  MaterialPageRoute(builder: (BuildContext context) => Wrapper()),
+                                      (Route<dynamic> route) => route is HomePage
+                              );
+                              await _auth.signOutGoogle();
+                            },
+                            color: Color(0xFF6E96EF),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text("SIGN OUT", style: Theme.of(context).textTheme.headline4,),
+                            ),
+                            elevation: 5,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12)),
+                          )
                       ),
-                      child: RaisedButton(
-                        onPressed: () async {
-                          Navigator.pushAndRemoveUntil(context,
-                              MaterialPageRoute(builder: (BuildContext context) => Wrapper()),
-                                  (Route<dynamic> route) => route is HomePage
-                          );
-                          await _auth.signOutGoogle();
-                        },
-                        color: Color(0xFF6E96EF),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text("SIGN OUT", style: Theme.of(context).textTheme.headline4,),
-                        ),
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12)),
-                      )
+
+                      Padding(
+                          padding:  EdgeInsets.only(
+                            right: MediaQuery.of(context).size.width * 0.08,
+                            top: MediaQuery.of(context).size.width * 0.08,
+                          ),
+                          child: RaisedButton(
+                            onPressed: () {
+                              Navigator.push( context, MaterialPageRoute( builder: (context) => Profile()),);
+                            },
+                            color: Color(0xFF6E96EF),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                "MANAGE PROFILE",
+                                style: Theme.of(context).textTheme.headline4,
+                              ),
+                            ),
+                            elevation: 5,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12)),
+                          )
+                      ),
+                    ],
                   ),
+                  //Manage Profile Button
                 ],
               ),
               Padding(

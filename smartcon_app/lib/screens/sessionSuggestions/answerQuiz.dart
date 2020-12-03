@@ -39,23 +39,20 @@ class _AnswerQuizState extends State<AnswerQuiz> {
         _save_checked();
       });
 
-      var wrongAnswer;
       for(int i = 0; i < quiz.length; i++){
-        wrongAnswer = false;
-        if(quiz[i].type == 'conceptKnowledge'){
 
+        if(quiz[i].type == "conceptKnowledge"){
+          print('concept knowledge');
           if(finalAnswers[i].length >= quiz[i].required){
+            print('adddddd '); print(i);
             await DatabaseService(uid: user.uid).addSessionSuggestion(widget.conferenceId, quiz[i].sessionId);
           }
         }
-        else if(quiz[i].type == 'right/wrong'){
-            if(quiz[i].answer != quiz[i].options.indexOf(finalAnswers[i][0])) {
-              wrongAnswer = true;
-              break;
-            }
-
-          if(!wrongAnswer)
+        else if(quiz[i].type == "right/wrong"){
+          print('right/wrong');
+          if(quiz[i].answer == quiz[i].options.indexOf(finalAnswers[i][0])) {
             await DatabaseService(uid: user.uid).addSessionSuggestion(widget.conferenceId, quiz[i].sessionId);
+          }
         }
         else
           print('Error - unknown question type');
@@ -109,7 +106,7 @@ class _AnswerQuizState extends State<AnswerQuiz> {
                 orientation: GroupedButtonsOrientation.VERTICAL,
                 margin: const EdgeInsets.only(left: 12.0),
                 onSelected: (List selected) => setState((){
-                  if (selected.length > 1)
+                  if (selected.length > 1 && question.type == 'right/wrong')
                     selected.removeAt(0);
                   _checked = selected;
                 }),

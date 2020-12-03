@@ -238,7 +238,7 @@ class _BuildSessionQuestion extends State<BuildSessionQuestion> {
           child: Text(
             letter,
             style: TextStyle(
-              color: Color(0xFF637DEB),
+              color: Color(0xFF5BBDB8),
               fontSize: 15.0,
               fontWeight: FontWeight.w500,
             ),
@@ -302,7 +302,12 @@ class _BuildSessionQuestion extends State<BuildSessionQuestion> {
                         width: MediaQuery.of(context).size.width * 0.84,
                         child: Text(
                           "Session Question",
-                          style: Theme.of(context).textTheme.headline2,
+                          style: TextStyle(
+                            fontFamily: 'Rubik',
+                            color: Color(0xFF5BBDB8),
+                            fontSize: 32.0,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                         alignment: Alignment.topLeft,
                       ),

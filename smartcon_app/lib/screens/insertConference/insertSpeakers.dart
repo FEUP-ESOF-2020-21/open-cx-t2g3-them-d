@@ -49,7 +49,12 @@ class _InsertSpeakersState extends State<InsertSpeakers> {
                   Container(
                     child: Text(
                       "Insert Speakers",
-                      style: Theme.of(context).textTheme.headline2,
+                      style: TextStyle(
+                        fontFamily: 'Rubik',
+                        color: Color(0xFF5BBDB8),
+                        fontSize: 32.0,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                     alignment: Alignment.topLeft,
                   ),

@@ -33,7 +33,7 @@ class _SessionSuggestionsState extends State<SessionSuggestions> {
     return StreamBuilder(
       stream: DatabaseService().getConferenceSessions(widget.conferenceId),
       builder: (context, snapshot) {
-        print(widget.conferenceId);
+
         if (snapshot.hasData) {
           List<Session> sessions = _getSuggestedSessions(snapshot.data);
 

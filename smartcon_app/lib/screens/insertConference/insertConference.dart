@@ -142,7 +142,7 @@ class InsertConferenceState extends State<InsertConference> {
           child: ButtonTheme(
             height: 50,
             child: MaterialButton(
-                color: Color(0xFF6E96EF),
+                color: Color(0xFF5BBDB8),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0)),
                 highlightElevation: 40.0,
@@ -304,7 +304,12 @@ class InsertConferenceState extends State<InsertConference> {
                   Container(
                     child: Text(
                       "Insert Conference",
-                      style: Theme.of(context).textTheme.headline2,
+                      style:TextStyle(
+                        fontFamily: 'Rubik',
+                        color: Color(0xFF5BBDB8),
+                        fontSize: 32.0,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                     alignment: Alignment.topLeft,
                   )

@@ -19,6 +19,14 @@ class _NewSessionState extends State<NewSession> {
 
   String _name;
   DateTime _date;
+  List<DateTime> _dates = [];
+
+  final _defaultTimeRange = TimeRangeResult(
+    TimeOfDay(hour: 14, minute: 50),
+    TimeOfDay(hour: 15, minute: 20),
+  );
+
+  TimeRangeResult _timeRange;
   String dateStr = 'Must Pick a date';
   String _description;
   String _website = "";
@@ -26,21 +34,41 @@ class _NewSessionState extends State<NewSession> {
   List<String> _topics = new List<String>();
 
   _buildSession(){
+    _dateAndTime();
     widget.session = new Session(
         name: _name,
         speakers: _speakers,
         topics: _topics,
         website: _website,
         description: _description,
-        date: _date,);
+        begin: _dates[0],
+        end: _dates[1],);
   }
 
-  String datesStr = 'Must Pick a date';
+  DateTime _dateAndTime(){
+    TimeOfDay begin = _timeRange.start;
+    TimeOfDay end = _timeRange.end;
+
+    setState(() {
+      _dates = [new DateTime(_date.year, _date.month, _date.day, begin.hour, begin.minute) ,
+        new DateTime(_date.year, _date.month, _date.day, end.hour, end.minute)];
+    });
+
+    print(_dates[0].hour);
+    print(_dates[1].hour);
+  }
+
   _onDateChanged(picked) {
     setState(() {
       _date = picked;
       dateStr = _date.toString().substring(0, 10);
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _timeRange = _defaultTimeRange;
   }
 
   Widget _buildName() {
@@ -156,21 +184,21 @@ class _NewSessionState extends State<NewSession> {
           child: ButtonTheme(
             height: 50,
             child: MaterialButton(
-                color: Color(0xFF6E96EF),
+                color: Color(0xFF5BBDB8),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0)),
                 highlightElevation: 40.0,
                 onPressed: () async {
                   final DateTime picked =
                       await showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(2020),
-                    lastDate: DateTime(2222),
-                  );
-                  if (picked != null && picked != _date) {
-                    _onDateChanged(picked);
-                  }
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(2020),
+                        lastDate: DateTime(2222),
+                      );
+                      if (picked != null && picked != _date) {
+                        _onDateChanged(picked);
+                      }
                 },
                 child: Text(
                   "Date",
@@ -233,14 +261,14 @@ class _NewSessionState extends State<NewSession> {
           style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF6E96EF)),
+              color: Color(0xFF5BBDB8)),
         ),
         toTitle: Text(
           'To',
           style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF6E96EF)),
+              color: Color(0xFF5BBDB8)),
         ),
         titlePadding: 20,
         textStyle:
@@ -252,9 +280,10 @@ class _NewSessionState extends State<NewSession> {
         activeBackgroundColor: Colors.grey,
         firstTime: TimeOfDay(hour: 1, minute: 30),
         lastTime: TimeOfDay(hour: 20, minute: 00),
+        initialRange: _timeRange,
         timeStep: 10,
         timeBlock: 30,
-        onRangeCompleted: (range) => setState(() => print(range)),
+        onRangeCompleted: (range) => setState(() => _timeRange = range),
       ))
     ]);
   }
@@ -287,7 +316,12 @@ class _NewSessionState extends State<NewSession> {
                   Container(
                     child: Text(
                       "New Session",
-                      style: Theme.of(context).textTheme.headline2,
+                      style: TextStyle(
+                        fontFamily: 'Rubik',
+                        color: Color(0xFF5BBDB8),
+                        fontSize: 32.0,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                     alignment: Alignment.topLeft,
                   )
