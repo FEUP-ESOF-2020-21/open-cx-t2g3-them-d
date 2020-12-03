@@ -5,7 +5,6 @@ typedef OnDelete();
 
 class InsertSpeakers extends StatefulWidget {
   List<String> speakers;
-  List<SpeakerForm> speakersForms = [];
   InsertSpeakers({Key key, this.speakers}) : super(key: key);
 
   @override
@@ -15,6 +14,7 @@ class InsertSpeakers extends StatefulWidget {
 }
 
 class _InsertSpeakersState extends State<InsertSpeakers> {
+  List<SpeakerForm> speakersForms = [];
 
   @override
   void initState() {
@@ -22,7 +22,7 @@ class _InsertSpeakersState extends State<InsertSpeakers> {
 
     // add previous forms
     for (var spk in widget.speakers) {
-      widget.speakersForms.add(SpeakerForm(speaker: spk, onDelete: () => onDelete(spk),));
+      speakersForms.add(new SpeakerForm(speaker: spk, onDelete: () => onDelete(spk),));
     }
   }
 
@@ -59,7 +59,7 @@ class _InsertSpeakersState extends State<InsertSpeakers> {
                     alignment: Alignment.topLeft,
                   ),
                   Container(
-                    child: widget.speakersForms.length <= 0
+                    child: speakersForms.length <= 0
                         ? Padding(
                           padding: const EdgeInsets.only(top: 20),
                           child: Text("Add Speaker by tapping + button",style: TextStyle(fontSize: 17.0, fontFamily: 'Rubik', color: Colors.black38, fontWeight: FontWeight.w400)),
@@ -68,8 +68,8 @@ class _InsertSpeakersState extends State<InsertSpeakers> {
                             physics: NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
                             addAutomaticKeepAlives: true,
-                            itemCount: widget.speakersForms.length,
-                            itemBuilder: (_, i) => widget.speakersForms[i],
+                            itemCount: speakersForms.length,
+                            itemBuilder: (_, i) => speakersForms[i],
                         ),
                   )
                 ])),
@@ -112,28 +112,28 @@ class _InsertSpeakersState extends State<InsertSpeakers> {
   void onAddForm() {
     setState(() {
       var _speaker = "";
-      widget.speakersForms.add(SpeakerForm(speaker: _speaker, onDelete: () => onDelete(_speaker),));
+      speakersForms.add(SpeakerForm(speaker: _speaker, onDelete: () => onDelete(_speaker),));
     });
   }
 
   //on form user deleted
   void onDelete(String _speaker) {
     setState(() {
-      var find = widget.speakersForms.firstWhere(
+      var find = speakersForms.firstWhere(
             (it) => it.speaker == _speaker,
         orElse: () => null,
       );
-      if (find != null) widget.speakersForms.removeAt(widget.speakersForms.indexOf(find));
+      if (find != null) speakersForms.removeAt(speakersForms.indexOf(find));
     });
   }
 
   //on save forms
   void onSave() {
-    if (widget.speakersForms.length > 0) {
+    if (speakersForms.length > 0) {
       var allValid = true;
-      widget.speakersForms.forEach((form) => allValid = allValid && form.isValid());
+      speakersForms.forEach((form) => allValid = allValid && form.isValid());
       if (allValid) {
-        widget.speakers = widget.speakersForms.map((it) => it.speaker).toList();
+        widget.speakers = speakersForms.map((it) => it.speaker).toList();
         Navigator.pop(context, widget.speakers);
       }
     }
@@ -153,7 +153,7 @@ class SpeakerForm extends StatefulWidget {
 }
 
 class _SpeakerFormState extends State<SpeakerForm> {
-  final form = GlobalKey<FormState>();
+  final form = new GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -166,12 +166,6 @@ class _SpeakerFormState extends State<SpeakerForm> {
                 title: Text('Speaker'),
                 backgroundColor: Color(0xFF5BBDB8),
                 automaticallyImplyLeading: false,
-                actions: <Widget>[
-                  IconButton(
-                    icon: Icon(Icons.delete),
-                    onPressed: widget.onDelete,
-                  )
-                ],
               ),
               TextFormField(
                 initialValue: widget.speaker,

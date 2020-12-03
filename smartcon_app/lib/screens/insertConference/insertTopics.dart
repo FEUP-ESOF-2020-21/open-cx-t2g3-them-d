@@ -5,7 +5,6 @@ typedef OnDelete();
 
 class InsertTopics extends StatefulWidget {
   List<String> topics;
-  List<TopicForm> topicsForms = [];
   InsertTopics({Key key, this.topics}) : super(key: key);
 
   @override
@@ -15,6 +14,7 @@ class InsertTopics extends StatefulWidget {
 }
 
 class _InsertTopicsState extends State<InsertTopics> {
+  List<TopicForm> topicsForms = [];
 
   @override
   void initState() {
@@ -22,7 +22,7 @@ class _InsertTopicsState extends State<InsertTopics> {
 
     // add previous forms
     for (var topic in widget.topics) {
-      widget.topicsForms.add(TopicForm(topic: topic, onDelete: () => onDelete(topic),));
+      topicsForms.add(TopicForm(topic: topic, onDelete: () => onDelete(topic),));
     }
   }
 
@@ -59,7 +59,7 @@ class _InsertTopicsState extends State<InsertTopics> {
                     alignment: Alignment.topLeft,
                   ),
                   Container(
-                    child: widget.topicsForms.length <= 0
+                    child: topicsForms.length <= 0
                         ? Padding(
                       padding: const EdgeInsets.only(top: 20),
                       child: Text("Add Topic by tapping + button",style: TextStyle(fontSize: 17.0, fontFamily: 'Rubik', color: Colors.black38, fontWeight: FontWeight.w400)),
@@ -68,8 +68,8 @@ class _InsertTopicsState extends State<InsertTopics> {
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       addAutomaticKeepAlives: true,
-                      itemCount: widget.topicsForms.length,
-                      itemBuilder: (_, i) => widget.topicsForms[i],
+                      itemCount: topicsForms.length,
+                      itemBuilder: (_, i) => topicsForms[i],
                     ),
                   )
                 ])),
@@ -112,28 +112,30 @@ class _InsertTopicsState extends State<InsertTopics> {
   void onAddForm() {
     setState(() {
       var _topic = "";
-      widget.topicsForms.add(TopicForm(topic: _topic, onDelete: () => onDelete(_topic),));
+      topicsForms.add(TopicForm(topic: _topic, onDelete: () => onDelete(_topic),));
     });
   }
 
-  //on form user deleted
+  //on form deleted
   void onDelete(String _topic) {
     setState(() {
-      var find = widget.topicsForms.firstWhere(
+      var find = topicsForms.firstWhere(
             (it) => it.topic == _topic,
         orElse: () => null,
       );
-      if (find != null) widget.topicsForms.removeAt(widget.topicsForms.indexOf(find));
+      if (find != null)
+        topicsForms.removeAt(topicsForms.indexOf(find));
     });
   }
 
   //on save forms
   void onSave() {
-    if (widget.topicsForms.length > 0) {
+    if (topicsForms.length > 0) {
+
       var allValid = true;
-      widget.topicsForms.forEach((form) => allValid = allValid && form.isValid());
+      topicsForms.forEach((form) => (allValid = allValid && form.isValid()));
       if (allValid) {
-        widget.topics = widget.topicsForms.map((it) => it.topic).toList();
+        widget.topics = topicsForms.map((it) => it.topic).toList();
         Navigator.pop(context, widget.topics);
       }
     }
@@ -153,7 +155,7 @@ class TopicForm extends StatefulWidget {
 }
 
 class _TopicFormState extends State<TopicForm> {
-  final form = GlobalKey<FormState>();
+  final form = new GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -166,18 +168,11 @@ class _TopicFormState extends State<TopicForm> {
                 title: Text('Topic'),
                 backgroundColor: Color(0xFF5BBDB8),
                 automaticallyImplyLeading: false,
-                actions: <Widget>[
-                  IconButton(
-                    icon: Icon(Icons.delete),
-                    onPressed: widget.onDelete,
-                  )
-                ],
               ),
               TextFormField(
                 initialValue: widget.topic,
                 onSaved: (val) => widget.topic = val,
-                validator: (val) =>
-                val.length > 2 ? null : 'Topic\'s name is invalid',
+                validator: (val) => val.length > 2 ? null : 'Topic\'s name is invalid',
                 decoration: InputDecoration(
                   labelText: 'Topic\'s name',
                   hintText: 'Topic\'s name',
