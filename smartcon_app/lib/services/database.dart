@@ -23,7 +23,7 @@ class DatabaseService {
         options: List.from(doc.data()['options']),
         required: doc.data()['required'],
         type: doc.data()['questionType'],
-        answers: List.from(doc.data()['answers']),
+        answer: doc.data()['answer'],
       );
     }).toList();
   }
@@ -39,7 +39,8 @@ class DatabaseService {
         name: doc.data()['name'],
         topics: List.from(doc.data()['topics']),
         speakers: List.from(doc.data()['speakers']),
-        date: doc.data()['date'].toDate(),
+        begin: doc.data()['begin'].toDate().toUtc().add(Duration(hours: 1)),
+        end: doc.data()['end'].toDate().toUtc().add(Duration(hours: 1)),
         website: doc.data()['website'],
         description: doc.data()['description']
       );
@@ -129,19 +130,40 @@ class DatabaseService {
   }
 
   // Insert Conference into Database
-  Future<void> addConference(Conference conference) async {
-    return await conferencesCollection.doc(uid).set({
-      'name': conference.name,
-      'category': conference.category,
-      'district': conference.district,
-      'website': conference.website,
-      'description': conference.description,
-      'beginDate': conference.beginDate,
-      'endDate': conference.endDate,
-      'rating': conference.rating,
-    });
+    addConference(Conference conference) async {
+    var newConference = await conferencesCollection.doc();
+
+     newConference.set({
+       'name': conference.name,
+       'category': conference.category,
+       'district': conference.district,
+       'website': conference.website,
+       'description': conference.description,
+       'beginDate': conference.beginDate,
+       'endDate': conference.endDate,
+       'rating': conference.rating,
+     });
+
+    return newConference.id;
   }
 
+  // Sessions
 
-
+  // Insert Session into Database
+  Future<void> addSession(String conferenceId, Session session) async {
+    return await conferencesCollection.doc(conferenceId).collection('sessions').doc().set({
+      'name': session.name,
+      'speakers': session.speakers,
+      'topics' : session.topics,
+      'website': session.website,
+      'description': session.description,
+      'begin': session.begin,
+      'end': session.end,
+      'question': session.question.question,
+      'answer': session.question.answer,
+      'options': session.question.options,
+      'questionType': session.question.type,
+      'required': session.question.required
+    });
+  }
 }

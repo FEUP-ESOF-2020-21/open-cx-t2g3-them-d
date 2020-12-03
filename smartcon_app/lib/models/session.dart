@@ -1,13 +1,21 @@
 class Session {
-  final String sessionId;
-  final String name;
-  final List<String> topics;
-  final List<String> speakers;
-  final String website;
-  final DateTime date;
-  final String description;
+  String sessionId;
+  String name;
+  List<String> topics;
+  List<String> speakers;
+  String website;
+  DateTime begin;
+  DateTime end;
+  String description;
+  SessionQuestion question;
 
-  Session({this.sessionId, this.name, this.topics, this.speakers, this.website, this.date, this.description});
+  Session({this.sessionId, this.name, this.topics, this.speakers, this.website, this.begin, this.end, this.description});
+
+  Session.emptySession({this.sessionId='', this.name = '', this.website = '', this.description=''});
+
+  void addQuestion(SessionQuestion question){
+    this.question = question;
+  }
 }
 
 class SessionQuestion {
@@ -16,7 +24,7 @@ class SessionQuestion {
   final List<String> options;
   final int required;
   final String type;
-  final List<int> answers;
+  final int answer;
 
-  SessionQuestion({this.sessionId, this.question, this.options, this.required, this.type, this.answers});
+  SessionQuestion({this.sessionId='', this.question, this.options, this.required, this.type, this.answer});
 }

@@ -2,11 +2,7 @@ import 'package:date_range_picker/date_range_picker.dart' as DateRagePicker;
 import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:smartcon_app/models/conference.dart';
-import 'package:smartcon_app/models/session.dart';
-import 'package:smartcon_app/services/auth.dart';
-import 'package:smartcon_app/services/database.dart';
-
-import '../homePage.dart';
+import 'conferenceSessions.dart';
 
 class InsertConference extends StatefulWidget {
   @override
@@ -16,7 +12,6 @@ class InsertConference extends StatefulWidget {
 }
 
 class InsertConferenceState extends State<InsertConference> {
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   String _name;
@@ -24,18 +19,21 @@ class InsertConferenceState extends State<InsertConference> {
   List<DateTime> _dates = [];
   String _category;
   String _description;
-  String _website;
+  String _website = '';
   Conference _conference;
 
-  String datesStr =  'Must Pick a date';
-  _onDateChanged(picked){
-    setState((){
+  String datesStr = 'Must Pick a date';
+  _onDateChanged(picked) {
+    setState(() {
       _dates = picked;
-      datesStr = "FROM: " + _dates[0].toString().substring(0,10) + "\nTO: " + _dates[1].toString().substring(0,10);
+      datesStr = "FROM: " +
+          _dates[0].toString().substring(0, 10) +
+          "\nTO: " +
+          _dates[1].toString().substring(0, 10);
     });
   }
 
-  _saveConference() async {
+  _buildConference(){
     _conference = new Conference(
         name: _name,
         category: _category,
@@ -44,15 +42,7 @@ class InsertConferenceState extends State<InsertConference> {
         description: _description,
         beginDate: _dates[0],
         endDate: _dates[0],
-        rating: 0,
-    );
-
-    await DatabaseService().addConference(_conference);
-    Navigator.pushAndRemoveUntil(context,
-        MaterialPageRoute(builder: (BuildContext context) => HomePage()),
-            (Route<dynamic> route) => route is HomePage
-    );
-
+        rating: 0);
   }
 
   Widget _buildName() {
@@ -70,7 +60,6 @@ class InsertConferenceState extends State<InsertConference> {
         if (value.isEmpty) {
           return 'Name is Required';
         }
-
         return null;
       },
       onSaved: (String value) {
@@ -130,52 +119,55 @@ class InsertConferenceState extends State<InsertConference> {
   Widget _buildDate() {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.84,
-      child: Row(
-          children: [
-            Container(
-              width: MediaQuery.of(context).size.width * 0.54,
-              height: 50.0,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(width: 2.0, color: Colors.black26),
-                  borderRadius: BorderRadius.all(Radius.circular(10.0))
-              ),
-
-              child: Text( datesStr, style: TextStyle(color: Colors.black87, fontSize: 15.0,  fontWeight: FontWeight.w400, fontFamily: 'Rubik',)),
-              padding: EdgeInsets.only(left: 10),
-              alignment: Alignment.centerLeft,
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width * 0.3,
-              child: ButtonTheme(
-                height: 50,
-                child: MaterialButton(
-                    color: Color(0xFF6E96EF),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0)),
-                    highlightElevation: 40.0,
-                    onPressed: () async {
-                      final List<DateTime> picked = await DateRagePicker.showDatePicker(
-                          context: context,
-                          initialFirstDate: new DateTime.now(),
-                          initialLastDate: (new DateTime.now()).add(new Duration(days: 7)),
-                          firstDate: DateTime(2020),
-                          lastDate: DateTime(2222),
-                      );
-                      if (picked != null && picked.length == 2) {
-                        print(picked);
-                        _onDateChanged(picked);
-                      }
-                    },
-                    child: Text(
-                      "Date",
-                      style: Theme.of(context).textTheme.headline6,
-                      textAlign: TextAlign.center,
-                    )),
-              ),
-            ),
-          ]
-      ),
+      child: Row(children: [
+        Container(
+          width: MediaQuery.of(context).size.width * 0.54,
+          height: 50.0,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(width: 2.0, color: Colors.black26),
+              borderRadius: BorderRadius.all(Radius.circular(10.0))),
+          child: Text(datesStr,
+              style: TextStyle(
+                color: Colors.black87,
+                fontSize: 15.0,
+                fontWeight: FontWeight.w400,
+                fontFamily: 'Rubik',
+              )),
+          padding: EdgeInsets.only(left: 10),
+          alignment: Alignment.centerLeft,
+        ),
+        Container(
+          width: MediaQuery.of(context).size.width * 0.3,
+          child: ButtonTheme(
+            height: 50,
+            child: MaterialButton(
+                color: Color(0xFF5BBDB8),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0)),
+                highlightElevation: 40.0,
+                onPressed: () async {
+                  final List<DateTime> picked =
+                      await DateRagePicker.showDatePicker(
+                    context: context,
+                    initialFirstDate: new DateTime.now(),
+                    initialLastDate:
+                        (new DateTime.now()).add(new Duration(days: 7)),
+                    firstDate: DateTime(2020),
+                    lastDate: DateTime(2222),
+                  );
+                  if (picked != null && picked.length == 2) {
+                    _onDateChanged(picked);
+                  }
+                },
+                child: Text(
+                  "Date",
+                  style: Theme.of(context).textTheme.headline6,
+                  textAlign: TextAlign.center,
+                )),
+          ),
+        ),
+      ]),
     );
   }
 
@@ -262,7 +254,6 @@ class InsertConferenceState extends State<InsertConference> {
         if (value.isEmpty) {
           return 'Description is Required';
         }
-
         return null;
       },
       onSaved: (String value) {
@@ -313,7 +304,12 @@ class InsertConferenceState extends State<InsertConference> {
                   Container(
                     child: Text(
                       "Insert Conference",
-                      style: Theme.of(context).textTheme.headline2,
+                      style:TextStyle(
+                        fontFamily: 'Rubik',
+                        color: Color(0xFF5BBDB8),
+                        fontSize: 32.0,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                     alignment: Alignment.topLeft,
                   )
@@ -340,18 +336,18 @@ class InsertConferenceState extends State<InsertConference> {
                 Container(
                   padding: EdgeInsets.all(8),
                   child: RaisedButton(
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          side: BorderSide(color: Colors.black26, width: 2)),
-                      child: Text('NEXT', style: TextStyle(color:Colors.black38, fontSize: 14.0,  fontWeight: FontWeight.w700, fontFamily: 'Rubik',)),
-                    onPressed: () {
-                      if (!_formKey.currentState.validate())
-                        return;
-                      _formKey.currentState.save();
-                      _saveConference();
-                      //Send to API
-                    },
+                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        side: BorderSide(color: Colors.black26, width: 2)),
+                    child: Text('NEXT',
+                        style: TextStyle(
+                          color: Colors.black38,
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w700,
+                          fontFamily: 'Rubik',
+                        )),
+                    onPressed: onNext
                   ),
                 ),
               ],
@@ -360,5 +356,17 @@ class InsertConferenceState extends State<InsertConference> {
         ),
       ])),
     );
+  }
+
+  onNext(){
+      if (_formKey.currentState.validate()) {
+        _formKey.currentState.save();
+        _buildConference();
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => conferenceSessions(conference: _conference,)),
+        );
+      }
   }
 }

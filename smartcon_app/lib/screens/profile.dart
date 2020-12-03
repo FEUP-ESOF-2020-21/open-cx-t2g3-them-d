@@ -205,9 +205,7 @@ class ProfileFormState extends State<ProfileForm> {
                                 _selectedInterests ??
                                     userData.interests,);
 
-                              Navigator.push(context, MaterialPageRoute(
-                                  builder: (context) =>
-                                      SearchConferences()),);
+                              Navigator.of(context).pop();
                             }
                           }
                       ),

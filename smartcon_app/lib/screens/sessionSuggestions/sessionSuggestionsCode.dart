@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smartcon_app/models/conference.dart';
@@ -50,6 +52,24 @@ class SessionSuggestionsCodeState extends State<SessionSuggestionsCode> {
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              Text("Please insert your ticket code to get session suggestions!\n"
+                  "If you haven't bought a ticket to any conference check Conference Suggestions.",
+                  style: TextStyle(
+                    color:Colors.black38,
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: 'Rubik',)),
+              SizedBox(height: 20,),
+              Container(
+                alignment: Alignment.topLeft,
+                child: Text("DEMO CODE: conf2",
+                    style: TextStyle(
+                      color: Color(0xFF637DEB),
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'Rubik',)),
+              ),
+              SizedBox(height: 20,),
               TextFormField(
                 decoration: new InputDecoration(
                   labelText: "Code",
@@ -79,7 +99,12 @@ class SessionSuggestionsCodeState extends State<SessionSuggestionsCode> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                       side: BorderSide(color: Colors.black26, width: 2)),
-                  child: Text('GET SUGGESTIONS', style: TextStyle(color:Colors.black38, fontSize: 14.0,  fontWeight: FontWeight.w700, fontFamily: 'Rubik',)),
+                  child: Text('GET SUGGESTIONS',
+                      style: TextStyle(
+                        color:Colors.black38,
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'Rubik',)),
                   onPressed: () async {
                     _confCodeKey.currentState.save();
                     if (!_confCodeKey.currentState.validate())

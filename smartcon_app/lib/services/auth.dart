@@ -59,7 +59,7 @@ class AuthService {
   }
 
   Future<SmartconUser> currentUser() async {
-    final user = await _auth.currentUser;
+    final user = _auth.currentUser;
     return _userFromFirebaseUser(user);
   }
 }

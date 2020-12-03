@@ -39,27 +39,20 @@ class _AnswerQuizState extends State<AnswerQuiz> {
         _save_checked();
       });
 
-      var wrongAnswer;
       for(int i = 0; i < quiz.length; i++){
-        wrongAnswer = false;
-        if(quiz[i].type == 'conceptKnowledge'){
-          print('Concept knowledge');
+
+        if(quiz[i].type == "conceptKnowledge"){
+          print('concept knowledge');
           if(finalAnswers[i].length >= quiz[i].required){
+            print('adddddd '); print(i);
             await DatabaseService(uid: user.uid).addSessionSuggestion(widget.conferenceId, quiz[i].sessionId);
           }
         }
-        else if(quiz[i].type == 'right/wrong'){
-          print('Right/Wrong');
-          // The answer is correct
-          for(int j = 0; j < finalAnswers[i].length; j++){
-            if(!quiz[i].answers.contains( quiz[i].options.indexOf(finalAnswers[i][j]))) {
-              wrongAnswer = true;
-              break;
-            }
-            print('correct answer');
-          }
-          if(!wrongAnswer)
+        else if(quiz[i].type == "right/wrong"){
+          print('right/wrong');
+          if(quiz[i].answer == quiz[i].options.indexOf(finalAnswers[i][0])) {
             await DatabaseService(uid: user.uid).addSessionSuggestion(widget.conferenceId, quiz[i].sessionId);
+          }
         }
         else
           print('Error - unknown question type');
@@ -113,20 +106,22 @@ class _AnswerQuizState extends State<AnswerQuiz> {
                 orientation: GroupedButtonsOrientation.VERTICAL,
                 margin: const EdgeInsets.only(left: 12.0),
                 onSelected: (List selected) => setState((){
+                  if (selected.length > 1 && question.type == 'right/wrong')
+                    selected.removeAt(0);
                   _checked = selected;
                 }),
                 labels: question.options,
                 checked: _checked,
                 itemBuilder: (Checkbox checkbox, Text optionText, int i){
                   return Row(
-                          children: <Widget>[
-                            checkbox,
-                            Container(
-                              width: MediaQuery.of(context).size.width * 0.84 - 20,
-                              child: optionText,
-                            )
-                          ],
-                        );
+                      children: <Widget>[
+                        checkbox,
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.84 - 20,
+                          child: optionText,
+                        )
+                      ],
+                    );
                 },
               )
             ),
