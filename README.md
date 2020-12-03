@@ -325,6 +325,7 @@ Scenario: Attendee creates his profile preferences or location
 
 To better understand the context of the software system, it is very useful to have a simple UML class diagram with all the key concepts (names, attributes) and relationships involved of the problem domain addressed by your module.
 
+  ![](./images/domainModel.png)
 ---
 
 
