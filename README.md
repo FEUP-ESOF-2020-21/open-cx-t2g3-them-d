@@ -143,7 +143,7 @@ As an Attendee, I want to be able to get conference suggestions based on my prof
 
 * **Acceptance tests**.
 ```gherkin
-Scenario: Attendee searches conferences with profile preconfigured
+Scenario: Attendee searches conferences with the profile already configured
   Given I have saved my Profile Preferences
   When I tap the Search Conferences button
   And I select a Date range
@@ -176,7 +176,7 @@ As an Attendee, I want to have the possibility of getting the right session sugg
 
 * **Acceptance tests**.
 ```gherkin
-Scenario: Attendee searches session sugestions using a conference code never used before
+Scenario: Attendee searches session suggestions using a conference code never used before
   Given I have a valid Conference Code
   When I tap the Session Suggestions button
   And I insert the Conference Code
@@ -185,7 +185,7 @@ Scenario: Attendee searches session sugestions using a conference code never use
 ```
 
 ```gherkin
-Scenario: Attendee searches session sugestions using a conference code used before
+Scenario: Attendee searches session suggestions using a conference code used before
   Given I have a valid Conference Code
   And I have already filled the Quiz for that Conference
   When I tap the Session Suggestions button
@@ -194,7 +194,7 @@ Scenario: Attendee searches session sugestions using a conference code used befo
 ```
 
 ```gherkin
-Scenario: Attendee searches session sugestions using an invalid conference code
+Scenario: Attendee searches session suggestions using an invalid conference code
   Given I have an invalid Conference Code
   When I tap the Session Suggestions button
   And I insert the Conference Code
@@ -300,7 +300,8 @@ As an Attendee, I want to be able to change my saved interests and desired locat
 ```gherkin
 Scenario: Attendee changes his profile preferences or location
   Given I have Signed In
-  And I have clicked the Session Suggestions button
+  And I have already configured my profile yet
+  And I have clicked the Search Conferences button
   When I tap the Manage Profile button
   Then I will be able to change my Interests and District
   And I will be able to Save Profile by clicking the button
@@ -310,7 +311,7 @@ Scenario: Attendee changes his profile preferences or location
 Scenario: Attendee creates his profile preferences or location
   Given I have Signed In
   And I have not configured my profile yet
-  When I click the Session Suggestions button
+  When I click the  Search Conferences button
   Then I will be able to set my Interests and District
   And I will be able to Save Profile by clicking the button
 ```
@@ -339,9 +340,9 @@ The purpose of this subsection is to document the high-level logical structure o
 
 ![](./images/logicalArchitecture.PNG)
 
-SmartCon's app high-level logical structure follows the Model-View-Controler Architectural Pattern (*MVC*). We chose this pattern as we find it the most appropried and simple structure for this type of projects.
+SmartCon's app high-level logical structure follows the Model-View-Controller Architectural Pattern (*MVC*). We chose this pattern as we find it the most appropriate and simple structure for this type of projects.
 
-As shown on the diagram, the **Model** contains all the information related to each domain: User, Conference and Session. Every update on this domains is trigered by the Controler that also connects with the View. The **Controller** consists of interfaces that query the database and generate funcionalities according to que users inputs, as well as authentication functions. Finally, the **View** represents the concrete display of each app state.
+As shown on the diagram, the **Model** contains all the information related to each domain: User, Conference and Session. Every update on this domains is triggered by the Controller that also connects with the View. The **Controller** consists of interfaces that query the database and generate functionalities according to que users inputs, as well as authentication functions. Finally, the **View** represents the concrete display of each app state.
 
 
 ### Physical architecture
@@ -351,9 +352,9 @@ The goal of this subsection is to document the high-level physical structure of 
 ![](./images/physicalArchitecture.PNG)
 
 SmartCon's app high-level physical structure consists of two main blocks and one main connection between them. 
-The user installs the SmartCon app on a smarphone and every time the app needs to connect to our database it does it via HTTPS requests, where is all the information available.
+The user installs the SmartCon app on a smartphone and every time the app needs to connect to our database it does it via HTTPS requests, where is all the information available.
 
-For this project the main technologie considered was Flutter for the mobile UI combined with Firebase to store all the data. 
+For this project the main technology considered was Flutter for the mobile UI combined with Firebase to store all the data. 
 We chose Flutter because of its ability to easily customize anything that appears on the screen with the ready-to-use widgets. As for the database server we used Firebase as it is of easy integration with Flutter.
 
 
