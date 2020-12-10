@@ -373,9 +373,46 @@ class _NewSessionState extends State<NewSession> {
     );
   }
 
+  showErrorDialog(BuildContext context) {
+    // set up the button
+    Widget okButton = FlatButton(
+      child: Text("OK"),
+      onPressed: () {
+        Navigator.of(context).pop(); // dismiss dialog
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Session data is invalid", style: TextStyle(
+        color: Color(0xFF5BBDB8),
+        fontSize: 18.0,
+        fontWeight: FontWeight.w600,
+        fontFamily: 'Rubik',
+      )),
+      content: Text("Make sure you inserted all the data. Only website is optional.", style: TextStyle(
+        color: Colors.black87,
+        fontSize: 15.0,
+        fontWeight: FontWeight.w400,
+        fontFamily: 'Rubik',
+      )),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   //on save forms
   Future<void> onNext() async {
-    if (_sessionFormKey.currentState.validate() && _speakers.length != 0 && _topics.length != 0) {
+    if (_sessionFormKey.currentState.validate() && _speakers.length != 0 && _topics.length != 0 && _date != null) {
       _sessionFormKey.currentState.save();
       _buildSession();
 
@@ -385,6 +422,9 @@ class _NewSessionState extends State<NewSession> {
       widget.session.addQuestion(question);
 
       Navigator.pop(context, widget.session);
+    }
+    else{
+      showErrorDialog(context);
     }
   }
 

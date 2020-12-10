@@ -41,7 +41,7 @@ class InsertConferenceState extends State<InsertConference> {
         website: _website,
         description: _description,
         beginDate: _dates[0],
-        endDate: _dates[0],
+        endDate: _dates[1],
         rating: 0);
   }
 
@@ -358,8 +358,45 @@ class InsertConferenceState extends State<InsertConference> {
     );
   }
 
+  showErrorDialog(BuildContext context) {
+    // set up the button
+    Widget okButton = FlatButton(
+      child: Text("OK"),
+      onPressed: () {
+        Navigator.of(context).pop(); // dismiss dialog
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Conference data is invalid", style: TextStyle(
+        color: Color(0xFF5BBDB8),
+        fontSize: 18.0,
+        fontWeight: FontWeight.w600,
+        fontFamily: 'Rubik',
+      )),
+      content: Text("Make sure you inserted all the data. Only website is optional", style: TextStyle(
+        color: Colors.black87,
+        fontSize: 15.0,
+        fontWeight: FontWeight.w400,
+        fontFamily: 'Rubik',
+      )),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   onNext(){
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState.validate() && _dates.length == 2) {
         _formKey.currentState.save();
         _buildConference();
         Navigator.push(
@@ -367,6 +404,9 @@ class InsertConferenceState extends State<InsertConference> {
           MaterialPageRoute(
               builder: (context) => conferenceSessions(conference: _conference,)),
         );
+      }
+      else{
+        showErrorDialog(context);
       }
   }
 }
