@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:smartcon_app/models/session.dart';
-import 'package:smartcon_app/screens/insertConference/sessionQuestion.dart';
+import 'package:smartcon_app/model/session.dart';
+import 'package:smartcon_app/view/insertConference/sessionQuestion.dart';
 import 'package:time_range/time_range.dart';
-import 'package:smartcon_app/screens/insertConference/insertSpeakers.dart';
+import 'package:smartcon_app/view/insertConference/insertSpeakers.dart';
 import 'insertTopics.dart';
 
 class NewSession extends StatefulWidget {
@@ -14,7 +14,6 @@ class NewSession extends StatefulWidget {
 }
 
 class _NewSessionState extends State<NewSession> {
-
   final GlobalKey<FormState> _sessionFormKey = GlobalKey<FormState>();
 
   String _name;
@@ -33,25 +32,29 @@ class _NewSessionState extends State<NewSession> {
   List<String> _speakers = new List<String>();
   List<String> _topics = new List<String>();
 
-  _buildSession(){
+  _buildSession() {
     _dateAndTime();
     widget.session = new Session(
-        name: _name,
-        speakers: _speakers,
-        topics: _topics,
-        website: _website,
-        description: _description,
-        begin: _dates[0],
-        end: _dates[1],);
+      name: _name,
+      speakers: _speakers,
+      topics: _topics,
+      website: _website,
+      description: _description,
+      begin: _dates[0],
+      end: _dates[1],
+    );
   }
 
-  DateTime _dateAndTime(){
+  DateTime _dateAndTime() {
     TimeOfDay begin = _timeRange.start;
     TimeOfDay end = _timeRange.end;
 
     setState(() {
-      _dates = [new DateTime(_date.year, _date.month, _date.day, begin.hour, begin.minute) ,
-        new DateTime(_date.year, _date.month, _date.day, end.hour, end.minute)];
+      _dates = [
+        new DateTime(
+            _date.year, _date.month, _date.day, begin.hour, begin.minute),
+        new DateTime(_date.year, _date.month, _date.day, end.hour, end.minute)
+      ];
     });
 
     print(_dates[0].hour);
@@ -107,12 +110,12 @@ class _NewSessionState extends State<NewSession> {
           onPressed: () async {
             var receivedTopics = await Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => InsertTopics(topics: _topics)),
+              MaterialPageRoute(
+                  builder: (context) => InsertTopics(topics: _topics)),
             );
-            if(receivedTopics != null) _topics = receivedTopics;
+            if (receivedTopics != null) _topics = receivedTopics;
           },
-          child: Text(
-              "INSERT TOPICS",
+          child: Text("INSERT TOPICS",
               style: TextStyle(
                 color: Colors.black38,
                 fontSize: 14.0,
@@ -140,12 +143,14 @@ class _NewSessionState extends State<NewSession> {
             onPressed: () async {
               var receivedSpeakers = await Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => InsertSpeakers(speakers: _speakers,)),
+                MaterialPageRoute(
+                    builder: (context) => InsertSpeakers(
+                          speakers: _speakers,
+                        )),
               );
-              if(receivedSpeakers != null) _speakers = receivedSpeakers;
+              if (receivedSpeakers != null) _speakers = receivedSpeakers;
             },
-            child: Text(
-                "INSERT SPEAKERS",
+            child: Text("INSERT SPEAKERS",
                 style: TextStyle(
                   color: Colors.black38,
                   fontSize: 14.0,
@@ -189,16 +194,15 @@ class _NewSessionState extends State<NewSession> {
                     borderRadius: BorderRadius.circular(10.0)),
                 highlightElevation: 40.0,
                 onPressed: () async {
-                  final DateTime picked =
-                      await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(2020),
-                        lastDate: DateTime(2222),
-                      );
-                      if (picked != null && picked != _date) {
-                        _onDateChanged(picked);
-                      }
+                  final DateTime picked = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(2020),
+                    lastDate: DateTime(2222),
+                  );
+                  if (picked != null && picked != _date) {
+                    _onDateChanged(picked);
+                  }
                 },
                 child: Text(
                   "Date",
@@ -290,22 +294,21 @@ class _NewSessionState extends State<NewSession> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: SingleChildScrollView(
           // Center is a layout widget. It takes a single child and positions it
           // in the middle of the parent.
           child: Column(children: <Widget>[
-            // HEADER
-            Row(children: <Widget>[
-              Container(
-                width: MediaQuery.of(context).size.width,
-                child: Image.asset('images/pageHeader.png', fit: BoxFit.fill),
-              ),
-            ]),
+        // HEADER
+        Row(children: <Widget>[
+          Container(
+            width: MediaQuery.of(context).size.width,
+            child: Image.asset('images/pageHeader.png', fit: BoxFit.fill),
+          ),
+        ]),
 
-          // Title
-          Padding(
+        // Title
+        Padding(
             padding: EdgeInsets.only(
               left: MediaQuery.of(context).size.width * 0.08,
               right: MediaQuery.of(context).size.width * 0.08,
@@ -325,67 +328,71 @@ class _NewSessionState extends State<NewSession> {
                     ),
                     alignment: Alignment.topLeft,
                   )
-          ])),
+                ])),
 
         // CONTENT ROW
-          Container(
-            margin: EdgeInsets.all(24),
-            child: Form(
-              key: _sessionFormKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  _buildName(),
-                  _buildTopics(),
-                  SizedBox(height: 15),
-                  _buildSpeakers(),
-                  SizedBox(height: 15),
-                  _buildWebsite(),
-                  SizedBox(height: 15),
-                  _buildDescription(),
-                  SizedBox(height: 15),
-                  _buildDate(),
-                  SizedBox(height: 15),
-                  _buildHour(),
-                  SizedBox(height: 15),
-                  Container(
-                    padding: EdgeInsets.all(8),
-                    child: RaisedButton(
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          side: BorderSide(color: Colors.black26, width: 2)),
-                      child: Text('NEXT',
-                          style: TextStyle(
-                            color: Colors.black38,
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w700,
-                            fontFamily: 'Rubik',
-                          )),
-                      onPressed: onNext,
-                    ),
+        Container(
+          margin: EdgeInsets.all(24),
+          child: Form(
+            key: _sessionFormKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                _buildName(),
+                _buildTopics(),
+                SizedBox(height: 15),
+                _buildSpeakers(),
+                SizedBox(height: 15),
+                _buildWebsite(),
+                SizedBox(height: 15),
+                _buildDescription(),
+                SizedBox(height: 15),
+                _buildDate(),
+                SizedBox(height: 15),
+                _buildHour(),
+                SizedBox(height: 15),
+                Container(
+                  padding: EdgeInsets.all(8),
+                  child: RaisedButton(
+                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        side: BorderSide(color: Colors.black26, width: 2)),
+                    child: Text('NEXT',
+                        style: TextStyle(
+                          color: Colors.black38,
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w700,
+                          fontFamily: 'Rubik',
+                        )),
+                    onPressed: onNext,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
+        ),
       ])),
     );
   }
 
   //on save forms
   Future<void> onNext() async {
-    if (_sessionFormKey.currentState.validate() && _speakers.length != 0 && _topics.length != 0) {
+    if (_sessionFormKey.currentState.validate() &&
+        _speakers.length != 0 &&
+        _topics.length != 0) {
       _sessionFormKey.currentState.save();
       _buildSession();
 
-      SessionQuestion question = await Navigator.push( context, MaterialPageRoute( builder: (context) => BuildSessionQuestion()),);
-      if(question == null) return null;
+      SessionQuestion question = await Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => BuildSessionQuestion()),
+      );
+      if (question == null) return null;
 
       widget.session.addQuestion(question);
 
       Navigator.pop(context, widget.session);
     }
   }
-
 }

@@ -2,8 +2,8 @@ import 'package:chips_choice/chips_choice.dart';
 import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smartcon_app/models/user.dart';
-import 'package:smartcon_app/services/database.dart';
+import 'package:smartcon_app/model/user.dart';
+import 'package:smartcon_app/controller/database.dart';
 
 import 'conferenceSuggestions/searchConferences.dart';
 
@@ -14,57 +14,57 @@ class Profile extends StatelessWidget {
       value: DatabaseService().categories,
       child: Scaffold(
           resizeToAvoidBottomInset: false,
-          body: SingleChildScrollView(child: Center(
+          body: SingleChildScrollView(
+              child: Center(
             // Center is a layout widget. It takes a single child and positions it
             // in the middle of the parent.
             child: Column(
-              children: <Widget> [
+              children: <Widget>[
                 // HEADER IMAGE (100%)
-                Row(
-                    children: <Widget> [ Container(
-                      width: MediaQuery.of(context).size.width,
-                      child: Image.asset( 'images/pageHeader.png', fit: BoxFit.fill ),),
-                    ]
-                ),
+                Row(children: <Widget>[
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    child:
+                        Image.asset('images/pageHeader.png', fit: BoxFit.fill),
+                  ),
+                ]),
 
                 // CONTENT ROW
                 Row(
-                  children: <Widget> [
+                  children: <Widget>[
                     // MARGINS
                     Padding(
-                      padding:  EdgeInsets.only(
+                      padding: EdgeInsets.only(
                         left: MediaQuery.of(context).size.width * 0.08,
                         right: MediaQuery.of(context).size.width * 0.08,
                       ),
                       child:
-                      // CONTENT
-                      Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget> [
-                            Row(
-                                children: [
-                                  Container(
-                                      alignment: Alignment.topLeft,
-                                      child: Text("Your Profile", style: Theme.of(context).textTheme.headline2,)
-                                  ),]
-                            ),
+                          // CONTENT
+                          Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                            Row(children: [
+                              Container(
+                                  alignment: Alignment.topLeft,
+                                  child: Text(
+                                    "Your Profile",
+                                    style:
+                                        Theme.of(context).textTheme.headline2,
+                                  )),
+                            ]),
                             SizedBox(
                                 width: MediaQuery.of(context).size.width * 0.84,
                                 child: ProfileForm())
-                          ]
-                      ),
+                          ]),
                     ),
                   ],
                 ),
               ],
             ),
-          )
-          )
-      ),
+          ))),
     );
   }
 }
-
 
 class ProfileForm extends StatefulWidget {
   @override
@@ -74,7 +74,6 @@ class ProfileForm extends StatefulWidget {
 }
 
 class ProfileFormState extends State<ProfileForm> {
-
   final _keyProfile = GlobalKey<FormState>();
 
   // form values
@@ -89,7 +88,7 @@ class ProfileFormState extends State<ProfileForm> {
     return StreamBuilder<UserData>(
         stream: DatabaseService(uid: user.uid).userData,
         builder: (context, snapshot) {
-          if(snapshot.hasData){
+          if (snapshot.hasData) {
             UserData userData = snapshot.data;
 
             return Form(
@@ -100,10 +99,10 @@ class ProfileFormState extends State<ProfileForm> {
                     Container(
                       padding: EdgeInsets.only(top: 5),
                       alignment: Alignment.topLeft,
-                      child: Text('DISTRICT', style: Theme
-                          .of(context)
-                          .textTheme
-                          .headline3,),
+                      child: Text(
+                        'DISTRICT',
+                        style: Theme.of(context).textTheme.headline3,
+                      ),
                     ),
                     Padding(
                       padding: EdgeInsets.all(8.0),
@@ -122,19 +121,30 @@ class ProfileFormState extends State<ProfileForm> {
                           });
                         },
                         validator: (value) {
-                          if (value == null)
-                            return 'Please choose a district';
+                          if (value == null) return 'Please choose a district';
                           return null;
                         },
                         dataSource: [
-                          {"display": "Porto", "value": "Porto",},
-                          {"display": "Aveiro", "value": "Aveiro",},
-                          {"display": "Lisboa", "value": "Lisboa",},
+                          {
+                            "display": "Porto",
+                            "value": "Porto",
+                          },
+                          {
+                            "display": "Aveiro",
+                            "value": "Aveiro",
+                          },
+                          {
+                            "display": "Lisboa",
+                            "value": "Lisboa",
+                          },
                           {
                             "display": "Viana do Castelo",
                             "value": "Viana do Castelo",
                           },
-                          {"display": "Faro", "value": "Faro",},
+                          {
+                            "display": "Faro",
+                            "value": "Faro",
+                          },
                         ],
                         textField: 'display',
                         valueField: 'value',
@@ -143,16 +153,13 @@ class ProfileFormState extends State<ProfileForm> {
                     Container(
                       padding: EdgeInsets.only(top: 5),
                       alignment: Alignment.topLeft,
-                      child: Text('INTERESTS', style: Theme
-                          .of(context)
-                          .textTheme
-                          .headline3,),
+                      child: Text(
+                        'INTERESTS',
+                        style: Theme.of(context).textTheme.headline3,
+                      ),
                     ),
                     SizedBox(
-                      width: MediaQuery
-                          .of(context)
-                          .size
-                          .width * 0.84,
+                      width: MediaQuery.of(context).size.width * 0.84,
                       child: ChipsChoice<String>.multiple(
                         value: _selectedInterests ?? userData.interests,
                         onChanged: (val) =>
@@ -164,11 +171,12 @@ class ProfileFormState extends State<ProfileForm> {
                         ),
                         choiceStyle: C2ChoiceStyle(
                             showCheckmark: false,
-                            labelStyle: TextStyle(fontSize: 17.0,
+                            labelStyle: TextStyle(
+                              fontSize: 17.0,
                               fontWeight: FontWeight.w500,
-                              fontFamily: 'Rubik',),
-                            borderRadius: BorderRadius.circular(12)
-                        ),
+                              fontFamily: 'Rubik',
+                            ),
+                            borderRadius: BorderRadius.circular(12)),
                         choiceActiveStyle: C2ChoiceStyle(
                             showCheckmark: false,
                             borderColor: Color(0xFF637DEB),
@@ -176,7 +184,8 @@ class ProfileFormState extends State<ProfileForm> {
                               color: Color(0xFF637DEB),
                               fontSize: 17.0,
                               fontWeight: FontWeight.w500,
-                              fontFamily: 'Rubik',),
+                              fontFamily: 'Rubik',
+                            ),
                             borderRadius: BorderRadius.circular(12)),
                         wrapped: true,
                       ),
@@ -189,37 +198,35 @@ class ProfileFormState extends State<ProfileForm> {
                           color: Colors.white,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
-                              side: BorderSide(
-                                  color: Colors.black26, width: 2)),
-                          child: Text('SAVE', style: TextStyle(
-                            color: Colors.black38,
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w700,
-                            fontFamily: 'Rubik',)),
+                              side:
+                                  BorderSide(color: Colors.black26, width: 2)),
+                          child: Text('SAVE',
+                              style: TextStyle(
+                                color: Colors.black38,
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w700,
+                                fontFamily: 'Rubik',
+                              )),
                           onPressed: () async {
                             if (_keyProfile.currentState.validate()) {
                               _keyProfile.currentState.save();
                               await DatabaseService(uid: user.uid)
                                   .updateProfile(
                                 _district ?? userData.district,
-                                _selectedInterests ??
-                                    userData.interests,);
+                                _selectedInterests ?? userData.interests,
+                              );
 
                               Navigator.of(context).pop();
                             }
-                          }
-                      ),
+                          }),
                     ),
                   ],
-                )
-            );
-          }
-          else {
+                ));
+          } else {
             print('waiting for profile');
             return Container();
           }
-        }
-    );
+        });
   }
 }
 

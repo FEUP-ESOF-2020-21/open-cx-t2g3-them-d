@@ -324,9 +324,15 @@ Scenario: Attendee creates his profile preferences or location
 
 ### Domain model
 
-To better understand the context of the software system, it is very useful to have a simple UML class diagram with all the key concepts (names, attributes) and relationships involved of the problem domain addressed by your module.
+To better understand the context of the software system, it is very useful to have a simple UML class diagram with all the key concepts and relationships.
 
   ![](./images/domainModel.png)
+
+  Our app concepts are easily understood, consisting of Conferences, Sessions, Profiles, Users and Quizes. Every User can be connected to a Conference as an attendee or organizer. Every attendee has a Profile defining his interests and location (district). Furthermore, Conferences have multiple Sessions and each Session has one Quiz. The attendee when attending a Conference answers the Quiz so that he can see which are the most suitable Sessions.
+
+
+
+
 ---
 
 
@@ -340,9 +346,9 @@ The purpose of this subsection is to document the high-level logical structure o
 
 ![](./images/logicalArchitecture.PNG)
 
-SmartCon's app high-level logical structure follows the Model-View-Controller Architectural Pattern (*MVC*). We chose this pattern as we find it the most appropriate and simple structure for this type of projects.
+SmartCon's app's high-level logical structure follows the Model-View-Controller Architectural Pattern (*MVC*). We chose this pattern as we find it the most appropriate and simple structure for this type of project. Since we are a group of four elements we found that using this model we can work simultaneously on the model, controller, and views. Also, because of the separation of responsibilities, we found it easier to change and upgrade our app in every increment. Additionally, using *MVC* one model can have multiple views, which, since this is an app with quite some features, came in handy.
 
-As shown on the diagram, the **Model** contains all the information related to each domain: User, Conference and Session. Every update on this domains is triggered by the Controller that also connects with the View. The **Controller** consists of interfaces that query the database and generate functionalities according to que users inputs, as well as authentication functions. Finally, the **View** represents the concrete display of each app state.
+As shown in the diagram, the **Model** contains all the information related to each domain: User, Conference, and Session. Every update on these domains is triggered by the Controller that also connects with the View. The **Controller** consists of interfaces that query the database and generate functionalities according to the users' inputs, as well as authentication functions. This enables the possibility of having  logic and backend parts separate. Finally, the **View** represents the concrete display of each app state.
 
 
 ### Physical architecture
@@ -369,21 +375,35 @@ In this subsection please describe in more detail which, and how, user(s) story(
 
 ## Implementation
 
-Changelogs for the increments made can be found [here](https://github.com/FEUP-ESOF-2020-21/open-cx-t2g3-them-d/releases)
+Changelogs for the increments made can be found [here](https://github.com/FEUP-ESOF-2020-21/open-cx-t2g3-them-d/releases)!
 
 ---
 
 ## Test
 
+To ensure the application is working properly, we have decided to add Unit Tests and Automated Acceptance Tests using *gherkin*.
+
+Unit Tests are used to verify the expected output after the user interacts with the application and have been implemented using the flutter_test dependency.
+
+In this project the features tested are the following:
+
+-
+-
 
 ---
 
 ## Configuration and change management
 
+Configuration and change management are key activities to control change to, and maintain the integrity of, a project’s artifacts. For the purpose of ESOF, we used a very simple approach, just to manage feature requests, bug fixes, and improvements, using GitHub issues and following the [GitHub flow](https://guides.github.com/introduction/flow/).
 
 ---
 
 ## Project management
+
+Software project management is an art and science of planning and leading software projects, in which software projects are planned, implemented, monitored and controlled.
+
+For this project, we used Github Projects in order to registering tasks, assign tasks to people, add estimations to tasks, monitor tasks progress. You can see our board [here](https://github.com/FEUP-ESOF-2020-21/open-cx-t2g3-them-d/projects/1).
+
 
 
 
