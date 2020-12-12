@@ -18,8 +18,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<SmartconUser>.value(
-      value: AuthService().user,
+    return Provider<SmartconUser>.value(
+      value: SmartconUser(uid: 'yScVhq7iIzRLKNMFhSJnywnRkua2'),
       child: MaterialApp(
         title: 'SmartCon',
         theme: ThemeData(

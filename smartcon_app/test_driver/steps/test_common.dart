@@ -12,3 +12,14 @@ class ThenRedirectToPage extends Then1WithWorld<String, FlutterWorld> {
   @override
   RegExp get pattern => RegExp(r"I will be redirected to the {string}");
 }
+
+class GivenHomePage extends Given1WithWorld<String, FlutterWorld> {
+  @override
+  Future<void> executeStep(String page) async {
+    final pageFinder = find.byValueKey(page);
+    await FlutterDriverUtils.isPresent(world.driver, pageFinder);
+  }
+
+  @override
+  RegExp get pattern => RegExp(r"I am at the {string}");
+}

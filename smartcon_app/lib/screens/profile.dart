@@ -212,9 +212,6 @@ class ProfileFormState extends State<ProfileForm> {
 
                               Navigator.of(context).pop();
                             }
-                            else {
-                              print('shit');
-                            }
                           }
                       ),
                     ),

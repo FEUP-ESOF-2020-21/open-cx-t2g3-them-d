@@ -61,6 +61,7 @@ class _SearchConferences extends State<SearchConferences> {
                               children: <Widget>[
                                 // Page title
                                   Container(
+                                    width: MediaQuery.of(context).size.width * 0.84,
                                     child: Text(
                                       "Search Conferences",
                                       style: Theme.of(context).textTheme.headline2,

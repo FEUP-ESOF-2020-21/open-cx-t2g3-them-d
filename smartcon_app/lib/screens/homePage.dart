@@ -215,6 +215,7 @@ class WrapperConferences extends StatelessWidget {
         stream: DatabaseService(uid: user.uid).userData,
         builder: (context, snapshot) {
           if(snapshot.hasData){
+            print(user.uid);
             UserData userData = snapshot.data;
 
             if(userData.district != '' && userData.interests.isNotEmpty)
@@ -223,6 +224,7 @@ class WrapperConferences extends StatelessWidget {
               return Profile();
           }
           else{
+            print('Why?' + user.uid);
             return Container();
           }
         });
