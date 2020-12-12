@@ -143,7 +143,7 @@ As an Attendee, I want to be able to get conference suggestions based on my prof
 
 * **Acceptance tests**.
 ```gherkin
-Scenario: Attendee searches conferences with profile preconfigured
+Scenario: Attendee searches conferences with profile pre configured
   Given I have saved my Profile Preferences
   When I tap the Search Conferences button
   And I select a Date range
@@ -176,7 +176,7 @@ As an Attendee, I want to have the possibility of getting the right session sugg
 
 * **Acceptance tests**.
 ```gherkin
-Scenario: Attendee searches session sugestions using a conference code never used before
+Scenario: Attendee searches session suggestions using a conference code never used before
   Given I have a valid Conference Code
   When I tap the Session Suggestions button
   And I insert the Conference Code
@@ -185,7 +185,7 @@ Scenario: Attendee searches session sugestions using a conference code never use
 ```
 
 ```gherkin
-Scenario: Attendee searches session sugestions using a conference code used before
+Scenario: Attendee searches session suggestions using a conference code used before
   Given I have a valid Conference Code
   And I have already filled the Quiz for that Conference
   When I tap the Session Suggestions button
@@ -194,7 +194,7 @@ Scenario: Attendee searches session sugestions using a conference code used befo
 ```
 
 ```gherkin
-Scenario: Attendee searches session sugestions using an invalid conference code
+Scenario: Attendee searches session suggestions using an invalid conference code
   Given I have an invalid Conference Code
   When I tap the Session Suggestions button
   And I insert the Conference Code
@@ -252,11 +252,11 @@ As a member of the Conference staff, I want to be able to insert a conference in
 
 * **Acceptance tests**.
 ```gherkin
-Scenario: Conference staff member inserts a conference into the app
-  Given I have Signed In
+Scenario: Conference staff member can insert conference data into the app
+  Given I am at the Home Page
   When I tap the Insert Conference button
-  Then I will be able to fill a form with the Conference name, date and relevant data
-  And I will be redirected to a form in order to Add Sessions and Quiz.
+  Then I will be redirected to the Insert Conference page
+  And I will be presented with fields to insert the name, description, category, district and dates of the conference
 ```
 
 * **Value and effort**.
@@ -276,7 +276,7 @@ As a member of the Conference staff, I want to be able to test the attendees’ 
 * **Acceptance tests**.
 ```gherkin
 Scenario: Conference staff member inserts a session and respective question to its conference
-  Given I have inserted a conference
+  Given I have filled the conference form
   When I tap the Add Session button
   Then I will be able to fill a form with the Session name, topic and relevant data
   And add a question to the Quiz related to such Session
@@ -298,21 +298,30 @@ As an Attendee, I want to be able to change my saved interests and desired locat
 
 * **Acceptance tests**.
 ```gherkin
-Scenario: Attendee changes his profile preferences or location
-  Given I have Signed In
-  And I have clicked the Session Suggestions button
-  When I tap the Manage Profile button
-  Then I will be able to change my Interests and District
+Scenario: Attendee creates his profile preferences or location
+  Given I signed in for the first time
+  And I am at the Home Page
+  When I click the Search Conferences button
+  Then I will be able to set my Interests and District
   And I will be able to Save Profile by clicking the button
 ```
 
 ```gherkin
-Scenario: Attendee creates his profile preferences or location
-  Given I have Signed In
-  And I have not configured my profile yet
-  When I click the Session Suggestions button
-  Then I will be able to set my Interests and District
-  And I will be able to Save Profile by clicking the button
+Scenario: Attendee changes his profile preferences or location
+  Given I am at the Search Conferences page
+  When I tap the Manage Profile button
+  Then I will be redirected to the Manage Profile page
+  And I will be presented with fields to choose my district and interests
+  Then I will be able to save my profile by clicking the save button
+```
+
+```gherkin
+Scenario: Attendee changes his profile preferences or location
+  Given I am at the Home page
+  When I tap the Manage Profile button
+  Then I will be redirected to the Manage Profile page
+  And I will be presented with fields to choose my district and interests
+  And I will be able to save my profile by clicking the save button
 ```
 
 * **Value and effort**.

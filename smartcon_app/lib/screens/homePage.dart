@@ -10,18 +10,14 @@ import '../wrapper.dart';
 import 'conferenceSuggestions/searchConferences.dart';
 import 'insertConference/insertConference.dart';
 
-class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
+class HomePage extends StatelessWidget {
 
   final AuthService _auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: Key('home_page'),
         body: SingleChildScrollView(
             child: Column(children: <Widget>[
               Stack(
@@ -66,6 +62,7 @@ class _HomePageState extends State<HomePage> {
                             top: MediaQuery.of(context).size.width * 0.08,
                           ),
                           child: RaisedButton(
+                            key: Key('sign_out_btn'),
                             onPressed: () async {
                               Navigator.pushAndRemoveUntil(context,
                                   MaterialPageRoute(builder: (BuildContext context) => Wrapper()),
@@ -90,6 +87,7 @@ class _HomePageState extends State<HomePage> {
                             top: MediaQuery.of(context).size.width * 0.08,
                           ),
                           child: RaisedButton(
+                            key: Key('manage_profile_btn'),
                             onPressed: () {
                               Navigator.push( context, MaterialPageRoute( builder: (context) => Profile()),);
                             },
@@ -108,7 +106,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ],
                   ),
-                  //Manage Profile Button
+
                 ],
               ),
               Padding(
@@ -118,6 +116,7 @@ class _HomePageState extends State<HomePage> {
                 child: ButtonTheme(
                   minWidth: MediaQuery.of(context).size.width * 0.6,
                   child: RaisedButton(
+                    key: Key('search_conferences_btn'),
                     color: Color(0xFF6E96EF),
                     shape:
                     RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
@@ -185,6 +184,7 @@ class _HomePageState extends State<HomePage> {
               ButtonTheme(
                 minWidth: MediaQuery.of(context).size.width * 0.6,
                 child: RaisedButton(
+                  key: Key('insert_conference_btn'),
                   color: Color(0xFF5BBDB8),
                   shape:
                   RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),

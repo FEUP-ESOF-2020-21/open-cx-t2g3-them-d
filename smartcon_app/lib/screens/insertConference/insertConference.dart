@@ -47,6 +47,7 @@ class InsertConferenceState extends State<InsertConference> {
 
   Widget _buildName() {
     return TextFormField(
+      key: Key('name_field'),
       decoration: new InputDecoration(
         labelText: "Name",
         fillColor: Colors.white,
@@ -69,50 +70,53 @@ class InsertConferenceState extends State<InsertConference> {
   }
 
   Widget _buildDistrict() {
-    return DropDownFormField(
-      titleText: 'District',
-      hintText: 'Choose a district',
-      value: _district,
-      onSaved: (value) {
-        setState(() {
-          _district = value;
-        });
-      },
-      onChanged: (value) {
-        setState(() {
-          _district = value;
-        });
-      },
-      validator: (value) {
-        if (value == null) {
-          return 'Please choose a district';
-        }
-        return null;
-      },
-      dataSource: [
-        {
-          "display": "Porto",
-          "value": "Porto",
+    return Tooltip(
+      message: 'district_field',
+      child: DropDownFormField(
+        titleText: 'District',
+        hintText: 'Choose a district',
+        value: _district,
+        onSaved: (value) {
+          setState(() {
+            _district = value;
+          });
         },
-        {
-          "display": "Aveiro",
-          "value": "Aveiro",
+        onChanged: (value) {
+          setState(() {
+            _district = value;
+          });
         },
-        {
-          "display": "Lisboa",
-          "value": "Lisboa",
+        validator: (value) {
+          if (value == null) {
+            return 'Please choose a district';
+          }
+          return null;
         },
-        {
-          "display": "Viana do Castelo",
-          "value": "Viana do Castelo",
-        },
-        {
-          "display": "Faro",
-          "value": "Faro",
-        },
-      ],
-      textField: 'display',
-      valueField: 'value',
+        dataSource: [
+          {
+            "display": "Porto",
+            "value": "Porto",
+          },
+          {
+            "display": "Aveiro",
+            "value": "Aveiro",
+          },
+          {
+            "display": "Lisboa",
+            "value": "Lisboa",
+          },
+          {
+            "display": "Viana do Castelo",
+            "value": "Viana do Castelo",
+          },
+          {
+            "display": "Faro",
+            "value": "Faro",
+          },
+        ],
+        textField: 'display',
+        valueField: 'value',
+      ),
     );
   }
 
@@ -128,6 +132,7 @@ class InsertConferenceState extends State<InsertConference> {
               border: Border.all(width: 2.0, color: Colors.black26),
               borderRadius: BorderRadius.all(Radius.circular(10.0))),
           child: Text(datesStr,
+              key: Key('dates_field'),
               style: TextStyle(
                 color: Colors.black87,
                 fontSize: 15.0,
@@ -172,75 +177,79 @@ class InsertConferenceState extends State<InsertConference> {
   }
 
   Widget _buildCategory() {
-    return DropDownFormField(
-      titleText: 'Category',
-      hintText: 'Category',
-      value: _category,
-      onSaved: (value) {
-        setState(() {
-          _category = value;
-        });
-      },
-      onChanged: (value) {
-        setState(() {
-          _category = value;
-        });
-      },
-      validator: (value) {
-        if (value == null) {
-          return 'Please choose a category';
-        }
-        return null;
-      },
-      dataSource: [
-        {
-          "display": "Technology",
-          "value": "Technology",
+    return Tooltip(
+      message: 'category_field',
+      child: DropDownFormField(
+        titleText: 'Category',
+        hintText: 'Category',
+        value: _category,
+        onSaved: (value) {
+          setState(() {
+            _category = value;
+          });
         },
-        {
-          "display": "Art & Design",
-          "value": "Business Conference",
+        onChanged: (value) {
+          setState(() {
+            _category = value;
+          });
         },
-        {
-          "display": "Cultural",
-          "value": "Cultural",
+        validator: (value) {
+          if (value == null) {
+            return 'Please choose a category';
+          }
+          return null;
         },
-        {
-          "display": "Finance",
-          "value": "Finance",
-        },
-        {
-          "display": "Environmental",
-          "value": "Environmental",
-        },
-        {
-          "display": "Sports",
-          "value": "Sports",
-        },
-        {
-          "display": "Literature",
-          "value": "Literature",
-        },
-        {
-          "display": "Marketing",
-          "value": "Marketing",
-        },
-        {
-          "display": "Scientific",
-          "value": "Scientific",
-        },
-        {
-          "display": "Wellness",
-          "value": "Wellness",
-        },
-      ],
-      textField: 'display',
-      valueField: 'value',
+        dataSource: [
+          {
+            "display": "Technology",
+            "value": "Technology",
+          },
+          {
+            "display": "Art & Design",
+            "value": "Business Conference",
+          },
+          {
+            "display": "Cultural",
+            "value": "Cultural",
+          },
+          {
+            "display": "Finance",
+            "value": "Finance",
+          },
+          {
+            "display": "Environmental",
+            "value": "Environmental",
+          },
+          {
+            "display": "Sports",
+            "value": "Sports",
+          },
+          {
+            "display": "Literature",
+            "value": "Literature",
+          },
+          {
+            "display": "Marketing",
+            "value": "Marketing",
+          },
+          {
+            "display": "Scientific",
+            "value": "Scientific",
+          },
+          {
+            "display": "Wellness",
+            "value": "Wellness",
+          },
+        ],
+        textField: 'display',
+        valueField: 'value',
+      ),
     );
   }
 
   Widget _buildDescription() {
     return TextFormField(
+      key: Key('insert_conference_description'),
       decoration: new InputDecoration(
         labelText: "Description",
         fillColor: Colors.white,
@@ -283,6 +292,7 @@ class InsertConferenceState extends State<InsertConference> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: Key('insert_conference_page'),
       body: SingleChildScrollView(
           // Center is a layout widget. It takes a single child and positions it
           // in the middle of the parent.

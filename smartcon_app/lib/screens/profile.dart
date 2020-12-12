@@ -11,6 +11,7 @@ class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamProvider<List<String>>.value(
+      key: Key('manage_profile_page'),
       value: DatabaseService().categories,
       child: Scaffold(
           resizeToAvoidBottomInset: false,
@@ -107,37 +108,40 @@ class ProfileFormState extends State<ProfileForm> {
                     ),
                     Padding(
                       padding: EdgeInsets.all(8.0),
-                      child: DropDownFormField(
-                        titleText: 'District',
-                        hintText: 'Choose a district',
-                        value: _district ?? userData.district,
-                        onSaved: (value) {
-                          setState(() {
-                            _district = value;
-                          });
-                        },
-                        onChanged: (value) {
-                          setState(() {
-                            _district = value;
-                          });
-                        },
-                        validator: (value) {
-                          if (value == null)
-                            return 'Please choose a district';
-                          return null;
-                        },
-                        dataSource: [
-                          {"display": "Porto", "value": "Porto",},
-                          {"display": "Aveiro", "value": "Aveiro",},
-                          {"display": "Lisboa", "value": "Lisboa",},
-                          {
-                            "display": "Viana do Castelo",
-                            "value": "Viana do Castelo",
+                      child: Tooltip(
+                        message: 'profile_district',
+                        child: DropDownFormField(
+                          titleText: 'District',
+                          hintText: 'Choose a district',
+                          value: _district ?? userData.district,
+                          onSaved: (value) {
+                            setState(() {
+                              _district = value;
+                            });
                           },
-                          {"display": "Faro", "value": "Faro",},
-                        ],
-                        textField: 'display',
-                        valueField: 'value',
+                          onChanged: (value) {
+                            setState(() {
+                              _district = value;
+                            });
+                          },
+                          validator: (value) {
+                            if (value == null)
+                              return 'Please choose a district';
+                            return null;
+                          },
+                          dataSource: [
+                            {"display": "Porto", "value": "Porto",},
+                            {"display": "Aveiro", "value": "Aveiro",},
+                            {"display": "Lisboa", "value": "Lisboa",},
+                            {
+                              "display": "Viana do Castelo",
+                              "value": "Viana do Castelo",
+                            },
+                            {"display": "Faro", "value": "Faro",},
+                          ],
+                          textField: 'display',
+                          valueField: 'value',
+                        ),
                       ),
                     ),
                     Container(
@@ -186,6 +190,7 @@ class ProfileFormState extends State<ProfileForm> {
                     Container(
                       padding: EdgeInsets.all(8),
                       child: RaisedButton(
+                        key: Key('save_profile_btn'),
                           color: Colors.white,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
@@ -206,6 +211,9 @@ class ProfileFormState extends State<ProfileForm> {
                                     userData.interests,);
 
                               Navigator.of(context).pop();
+                            }
+                            else {
+                              print('shit');
                             }
                           }
                       ),
@@ -264,6 +272,7 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
   @override
   Widget build(BuildContext context) {
     return Wrap(
+      key: Key('profile_interests'),
       children: _buildChoiceList(),
     );
   }

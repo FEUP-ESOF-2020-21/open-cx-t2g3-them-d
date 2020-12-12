@@ -5,7 +5,8 @@ import 'package:smartcon_app/models/user.dart';
 import 'database.dart';
 
 class AuthService {
-  final GoogleSignIn googleSignIn = GoogleSignIn();
+
+  GoogleSignIn googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // create user obj based on firebase user
@@ -62,4 +63,5 @@ class AuthService {
     final user = _auth.currentUser;
     return _userFromFirebaseUser(user);
   }
+
 }

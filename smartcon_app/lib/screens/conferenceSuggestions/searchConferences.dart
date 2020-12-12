@@ -8,7 +8,6 @@ import 'package:smartcon_app/services/database.dart';
 import '../profile.dart';
 import 'conferenceList.dart';
 
-
 class SearchConferences extends StatefulWidget {
   SearchConferences({Key key}) : super(key: key);
 
@@ -36,6 +35,7 @@ class _SearchConferences extends State<SearchConferences> {
         return StreamProvider<List<Conference>>.value(
           value: DatabaseService().conferences,
           child: Scaffold(
+              key: Key('search_conferences_page'),
               body: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
