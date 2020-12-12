@@ -324,11 +324,15 @@ Scenario: Attendee creates his profile preferences or location
 
 ### Domain model
 
-To better understand the context of the software system, it is very useful to have a simple UML class diagram with all the key concepts and relationships.
-
   ![](./images/domainModel.png)
 
-  Our app concepts are easily understood, consisting of Conferences, Sessions, Profiles, Users and Quizes. Every User can be connected to a Conference as an attendee or organizer. Every attendee has a Profile defining his interests and location (district). Furthermore, Conferences have multiple Sessions and each Session has one Quiz. The attendee when attending a Conference answers the Quiz so that he can see which are the most suitable Sessions.
+  Our app concepts are easily understood, consisting of **Conferences**, **Sessions**, **Profiles**, **Users** and **Quizzes**. 
+  Each **User**, identified by an unique `id`, can be connected to a **Conference** as an attendee or organizer.
+  Every attendee has a **Profile** defining his `interests` and `location`(district), which allows us to filter the available Conferences for each individual. 
+  **Conferences** have related information and multiple **Sessions**. Each **Session** has one **Quiz**, which will be answered by attendees to obtain Session Suggestions. 
+  Each **Quiz**, beyond the `question` and the `options`, has a `type`, which can assume the values Concept Question or Right/Wrong Question. This allows us to identify the type of answer that is expected from the **User**.
+  In Concept Knowledge questions, the `required` value represents the number of concepts that the **User** is required to recognize from the options to fully enjoy the **Session**.
+  In Right/Wrong questions, the `answer` value allows us to check if the **User** choose the right option and, this way, to verify if the **Session** should be suggested or not.
 
 
 
@@ -337,18 +341,19 @@ To better understand the context of the software system, it is very useful to ha
 
 
 ## Architecture and Design
- 
-The architecture of a software system encompasses the set of key decisions about its overall organization. 
 
 ### Logical architecture
 
-The purpose of this subsection is to document the high-level logical structure of the code.
+![](./images/logicalArchitectureDiagram.png)
 
-![](./images/logicalArchitecture.PNG)
+SmartCon's app's high-level logical structure follows the Model-View-Controller Architectural Pattern (*MVC*). We chose this pattern because our app has three clear components:
+- The **Controller**, a component that represents the logic and the backend of Smartcon App and that includes:
+  - the connection to the Firestore Database, which allows us to access and modify the information about the users, the conferences, the sessions, the quizzes, previously obtained suggestions and also the given feedback. To enable this functionalities, this component includes the database queries, triggered according to the users' inputs.
+  - the authentication with Google, which makes sure user data is safe and only accessible by the right users.
+- The **Views**, visual components that represent the concrete display of each app state to the user, showing the data obtained and updated by the Controller.
+- The **Models**, which include the Users, Conferences, Sessions and Quizzes. These represent entities that store related data, mapping the information obtained by the Controller. Every update on these domains is triggered by the Controller and represented in the Views.  
 
-SmartCon's app's high-level logical structure follows the Model-View-Controller Architectural Pattern (*MVC*). We chose this pattern as we find it the most appropriate and simple structure for this type of project. Since we are a group of four elements we found that using this model we can work simultaneously on the model, controller, and views. Also, because of the separation of responsibilities, we found it easier to change and upgrade our app in every increment. Additionally, using *MVC* one model can have multiple views, which, since this is an app with quite some features, came in handy.
-
-As shown in the diagram, the **Model** contains all the information related to each domain: User, Conference, and Session. Every update on these domains is triggered by the Controller that also connects with the View. The **Controller** consists of interfaces that query the database and generate functionalities according to the users' inputs, as well as authentication functions. This enables the possibility of having  logic and backend parts separate. Finally, the **View** represents the concrete display of each app state.
+ Also, since we are a group of four elements we found that using this model we could work simultaneously on the model, controller, and views. Also, because of the separation of responsibilities, we found it easier to change and upgrade our app in every increment. Additionally, using *MVC* one model can have multiple views, which, since this is an app with quite some features, came in handy.
 
 
 ### Physical architecture
