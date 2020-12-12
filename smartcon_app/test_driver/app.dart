@@ -7,8 +7,20 @@ import 'package:smartcon_app/main.dart';
 import 'package:smartcon_app/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:smartcon_app/screens/homePage.dart';
-class MyAppMock extends MyApp {
 
+void main() async {
+  // This line enables the extension
+  enableFlutterDriverExtension();
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
+  // Call the `main()` function of your app or call `runApp` with any widget you
+  // are interested in testing.
+  runApp(MaterialApp(home: MyAppMock()));
+}
+
+class MyAppMock extends MyApp {
   @override
   Widget build(BuildContext context) {
     return Provider<SmartconUser>.value(
@@ -79,16 +91,4 @@ class MyAppMock extends MyApp {
       ),
     );
   }
-}
-
-void main() async{
-  // This line enables the extension
-  enableFlutterDriverExtension();
-
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-
-  // Call the `main()` function of your app or call `runApp` with any widget you
-  // are interested in testing.
-  runApp(MaterialApp(home: MyAppMock()));
 }

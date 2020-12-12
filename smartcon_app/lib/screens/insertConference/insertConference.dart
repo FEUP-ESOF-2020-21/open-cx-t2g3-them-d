@@ -33,7 +33,7 @@ class InsertConferenceState extends State<InsertConference> {
     });
   }
 
-  _buildConference(){
+  buildConference() {
     _conference = new Conference(
         name: _name,
         category: _category,
@@ -314,7 +314,7 @@ class InsertConferenceState extends State<InsertConference> {
                   Container(
                     child: Text(
                       "Insert Conference",
-                      style:TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Rubik',
                         color: Color(0xFF5BBDB8),
                         fontSize: 32.0,
@@ -346,19 +346,18 @@ class InsertConferenceState extends State<InsertConference> {
                 Container(
                   padding: EdgeInsets.all(8),
                   child: RaisedButton(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        side: BorderSide(color: Colors.black26, width: 2)),
-                    child: Text('NEXT',
-                        style: TextStyle(
-                          color: Colors.black38,
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: 'Rubik',
-                        )),
-                    onPressed: onNext
-                  ),
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          side: BorderSide(color: Colors.black26, width: 2)),
+                      child: Text('NEXT',
+                          style: TextStyle(
+                            color: Colors.black38,
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: 'Rubik',
+                          )),
+                      onPressed: onNext),
                 ),
               ],
             ),
@@ -368,15 +367,17 @@ class InsertConferenceState extends State<InsertConference> {
     );
   }
 
-  onNext(){
-      if (_formKey.currentState.validate()) {
-        _formKey.currentState.save();
-        _buildConference();
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => conferenceSessions(conference: _conference,)),
-        );
-      }
+  onNext() {
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+      buildConference();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => conferenceSessions(
+                  conference: _conference,
+                )),
+      );
+    }
   }
 }
