@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:smartcon_app/models/conference.dart';
 import 'package:smartcon_app/models/session.dart';
@@ -12,6 +14,7 @@ class DatabaseService {
   final CollectionReference profiles = FirebaseFirestore.instance.collection("profiles");
   final CollectionReference conferencesCollection = FirebaseFirestore.instance.collection("conferences");
   final CollectionReference sessionSuggestions = FirebaseFirestore.instance.collection("sessionSuggestions");
+  final CollectionReference feedbacks = FirebaseFirestore.instance.collection("feedbacks");
 
   // SESSION SUGGESTIONS DATA
 
@@ -35,13 +38,13 @@ class DatabaseService {
   List<Session> _conferenceSessionsFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
       return  Session(
-        sessionId: doc.id,
-        name: doc.data()['name'],
-        topics: List.from(doc.data()['topics']),
-        speakers: List.from(doc.data()['speakers']),
-        date: doc.data()['date'].toDate(),
-        website: doc.data()['website'],
-        description: doc.data()['description']
+          sessionId: doc.id,
+          name: doc.data()['name'],
+          topics: List.from(doc.data()['topics']),
+          speakers: List.from(doc.data()['speakers']),
+          date: doc.data()['date'].toDate(),
+          website: doc.data()['website'],
+          description: doc.data()['description']
       );
     }).toList();
   }
@@ -67,6 +70,21 @@ class DatabaseService {
       return doc.id.toString();}).toList());
   }
 
+  // FEEDBACK
+
+  Future<void> addConferenceToFeedbacks(String conferenceId) async {
+    return await feedbacks.doc(conferenceId).set({});
+  }
+
+  Future<List<String>> getUserFeedbackOnConference(String conferenceId) async {
+    return await feedbacks.doc(conferenceId).collection(uid).get().then
+      ((value) => value.docs.map((doc) {
+      return doc.id;}).toList());
+  }
+
+  Future<void> addUserFeedbackOnConference(String conferenceId, int feedback) async {
+    return await feedbacks.doc(conferenceId).collection(uid).doc(feedback.toString()).set({});
+  }
 
   // PROFILE DATA
 
@@ -118,7 +136,8 @@ class DatabaseService {
           beginDate: doc.data()['beginDate'].toDate(),
           endDate: doc.data()['endDate'].toDate(),
           website: doc.data()['website'],
-          rating: doc.data()['rating']
+          rating: doc.data()['rating'],
+          numRatings: doc.data()['numRatings']
       );
     }).toList();
   }
@@ -139,6 +158,7 @@ class DatabaseService {
       'beginDate': conference.beginDate,
       'endDate': conference.endDate,
       'rating': conference.rating,
+      'numRatings': conference.numRatings,
     });
   }
 

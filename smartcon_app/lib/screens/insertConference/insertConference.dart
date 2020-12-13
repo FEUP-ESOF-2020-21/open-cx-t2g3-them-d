@@ -45,6 +45,7 @@ class InsertConferenceState extends State<InsertConference> {
         beginDate: _dates[0],
         endDate: _dates[0],
         rating: 0,
+        numRatings: 0,
     );
 
     await DatabaseService().addConference(_conference);

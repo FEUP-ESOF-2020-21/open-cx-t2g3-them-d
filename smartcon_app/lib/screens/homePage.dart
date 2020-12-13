@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smartcon_app/models/user.dart';
 import 'package:smartcon_app/screens/profile.dart';
+import 'package:smartcon_app/screens/rateConference/rateConferenceCode.dart';
 import 'package:smartcon_app/screens/sessionSuggestions/sessionSuggestionsCode.dart';
 import 'package:smartcon_app/services/auth.dart';
 import 'package:smartcon_app/services/database.dart';
@@ -138,7 +139,7 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => HomePage()),
+                      MaterialPageRoute(builder: (context) => RateConferenceCode()),
                     );
                   },
                   child: Text(

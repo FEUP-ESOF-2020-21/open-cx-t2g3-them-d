@@ -10,8 +10,9 @@ class Conference {
   DateTime beginDate;
   DateTime endDate;
   int rating;
+  int numRatings;
 
-  Conference({this.confId, this.name, this.category, this.district, this.description, this.beginDate, this.endDate, this.website, this.rating});
+  Conference({this.confId, this.name, this.category, this.district, this.description, this.beginDate, this.endDate, this.website, this.rating, this.numRatings});
 
   Conference.onlyId({this.confId});
 
