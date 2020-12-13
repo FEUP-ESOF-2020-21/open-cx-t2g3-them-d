@@ -104,7 +104,7 @@ class ConferenceTile extends StatelessWidget {
 
     List<Icon>_starsForRatings(Conference conference) {
       List<Icon> stars = [];
-      for(int i = 0; i < conference.rating; i++){
+      for(int i = 0; i < conference.rating.toInt(); i++){
         stars.add(Icon(Icons.star, color: Color(0xFF637DEB),));
       }
       return stars; }
@@ -125,7 +125,7 @@ class ConferenceTile extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          width: MediaQuery.of(context).size.width * 0.84 - 32 - 24 * conference.rating,
+                          width: MediaQuery.of(context).size.width * 0.84 - 32 - 24 * conference.rating.toInt(),
                           child: Text(conference.name.toUpperCase(), style: Theme.of(context).textTheme.headline5,),
                           alignment: Alignment.topLeft,
                         ),

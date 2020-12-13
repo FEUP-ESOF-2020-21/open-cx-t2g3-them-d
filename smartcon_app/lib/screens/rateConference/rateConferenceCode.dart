@@ -4,7 +4,6 @@ import 'package:smartcon_app/models/conference.dart';
 import 'package:smartcon_app/models/user.dart';
 import 'package:smartcon_app/screens/homePage.dart';
 import 'package:smartcon_app/screens/rateConference/rateConference.dart';
-import 'package:smartcon_app/screens/sessionSuggestions/sessionSuggestions.dart';
 import 'package:smartcon_app/services/database.dart';
 
 class RateConferenceCode extends StatefulWidget {
@@ -23,21 +22,20 @@ class RateConferenceCodeState extends State<RateConferenceCode> {
   Widget _conferenceCode(List<Conference> conferences) {
     final user = Provider.of<SmartconUser>(context);
 
-    String _getConferenceName(){
+    Conference _getConference(){
       for(int i = 0; i< conferences.length; i++){
         if(conferences[i].confId == _code)
-          return conferences[i].name;
+          return conferences[i];
       }
     }
 
     _handleConferenceCode() async{
       await DatabaseService(uid: user.uid).addConferenceToFeedbacks(_code);
       List<String> feedback = await DatabaseService(uid: user.uid).getUserFeedbackOnConference(_code);
-      String conferenceName = _getConferenceName();
 
       if (feedback.isEmpty) {
         Navigator.push( context, MaterialPageRoute(builder: (context) =>
-            RateConference(conferenceId: _code, conferenceName: conferenceName,)), );
+            RateConference(conference: _getConference(),)), );
       }
       else{
         Navigator.push( context, MaterialPageRoute(builder: (context) =>

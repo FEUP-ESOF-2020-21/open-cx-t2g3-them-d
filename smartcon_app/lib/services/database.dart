@@ -82,8 +82,20 @@ class DatabaseService {
       return doc.id;}).toList());
   }
 
-  Future<void> addUserFeedbackOnConference(String conferenceId, int feedback) async {
-    return await feedbacks.doc(conferenceId).collection(uid).doc(feedback.toString()).set({});
+  Future<void> saveFeedback(Conference conf, String uid, double feedback) async {
+    await conferencesCollection.doc(conf.confId).set({
+      'confId': conf.confId,
+      'name': conf.name,
+      'category': conf.category,
+      'district': conf.district,
+      'description': conf.description,
+      'beginDate': conf.beginDate,
+      'endDate': conf.endDate,
+      'website': conf.website,
+      'numRatings': conf.numRatings + 1,
+      'rating': (conf.numRatings.toDouble() * conf.rating + feedback) / (conf.numRatings.toDouble() + 1.0)
+    });
+    return await feedbacks.doc(conf.confId).collection(uid).doc(feedback.toString()).set({});
   }
 
   // PROFILE DATA
@@ -117,7 +129,7 @@ class DatabaseService {
 
   // Transform database Conference Categories into a List of category names
   List<String> _categoryListFromSnapshot(QuerySnapshot snapshot) {
-    return snapshot .docs.map((doc) {
+    return snapshot.docs.map((doc) {
       return doc.data()['category'].toString();
     }).toSet().toList();
   }
@@ -136,7 +148,7 @@ class DatabaseService {
           beginDate: doc.data()['beginDate'].toDate(),
           endDate: doc.data()['endDate'].toDate(),
           website: doc.data()['website'],
-          rating: doc.data()['rating'],
+          rating: doc.data()['rating'].toDouble(),
           numRatings: doc.data()['numRatings']
       );
     }).toList();
@@ -161,7 +173,4 @@ class DatabaseService {
       'numRatings': conference.numRatings,
     });
   }
-
-
-
 }
