@@ -1,12 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_driver/driver_extension.dart';
-import 'package:smartcon_app/main.dart';
-import 'package:smartcon_app/models/user.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:smartcon_app/models/user.dart';
 import 'package:smartcon_app/screens/homePage.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   // This line enables the extension
@@ -17,14 +16,17 @@ void main() async {
 
   // Call the `main()` function of your app or call `runApp` with any widget you
   // are interested in testing.
-  runApp(MaterialApp(home: MyAppMock()));
+  runApp(NoLoginApp());
 }
+class NoLoginApp extends StatelessWidget {
 
-class MyAppMock extends MyApp {
+  // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
+
     return Provider<SmartconUser>.value(
-      value: SmartconUser(uid: 'yScVhq7iIzRLKNMFhSJnywnRkua2'),
+      value: SmartconUser(uid: 'testProfile'),
       child: MaterialApp(
         title: 'SmartCon',
         theme: ThemeData(

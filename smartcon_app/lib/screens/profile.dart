@@ -5,9 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:smartcon_app/models/user.dart';
 import 'package:smartcon_app/services/database.dart';
 
-import 'conferenceSuggestions/searchConferences.dart';
-
 class Profile extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return StreamProvider<List<String>>.value(

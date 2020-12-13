@@ -15,7 +15,7 @@ Future<void> main() {
       JsonReporter(path: './report.json')
     ]
     ..hooks = []
-    ..stepDefinitions = [AndInsertConferenceFields(), ThenRedirectToPage(), AndSaveProfileButton(), AndProfileFields(), GivenHomePage()]
+    ..stepDefinitions = [AndInsertConferenceFields(), ThenRedirectToPage(), AndSaveProfileButton(), AndProfileFields(), GivenHomePage(), WhenTapButton()]
     ..customStepParameterDefinitions = [
 
     ]
