@@ -4,6 +4,7 @@ import 'package:smartcon_app/models/conference.dart';
 import 'package:smartcon_app/models/user.dart';
 import 'package:smartcon_app/screens/homePage.dart';
 import 'package:smartcon_app/screens/rateConference/rateConference.dart';
+import 'package:smartcon_app/screens/rateConference/seeRating.dart';
 import 'package:smartcon_app/services/database.dart';
 
 class RateConferenceCode extends StatefulWidget {
@@ -39,7 +40,7 @@ class RateConferenceCodeState extends State<RateConferenceCode> {
       }
       else{
         Navigator.push( context, MaterialPageRoute(builder: (context) =>
-            HomePage()), );
+            SeeRating(conference: _getConference(), rating: double.parse(feedback[0]).toInt(),)), );
       }
     }
 
