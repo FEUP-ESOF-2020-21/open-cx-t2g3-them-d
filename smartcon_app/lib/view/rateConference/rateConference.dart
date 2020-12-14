@@ -31,51 +31,51 @@ class _RateConferenceState extends State<RateConference> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Row(
-              children: <Widget>[
-                Stack(
-                  children: [
-                    Container(
-                      width: MediaQuery
-                          .of(context)
-                          .size
-                          .width,
-                      child: Image.asset(
-                          'images/pageHeader.png',
-                          fit: BoxFit.fill
-                      ),
-                    ),
-                  ],
-                ),
-              ]
-            ),
-            Row(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(
-                    left: MediaQuery
-                        .of(context)
-                        .size
-                        .width * 0.08,
-                    right: MediaQuery
-                        .of(context)
-                        .size
-                        .width * 0.08,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
+                children: <Widget>[
+                  Stack(
+                    children: [
                       Container(
-                        width: MediaQuery.of(context).size.width * 0.84,
-                        child: Text(widget.conference.name, style: Theme
-                          .of(context)
-                          .textTheme
-                          .headline2,),
-                        alignment: Alignment.topLeft,
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width,
+                        child: Image.asset(
+                            'images/pageHeader.png',
+                            fit: BoxFit.fill
+                        ),
                       ),
                     ],
                   ),
-                ),
-              ]
+                ]
+            ),
+            Row(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(
+                      left: MediaQuery
+                          .of(context)
+                          .size
+                          .width * 0.08,
+                      right: MediaQuery
+                          .of(context)
+                          .size
+                          .width * 0.08,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.84,
+                          child: Text(widget.conference.name, style: Theme
+                              .of(context)
+                              .textTheme
+                              .headline2,),
+                          alignment: Alignment.topLeft,
+                        ),
+                      ],
+                    ),
+                  ),
+                ]
             ),
             SizedBox(
               height: 40.0,
@@ -105,8 +105,9 @@ class _RateConferenceState extends State<RateConference> {
                 onPressed: () async {
                   await DatabaseService().addConferenceToFeedbacks(widget.conference.confId);
                   await DatabaseService().saveFeedback(widget.conference, user.uid, _rating.toDouble());
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomePage())
+                  Navigator.pushAndRemoveUntil(context,
+                      MaterialPageRoute(builder: (BuildContext context) => HomePage()),
+                          (Route<dynamic> route) => route is HomePage
                   );
                 },
               ),

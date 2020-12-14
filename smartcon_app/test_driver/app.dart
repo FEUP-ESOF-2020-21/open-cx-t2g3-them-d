@@ -1,26 +1,32 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_driver/driver_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-import 'package:smartcon_app/controller/auth.dart';
 import 'package:smartcon_app/model/user.dart';
-import 'package:smartcon_app/wrapper.dart';
+import 'package:smartcon_app/view/homePage.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
+  // This line enables the extension
+  enableFlutterDriverExtension();
+
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
-}
 
-class MyApp extends StatelessWidget {
+  // Call the `main()` function of your app or call `runApp` with any widget you
+  // are interested in testing.
+  runApp(NoLoginApp());
+}
+class NoLoginApp extends StatelessWidget {
 
   // This widget is the root of your application.
 
   @override
   Widget build(BuildContext context) {
 
-    return StreamProvider<SmartconUser>.value(
-      value: AuthService().user,
+    return Provider<SmartconUser>.value(
+      value: SmartconUser(uid: 'testProfile'),
       child: MaterialApp(
         title: 'SmartCon',
         theme: ThemeData(
@@ -83,7 +89,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home: Wrapper(),
+        home: HomePage(),
       ),
     );
   }

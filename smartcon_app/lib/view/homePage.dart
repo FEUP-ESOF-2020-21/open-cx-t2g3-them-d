@@ -11,17 +11,13 @@ import 'conferenceSuggestions/searchConferences.dart';
 import 'insertConference/insertConference.dart';
 import 'package:smartcon_app/view/rateConference/rateConferenceCode.dart';
 
-class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
+class HomePage extends StatelessWidget {
   final AuthService _auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: Key('home_page'),
         body: SingleChildScrollView(
             child: Column(children: <Widget>[
       Stack(
@@ -96,6 +92,7 @@ class _HomePageState extends State<HomePage> {
                     top: MediaQuery.of(context).size.width * 0.08,
                   ),
                   child: RaisedButton(
+                    key: Key('manage_profile_btn'),
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -198,6 +195,7 @@ class _HomePageState extends State<HomePage> {
       ButtonTheme(
         minWidth: MediaQuery.of(context).size.width * 0.6,
         child: RaisedButton(
+          key: Key('insert_conference_btn'),
           color: Color(0xFF5BBDB8),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),

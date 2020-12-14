@@ -123,7 +123,7 @@ captures/
 .idea/caches
 
 # Google Services (e.g. APIs or Firebase)
-android/app/google-services.json
+android/app/src/google-services.json
 
 # Vscode
 .vscode/*

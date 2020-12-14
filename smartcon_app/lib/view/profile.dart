@@ -11,6 +11,7 @@ class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamProvider<List<String>>.value(
+      key: Key('manage_profile_page'),
       value: DatabaseService().categories,
       child: Scaffold(
           resizeToAvoidBottomInset: false,
@@ -195,6 +196,7 @@ class ProfileFormState extends State<ProfileForm> {
                     Container(
                       padding: EdgeInsets.all(8),
                       child: RaisedButton(
+                          key: Key('save_profile_btn'),
                           color: Colors.white,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),

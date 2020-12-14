@@ -41,7 +41,7 @@ class InsertConferenceState extends State<InsertConference> {
         website: _website,
         description: _description,
         beginDate: _dates[0],
-        endDate: _dates[0],
+        endDate: _dates[1],
         rating: 0,
         numRatings: 0
       );
@@ -49,6 +49,7 @@ class InsertConferenceState extends State<InsertConference> {
 
   Widget _buildName() {
     return TextFormField(
+      key: Key('name_field'),
       decoration: new InputDecoration(
         labelText: "Name",
         fillColor: Colors.white,
@@ -71,50 +72,53 @@ class InsertConferenceState extends State<InsertConference> {
   }
 
   Widget _buildDistrict() {
-    return DropDownFormField(
-      titleText: 'District',
-      hintText: 'Choose a district',
-      value: _district,
-      onSaved: (value) {
-        setState(() {
-          _district = value;
-        });
-      },
-      onChanged: (value) {
-        setState(() {
-          _district = value;
-        });
-      },
-      validator: (value) {
-        if (value == null) {
-          return 'Please choose a district';
-        }
-        return null;
-      },
-      dataSource: [
-        {
-          "display": "Porto",
-          "value": "Porto",
+    return Tooltip(
+      message: 'district_field',
+      child: DropDownFormField(
+        titleText: 'District',
+        hintText: 'Choose a district',
+        value: _district,
+        onSaved: (value) {
+          setState(() {
+            _district = value;
+          });
         },
-        {
-          "display": "Aveiro",
-          "value": "Aveiro",
+        onChanged: (value) {
+          setState(() {
+            _district = value;
+          });
         },
-        {
-          "display": "Lisboa",
-          "value": "Lisboa",
+        validator: (value) {
+          if (value == null) {
+            return 'Please choose a district';
+          }
+          return null;
         },
-        {
-          "display": "Viana do Castelo",
-          "value": "Viana do Castelo",
-        },
-        {
-          "display": "Faro",
-          "value": "Faro",
-        },
-      ],
-      textField: 'display',
-      valueField: 'value',
+        dataSource: [
+          {
+            "display": "Porto",
+            "value": "Porto",
+          },
+          {
+            "display": "Aveiro",
+            "value": "Aveiro",
+          },
+          {
+            "display": "Lisboa",
+            "value": "Lisboa",
+          },
+          {
+            "display": "Viana do Castelo",
+            "value": "Viana do Castelo",
+          },
+          {
+            "display": "Faro",
+            "value": "Faro",
+          },
+        ],
+        textField: 'display',
+        valueField: 'value',
+      ),
     );
   }
 
@@ -130,6 +134,7 @@ class InsertConferenceState extends State<InsertConference> {
               border: Border.all(width: 2.0, color: Colors.black26),
               borderRadius: BorderRadius.all(Radius.circular(10.0))),
           child: Text(datesStr,
+              key: Key('dates_field'),
               style: TextStyle(
                 color: Colors.black87,
                 fontSize: 15.0,
@@ -174,75 +179,79 @@ class InsertConferenceState extends State<InsertConference> {
   }
 
   Widget _buildCategory() {
-    return DropDownFormField(
-      titleText: 'Category',
-      hintText: 'Category',
-      value: _category,
-      onSaved: (value) {
-        setState(() {
-          _category = value;
-        });
-      },
-      onChanged: (value) {
-        setState(() {
-          _category = value;
-        });
-      },
-      validator: (value) {
-        if (value == null) {
-          return 'Please choose a category';
-        }
-        return null;
-      },
-      dataSource: [
-        {
-          "display": "Technology",
-          "value": "Technology",
+    return Tooltip(
+      message: 'category_field',
+      child: DropDownFormField(
+        titleText: 'Category',
+        hintText: 'Category',
+        value: _category,
+        onSaved: (value) {
+          setState(() {
+            _category = value;
+          });
         },
-        {
-          "display": "Art & Design",
-          "value": "Business Conference",
+        onChanged: (value) {
+          setState(() {
+            _category = value;
+          });
         },
-        {
-          "display": "Cultural",
-          "value": "Cultural",
+        validator: (value) {
+          if (value == null) {
+            return 'Please choose a category';
+          }
+          return null;
         },
-        {
-          "display": "Finance",
-          "value": "Finance",
-        },
-        {
-          "display": "Environmental",
-          "value": "Environmental",
-        },
-        {
-          "display": "Sports",
-          "value": "Sports",
-        },
-        {
-          "display": "Literature",
-          "value": "Literature",
-        },
-        {
-          "display": "Marketing",
-          "value": "Marketing",
-        },
-        {
-          "display": "Scientific",
-          "value": "Scientific",
-        },
-        {
-          "display": "Wellness",
-          "value": "Wellness",
-        },
-      ],
-      textField: 'display',
-      valueField: 'value',
+        dataSource: [
+          {
+            "display": "Technology",
+            "value": "Technology",
+          },
+          {
+            "display": "Art & Design",
+            "value": "Business Conference",
+          },
+          {
+            "display": "Cultural",
+            "value": "Cultural",
+          },
+          {
+            "display": "Finance",
+            "value": "Finance",
+          },
+          {
+            "display": "Environmental",
+            "value": "Environmental",
+          },
+          {
+            "display": "Sports",
+            "value": "Sports",
+          },
+          {
+            "display": "Literature",
+            "value": "Literature",
+          },
+          {
+            "display": "Marketing",
+            "value": "Marketing",
+          },
+          {
+            "display": "Scientific",
+            "value": "Scientific",
+          },
+          {
+            "display": "Wellness",
+            "value": "Wellness",
+          },
+        ],
+        textField: 'display',
+        valueField: 'value',
+      ),
     );
   }
 
   Widget _buildDescription() {
     return TextFormField(
+      key: Key('description_field'),
       decoration: new InputDecoration(
         labelText: "Description",
         fillColor: Colors.white,
@@ -285,6 +294,7 @@ class InsertConferenceState extends State<InsertConference> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: Key('insert_conference_page'),
       body: SingleChildScrollView(
           // Center is a layout widget. It takes a single child and positions it
           // in the middle of the parent.
@@ -338,6 +348,7 @@ class InsertConferenceState extends State<InsertConference> {
                 Container(
                   padding: EdgeInsets.all(8),
                   child: RaisedButton(
+                      key: Key('insert_conference_next'),
                       color: Colors.white,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
@@ -359,17 +370,56 @@ class InsertConferenceState extends State<InsertConference> {
     );
   }
 
-  onNext() {
-    if (_formKey.currentState.validate()) {
+  showErrorDialog(BuildContext context) {
+    // set up the button
+    Widget okButton = FlatButton(
+      child: Text("OK"),
+      onPressed: () {
+        Navigator.of(context).pop(); // dismiss dialog
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      key: Key('invalid_conference_data'),
+      title: Text("Conference data is invalid", style: TextStyle(
+        color: Color(0xFF5BBDB8),
+        fontSize: 18.0,
+        fontWeight: FontWeight.w600,
+        fontFamily: 'Rubik',
+      )),
+      content: Text("Make sure you inserted all the data. Only website is optional", style: TextStyle(
+        color: Colors.black87,
+        fontSize: 15.0,
+        fontWeight: FontWeight.w400,
+        fontFamily: 'Rubik',
+      )),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  onNext(){
+    if (_formKey.currentState.validate() && _dates.length == 2) {
       _formKey.currentState.save();
       _buildConference();
       Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => conferenceSessions(
-                  conference: _conference,
-                )),
+            builder: (context) => conferenceSessions(conference: _conference,)),
       );
+    }
+    else{
+      showErrorDialog(context);
     }
   }
 }

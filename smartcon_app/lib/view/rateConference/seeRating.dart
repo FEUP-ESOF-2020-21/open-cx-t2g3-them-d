@@ -104,8 +104,9 @@ class _SeeRatingState extends State<SeeRating> {
                     side: BorderSide(color: Colors.black26, width: 2)),
                 child: Text('RETURN TO HOMEPAGE', style: TextStyle(color:Colors.black38, fontSize: 14.0,  fontWeight: FontWeight.w700, fontFamily: 'Rubik',)),
                 onPressed: () async {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomePage())
+                  Navigator.pushAndRemoveUntil(context,
+                      MaterialPageRoute(builder: (BuildContext context) => HomePage()),
+                          (Route<dynamic> route) => route is HomePage
                   );
                 },
               ),

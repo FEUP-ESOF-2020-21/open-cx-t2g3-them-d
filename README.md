@@ -252,11 +252,11 @@ As a member of the Conference staff, I want to be able to insert a conference in
 
 * **Acceptance tests**.
 ```gherkin
-Scenario: Conference staff member inserts a conference into the app
-  Given I have Signed In
+Scenario: Conference staff member can insert conference data into the app
+  Given I am at the Home Page
   When I tap the Insert Conference button
-  Then I will be able to fill a form with the Conference name, date and relevant data
-  And I will be redirected to a form in order to Add Sessions and Quiz.
+  Then I will be redirected to the Insert Conference page
+  And I will be presented with fields to insert the name, description, category, district and dates of the conference
 ```
 
 * **Value and effort**.
@@ -276,7 +276,7 @@ As a member of the Conference staff, I want to be able to test the attendees’ 
 * **Acceptance tests**.
 ```gherkin
 Scenario: Conference staff member inserts a session and respective question to its conference
-  Given I have inserted a conference
+  Given I have filled the conference form
   When I tap the Add Session button
   Then I will be able to fill a form with the Session name, topic and relevant data
   And add a question to the Quiz related to such Session
@@ -298,13 +298,23 @@ As an Attendee, I want to be able to change my saved interests and desired locat
 
 * **Acceptance tests**.
 ```gherkin
+Scenario: Attendee creates his profile preferences or location
+  Given I signed in for the first time
+  And I am at the Home Page
+  When I click the Search Conferences button
+  Then I will be able to set my Interests and District
+  And I will be able to Save Profile by clicking the button
+```
+
+```gherkin
 Scenario: Attendee changes his profile preferences or location
   Given I have Signed In
   And I have already configured my profile yet
   And I have clicked the Search Conferences button
   When I tap the Manage Profile button
-  Then I will be able to change my Interests and District
-  And I will be able to Save Profile by clicking the button
+  Then I will be redirected to the Manage Profile page
+  And I will be presented with fields to choose my district and interests
+  Then I will be able to save my profile by clicking the save button
 ```
 
 ```gherkin

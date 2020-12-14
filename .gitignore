@@ -14,3 +14,5 @@ smartcon_app/android/app/google-services.json
 smartcon_app/android/gradle/
 
 smartcon_app/.vscode/
+
+.vscode/
