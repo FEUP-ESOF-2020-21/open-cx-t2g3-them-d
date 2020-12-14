@@ -42,7 +42,9 @@ class InsertConferenceState extends State<InsertConference> {
         description: _description,
         beginDate: _dates[0],
         endDate: _dates[0],
-        rating: 0);
+        rating: 0,
+        numRatings: 0
+      );
   }
 
   Widget _buildName() {

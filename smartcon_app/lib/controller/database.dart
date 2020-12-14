@@ -8,12 +8,10 @@ class DatabaseService {
   DatabaseService({this.uid});
 
   // COLLECTIONS
-  final CollectionReference profiles =
-      FirebaseFirestore.instance.collection("profiles");
-  final CollectionReference conferencesCollection =
-      FirebaseFirestore.instance.collection("conferences");
-  final CollectionReference sessionSuggestions =
-      FirebaseFirestore.instance.collection("sessionSuggestions");
+  final CollectionReference profiles = FirebaseFirestore.instance.collection("profiles");
+  final CollectionReference conferencesCollection = FirebaseFirestore.instance.collection("conferences");
+  final CollectionReference sessionSuggestions = FirebaseFirestore.instance.collection("sessionSuggestions");
+  final CollectionReference feedbacks = FirebaseFirestore.instance.collection("feedbacks");
 
   // SESSION SUGGESTIONS DATA
 
@@ -137,7 +135,9 @@ class DatabaseService {
           beginDate: doc.data()['beginDate'].toDate(),
           endDate: doc.data()['endDate'].toDate(),
           website: doc.data()['website'],
-          rating: doc.data()['rating'].toDouble());
+          rating: doc.data()['rating'].toDouble(),
+          numRatings: doc.data()['numRatings']
+      );
     }).toList();
   }
 
@@ -159,6 +159,7 @@ class DatabaseService {
       'beginDate': conference.beginDate,
       'endDate': conference.endDate,
       'rating': conference.rating,
+      'numRatings': conference.numRatings
     });
 
     return newConference.id;
@@ -186,5 +187,33 @@ class DatabaseService {
       'questionType': session.question.type,
       'required': session.question.required
     });
+  }
+  
+  // FEEDBACK
+
+  Future<void> addConferenceToFeedbacks(String conferenceId) async {
+    return await feedbacks.doc(conferenceId).set({});
+  }
+
+  Future<List<String>> getUserFeedbackOnConference(String conferenceId) async {
+    return await feedbacks.doc(conferenceId).collection(uid).get().then
+      ((value) => value.docs.map((doc) {
+      return doc.id;}).toList());
+  }
+
+  Future<void> saveFeedback(Conference conf, String uid, double feedback) async {
+    await conferencesCollection.doc(conf.confId).set({
+      'confId': conf.confId,
+      'name': conf.name,
+      'category': conf.category,
+      'district': conf.district,
+      'description': conf.description,
+      'beginDate': conf.beginDate,
+      'endDate': conf.endDate,
+      'website': conf.website,
+      'numRatings': conf.numRatings + 1,
+      'rating': (conf.numRatings.toDouble() * conf.rating + feedback) / (conf.numRatings.toDouble() + 1.0)
+    });
+    return await feedbacks.doc(conf.confId).collection(uid).doc(feedback.toString()).set({});
   }
 }

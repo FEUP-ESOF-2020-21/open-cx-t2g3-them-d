@@ -104,7 +104,7 @@ class ConferenceTile extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Icon> _starsForRatings(Conference conference) {
       List<Icon> stars = [];
-      for (int i = 0; i < conference.rating; i++) {
+      for (int i = 0; i < (conference.rating + 0.5).toInt(); i++) {
         stars.add(Icon(
           Icons.star,
           color: Color(0xFF637DEB),

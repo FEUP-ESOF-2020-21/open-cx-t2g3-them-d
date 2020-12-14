@@ -9,6 +9,7 @@ import 'package:smartcon_app/controller/database.dart';
 import '../wrapper.dart';
 import 'conferenceSuggestions/searchConferences.dart';
 import 'insertConference/insertConference.dart';
+import 'package:smartcon_app/view/rateConference/rateConferenceCode.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -176,10 +177,7 @@ class _HomePageState extends State<HomePage> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
           highlightElevation: 20.0,
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => HomePage()),
-            );
+             Navigator.push(context, MaterialPageRoute(builder: (context) => RateConferenceCode()),);
           },
           child: Text(
             "Leave feedback",
