@@ -1,10 +1,8 @@
 import 'package:date_range_picker/date_range_picker.dart' as DateRagePicker;
 import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:flutter/material.dart';
-import 'package:smartcon_app/models/conference.dart';
-import 'package:smartcon_app/models/session.dart';
-import 'package:smartcon_app/services/auth.dart';
-import 'package:smartcon_app/services/database.dart';
+import 'package:smartcon_app/model/conference.dart';
+import 'package:smartcon_app/controller/database.dart';
 
 import '../homePage.dart';
 

@@ -1,9 +1,7 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:smartcon_app/models/conference.dart';
-import 'package:smartcon_app/models/session.dart';
-import 'package:smartcon_app/models/user.dart';
+import 'package:smartcon_app/model/conference.dart';
+import 'package:smartcon_app/model/session.dart';
+import 'package:smartcon_app/model/user.dart';
 
 class DatabaseService {
 

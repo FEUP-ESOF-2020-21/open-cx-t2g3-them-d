@@ -2,8 +2,8 @@ import 'package:date_range_picker/date_range_picker.dart' as DateRagePicker;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smartcon_app/models/conference.dart';
-import 'package:smartcon_app/services/database.dart';
+import 'package:smartcon_app/model/conference.dart';
+import 'package:smartcon_app/controller/database.dart';
 
 import '../profile.dart';
 import 'conferenceList.dart';
