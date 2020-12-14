@@ -134,6 +134,87 @@ class _conferenceSessions extends State<conferenceSessions> {
     });
   }
 
+  showConferenceCodeDialog(BuildContext context, String conferenceId) {
+    // set up the button
+    Widget okButton = FlatButton(
+      child: Text("OK"),
+      onPressed: () {
+        Navigator.pushAndRemoveUntil(context,
+            MaterialPageRoute(builder: (BuildContext context) => HomePage()),
+                (Route<dynamic> route) => route is HomePage
+        );
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: SelectableText(conferenceId,
+            style: TextStyle(
+              color: Color(0xFF5BBDB8),
+              fontSize: 18.0,
+              fontWeight: FontWeight.w600,
+              fontFamily: 'Rubik',
+            ),
+            showCursor: true,
+            toolbarOptions: ToolbarOptions(copy: true),
+      ),
+      content: Text("The attendees can now get session suggestions by using this code.", style: TextStyle(
+        color: Colors.black87,
+        fontSize: 15.0,
+        fontWeight: FontWeight.w400,
+        fontFamily: 'Rubik',
+      )),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  showErrorDialog(BuildContext context) {
+    // set up the button
+    Widget okButton = FlatButton(
+      child: Text("OK"),
+      onPressed: () {
+        Navigator.of(context).pop(); // dismiss dialog
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Invalid action", style: TextStyle(
+        color: Color(0xFF5BBDB8),
+        fontSize: 18.0,
+        fontWeight: FontWeight.w600,
+        fontFamily: 'Rubik',
+      )),
+      content: Text("You must insert at least one session", style: TextStyle(
+      color: Colors.black87,
+        fontSize: 15.0,
+        fontWeight: FontWeight.w400,
+        fontFamily: 'Rubik',
+      )),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   //on save forms
   void onSave() async {
     if (widget.sessions.length != 0) {
@@ -143,11 +224,11 @@ class _conferenceSessions extends State<conferenceSessions> {
       for (var session in widget.sessions) {
         await DatabaseService().addSession(conferenceId, session);
       }
-    }
 
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (BuildContext context) => HomePage()),
-        (Route<dynamic> route) => route is HomePage);
+      showConferenceCodeDialog(context, conferenceId);
+    }
+    else{
+      showErrorDialog(context);
+    }
   }
 }

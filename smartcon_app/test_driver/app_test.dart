@@ -5,6 +5,7 @@ import 'package:glob/glob.dart';
 import 'steps/test_insert_conference.dart';
 import 'steps/test_manage_profile.dart';
 import 'steps/test_common.dart';
+import 'steps/test_popup.dart';
 
 Future<void> main() {
   final config = FlutterTestConfiguration()
@@ -15,7 +16,8 @@ Future<void> main() {
       JsonReporter(path: './report.json')
     ]
     ..hooks = []
-    ..stepDefinitions = [AndInsertConferenceFields(), ThenRedirectToPage(), AndSaveProfileButton(), AndProfileFields(), GivenHomePage(), WhenTapButton()]
+    ..stepDefinitions = [AndInsertConferenceFields(), ThenRedirectToPage(), AndSaveProfileButton(), AndProfileFields(),
+      GivenPage(), GivenInsertConferencePage(), ThenPopup(), WhenTap(), AndTap()]
     ..customStepParameterDefinitions = [
 
     ]
