@@ -2,8 +2,8 @@ import 'package:chips_choice/chips_choice.dart';
 import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smartcon_app/models/user.dart';
-import 'package:smartcon_app/services/database.dart';
+import 'package:smartcon_app/model/user.dart';
+import 'package:smartcon_app/controller/database.dart';
 
 class Profile extends StatelessWidget {
 

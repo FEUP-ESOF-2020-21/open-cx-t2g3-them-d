@@ -1,11 +1,10 @@
 import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:smartcon_app/models/conference.dart';
-import 'package:smartcon_app/models/session.dart';
-import 'package:smartcon_app/services/database.dart';
+import 'package:smartcon_app/model/conference.dart';
+import 'package:smartcon_app/model/session.dart';
+import 'package:smartcon_app/controller/database.dart';
 
 
 class BuildSessionQuestion extends StatefulWidget {

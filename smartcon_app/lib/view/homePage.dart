@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smartcon_app/models/user.dart';
-import 'package:smartcon_app/screens/profile.dart';
-import 'package:smartcon_app/screens/sessionSuggestions/sessionSuggestionsCode.dart';
-import 'package:smartcon_app/services/auth.dart';
-import 'package:smartcon_app/services/database.dart';
+import 'package:smartcon_app/model/user.dart';
+import 'package:smartcon_app/view/profile.dart';
+import 'package:smartcon_app/view/sessionSuggestions/sessionSuggestionsCode.dart';
+import 'package:smartcon_app/controller/auth.dart';
+import 'package:smartcon_app/controller/database.dart';
 import '../wrapper.dart';
 import 'conferenceSuggestions/searchConferences.dart';
 import 'insertConference/insertConference.dart';

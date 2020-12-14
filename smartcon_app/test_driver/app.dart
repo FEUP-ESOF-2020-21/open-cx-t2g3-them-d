@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_driver/driver_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:smartcon_app/models/user.dart';
-import 'package:smartcon_app/screens/homePage.dart';
+import 'package:smartcon_app/model/user.dart';
+import 'package:smartcon_app/view/homePage.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
