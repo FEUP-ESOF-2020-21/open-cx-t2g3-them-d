@@ -9,7 +9,7 @@ class Conference {
   String description;
   DateTime beginDate;
   DateTime endDate;
-  int rating;
+  double rating;
 
   Conference({this.confId, this.name, this.category, this.district, this.description, this.beginDate, this.endDate, this.website, this.rating});
 

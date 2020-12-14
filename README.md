@@ -143,7 +143,7 @@ As an Attendee, I want to be able to get conference suggestions based on my prof
 
 * **Acceptance tests**.
 ```gherkin
-Scenario: Attendee searches conferences with profile preconfigured
+Scenario: Attendee searches conferences with the profile already configured
   Given I have saved my Profile Preferences
   When I tap the Search Conferences button
   And I select a Date range
@@ -176,7 +176,7 @@ As an Attendee, I want to have the possibility of getting the right session sugg
 
 * **Acceptance tests**.
 ```gherkin
-Scenario: Attendee searches session sugestions using a conference code never used before
+Scenario: Attendee searches session suggestions using a conference code never used before
   Given I have a valid Conference Code
   When I tap the Session Suggestions button
   And I insert the Conference Code
@@ -185,7 +185,7 @@ Scenario: Attendee searches session sugestions using a conference code never use
 ```
 
 ```gherkin
-Scenario: Attendee searches session sugestions using a conference code used before
+Scenario: Attendee searches session suggestions using a conference code used before
   Given I have a valid Conference Code
   And I have already filled the Quiz for that Conference
   When I tap the Session Suggestions button
@@ -194,7 +194,7 @@ Scenario: Attendee searches session sugestions using a conference code used befo
 ```
 
 ```gherkin
-Scenario: Attendee searches session sugestions using an invalid conference code
+Scenario: Attendee searches session suggestions using an invalid conference code
   Given I have an invalid Conference Code
   When I tap the Session Suggestions button
   And I insert the Conference Code
@@ -300,7 +300,8 @@ As an Attendee, I want to be able to change my saved interests and desired locat
 ```gherkin
 Scenario: Attendee changes his profile preferences or location
   Given I have Signed In
-  And I have clicked the Session Suggestions button
+  And I have already configured my profile yet
+  And I have clicked the Search Conferences button
   When I tap the Manage Profile button
   Then I will be able to change my Interests and District
   And I will be able to Save Profile by clicking the button
@@ -310,7 +311,7 @@ Scenario: Attendee changes his profile preferences or location
 Scenario: Attendee creates his profile preferences or location
   Given I have Signed In
   And I have not configured my profile yet
-  When I click the Session Suggestions button
+  When I click the  Search Conferences button
   Then I will be able to set my Interests and District
   And I will be able to Save Profile by clicking the button
 ```
@@ -323,25 +324,36 @@ Scenario: Attendee creates his profile preferences or location
 
 ### Domain model
 
-To better understand the context of the software system, it is very useful to have a simple UML class diagram with all the key concepts (names, attributes) and relationships involved of the problem domain addressed by your module.
-
   ![](./images/domainModel.png)
+
+  Our app concepts are easily understood, consisting of **Conferences**, **Sessions**, **Profiles**, **Users** and **Quizzes**. 
+  Each **User**, identified by an unique `id`, can be connected to a **Conference** as an attendee or organizer.
+  Every attendee has a **Profile** defining his `interests` and `location`(district), which allows us to filter the available Conferences for each individual. 
+  **Conferences** have related information and multiple **Sessions**. Each **Session** has one **Quiz**, which will be answered by attendees to obtain Session Suggestions. 
+  Each **Quiz**, beyond the `question` and the `options`, has a `type`, which can assume the values Concept Question or Right/Wrong Question. This allows us to identify the type of answer that is expected from the **User**.
+  In Concept Knowledge questions, the `required` value represents the number of concepts that the **User** is required to recognize from the options to fully enjoy the **Session**.
+  In Right/Wrong questions, the `answer` value allows us to check if the **User** choose the right option and, this way, to verify if the **Session** should be suggested or not.
+
+
+
+
 ---
 
 
 ## Architecture and Design
- 
-The architecture of a software system encompasses the set of key decisions about its overall organization. 
 
 ### Logical architecture
 
-The purpose of this subsection is to document the high-level logical structure of the code.
+![](./images/logicalArchitectureDiagram.png)
 
-![](./images/logicalArchitecture.PNG)
+SmartCon's app's high-level logical structure follows the Model-View-Controller Architectural Pattern (*MVC*). We chose this pattern because our app has three clear components:
+- The **Controller**, a component that represents the logic and the backend of Smartcon App and that includes:
+  - the connection to the Firestore Database, which allows us to access and modify the information about the users, the conferences, the sessions, the quizzes, previously obtained suggestions and also the given feedback. To enable this functionalities, this component includes the database queries, triggered according to the users' inputs.
+  - the authentication with Google, which makes sure user data is safe and only accessible by the right users.
+- The **Views**, visual components that represent the concrete display of each app state to the user, showing the data obtained and updated by the Controller.
+- The **Models**, which include the Users, Conferences, Sessions and Quizzes. These represent entities that store related data, mapping the information obtained by the Controller. Every update on these domains is triggered by the Controller and represented in the Views.  
 
-SmartCon's app high-level logical structure follows the Model-View-Controler Architectural Pattern (*MVC*). We chose this pattern as we find it the most appropried and simple structure for this type of projects.
-
-As shown on the diagram, the **Model** contains all the information related to each domain: User, Conference and Session. Every update on this domains is trigered by the Controler that also connects with the View. The **Controller** consists of interfaces that query the database and generate funcionalities according to que users inputs, as well as authentication functions. Finally, the **View** represents the concrete display of each app state.
+ Also, since we are a group of four elements we found that using this model we could work simultaneously on the model, controller, and views. Also, because of the separation of responsibilities, we found it easier to change and upgrade our app in every increment. Additionally, using *MVC* one model can have multiple views, which, since this is an app with quite some features, came in handy.
 
 
 ### Physical architecture
@@ -351,9 +363,9 @@ The goal of this subsection is to document the high-level physical structure of 
 ![](./images/physicalArchitecture.PNG)
 
 SmartCon's app high-level physical structure consists of two main blocks and one main connection between them. 
-The user installs the SmartCon app on a smarphone and every time the app needs to connect to our database it does it via HTTPS requests, where is all the information available.
+The user installs the SmartCon app on a smartphone and every time the app needs to connect to our database it does it via HTTPS requests, where is all the information available.
 
-For this project the main technologie considered was Flutter for the mobile UI combined with Firebase to store all the data. 
+For this project the main technology considered was Flutter for the mobile UI combined with Firebase to store all the data. 
 We chose Flutter because of its ability to easily customize anything that appears on the screen with the ready-to-use widgets. As for the database server we used Firebase as it is of easy integration with Flutter.
 
 
@@ -368,21 +380,35 @@ In this subsection please describe in more detail which, and how, user(s) story(
 
 ## Implementation
 
-Changelogs for the increments made can be found [here](https://github.com/FEUP-ESOF-2020-21/open-cx-t2g3-them-d/releases)
+Changelogs for the increments made can be found [here](https://github.com/FEUP-ESOF-2020-21/open-cx-t2g3-them-d/releases)!
 
 ---
 
 ## Test
 
+To ensure the application is working properly, we have decided to add Unit Tests and Automated Acceptance Tests using *gherkin*.
+
+Unit Tests are used to verify the expected output after the user interacts with the application and have been implemented using the flutter_test dependency.
+
+In this project the features tested are the following:
+
+-
+-
 
 ---
 
 ## Configuration and change management
 
+Configuration and change management are key activities to control change to, and maintain the integrity of, a project’s artifacts. For the purpose of ESOF, we used a very simple approach, just to manage feature requests, bug fixes, and improvements, using GitHub issues and following the [GitHub flow](https://guides.github.com/introduction/flow/).
 
 ---
 
 ## Project management
+
+Software project management is an art and science of planning and leading software projects, in which software projects are planned, implemented, monitored and controlled.
+
+For this project, we used Github Projects in order to registering tasks, assign tasks to people, add estimations to tasks, monitor tasks progress. You can see our board [here](https://github.com/FEUP-ESOF-2020-21/open-cx-t2g3-them-d/projects/1).
+
 
 
 
