@@ -129,9 +129,7 @@ class ConferenceTile extends StatelessWidget {
           child: Column(children: <Widget>[
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
               Container(
-                width: MediaQuery.of(context).size.width * 0.84 -
-                    32 -
-                    24 * conference.rating,
+                width: MediaQuery.of(context).size.width * 0.84 - 45 * conference.rating,
                 child: Text(
                   conference.name.toUpperCase(),
                   style: Theme.of(context).textTheme.headline5,
@@ -142,6 +140,7 @@ class ConferenceTile extends StatelessWidget {
             ]),
             SizedBox(height: 2),
             Container(
+              width: MediaQuery.of(context).size.width * 0.84,
               child: Text(
                 conference.category,
                 style: Theme.of(context).textTheme.headline3,

@@ -137,7 +137,7 @@ class DatabaseService {
           beginDate: doc.data()['beginDate'].toDate(),
           endDate: doc.data()['endDate'].toDate(),
           website: doc.data()['website'],
-          rating: doc.data()['rating']);
+          rating: doc.data()['rating'].toDouble());
     }).toList();
   }
 
