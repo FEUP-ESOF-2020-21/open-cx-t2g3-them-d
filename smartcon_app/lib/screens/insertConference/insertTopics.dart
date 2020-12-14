@@ -128,6 +128,43 @@ class _InsertTopicsState extends State<InsertTopics> {
     });
   }
 
+  showErrorDialog(BuildContext context) {
+    // set up the button
+    Widget okButton = FlatButton(
+      child: Text("OK"),
+      onPressed: () {
+        Navigator.of(context).pop(); // dismiss dialog
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Invalid action", style: TextStyle(
+        color: Color(0xFF5BBDB8),
+        fontSize: 18.0,
+        fontWeight: FontWeight.w600,
+        fontFamily: 'Rubik',
+      )),
+      content: Text("You must insert at least one topic", style: TextStyle(
+        color: Colors.black87,
+        fontSize: 15.0,
+        fontWeight: FontWeight.w400,
+        fontFamily: 'Rubik',
+      )),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   //on save forms
   void onSave() {
     if (topicsForms.length > 0) {
@@ -138,6 +175,9 @@ class _InsertTopicsState extends State<InsertTopics> {
         widget.topics = topicsForms.map((it) => it.topic).toList();
         Navigator.pop(context, widget.topics);
       }
+    }
+    else{
+      showErrorDialog(context);
     }
   }
 }

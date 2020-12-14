@@ -127,6 +127,43 @@ class _InsertSpeakersState extends State<InsertSpeakers> {
     });
   }
 
+  showErrorDialog(BuildContext context) {
+    // set up the button
+    Widget okButton = FlatButton(
+      child: Text("OK"),
+      onPressed: () {
+        Navigator.of(context).pop(); // dismiss dialog
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Invalid action", style: TextStyle(
+        color: Color(0xFF5BBDB8),
+        fontSize: 18.0,
+        fontWeight: FontWeight.w600,
+        fontFamily: 'Rubik',
+      )),
+      content: Text("You must insert at least one speaker", style: TextStyle(
+        color: Colors.black87,
+        fontSize: 15.0,
+        fontWeight: FontWeight.w400,
+        fontFamily: 'Rubik',
+      )),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   //on save forms
   void onSave() {
     if (speakersForms.length > 0) {
@@ -136,6 +173,9 @@ class _InsertSpeakersState extends State<InsertSpeakers> {
         widget.speakers = speakersForms.map((it) => it.speaker).toList();
         Navigator.pop(context, widget.speakers);
       }
+    }
+    else{
+      showErrorDialog(context);
     }
   }
 }

@@ -107,40 +107,37 @@ class ProfileFormState extends State<ProfileForm> {
                     ),
                     Padding(
                       padding: EdgeInsets.all(8.0),
-                      child: Tooltip(
-                        message: 'profile_district',
-                        child: DropDownFormField(
-                          titleText: 'District',
-                          hintText: 'Choose a district',
-                          value: _district ?? userData.district,
-                          onSaved: (value) {
-                            setState(() {
-                              _district = value;
-                            });
+                      child: DropDownFormField(
+                        titleText: 'District',
+                        hintText: 'Choose a district',
+                        value: _district ?? userData.district,
+                        onSaved: (value) {
+                          setState(() {
+                            _district = value;
+                          });
+                        },
+                        onChanged: (value) {
+                          setState(() {
+                            _district = value;
+                          });
+                        },
+                        validator: (value) {
+                          if (value == null)
+                            return 'Please choose a district';
+                          return null;
+                        },
+                        dataSource: [
+                          {"display": "Porto", "value": "Porto",},
+                          {"display": "Aveiro", "value": "Aveiro",},
+                          {"display": "Lisboa", "value": "Lisboa",},
+                          {
+                            "display": "Viana do Castelo",
+                            "value": "Viana do Castelo",
                           },
-                          onChanged: (value) {
-                            setState(() {
-                              _district = value;
-                            });
-                          },
-                          validator: (value) {
-                            if (value == null)
-                              return 'Please choose a district';
-                            return null;
-                          },
-                          dataSource: [
-                            {"display": "Porto", "value": "Porto",},
-                            {"display": "Aveiro", "value": "Aveiro",},
-                            {"display": "Lisboa", "value": "Lisboa",},
-                            {
-                              "display": "Viana do Castelo",
-                              "value": "Viana do Castelo",
-                            },
-                            {"display": "Faro", "value": "Faro",},
-                          ],
-                          textField: 'display',
-                          valueField: 'value',
-                        ),
+                          {"display": "Faro", "value": "Faro",},
+                        ],
+                        textField: 'display',
+                        valueField: 'value',
                       ),
                     ),
                     Container(
@@ -268,7 +265,6 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      key: Key('profile_interests'),
       children: _buildChoiceList(),
     );
   }
