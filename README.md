@@ -337,6 +337,8 @@ Scenario: Attendee creates his profile preferences or location
   ![](./images/domainModel.png)
 
   Our app concepts are easily understood, consisting of **Conferences**, **Sessions**, **Profiles**, **Users** and **Quizzes**. 
+
+
   Each **User**, identified by an unique `id`, can be connected to a **Conference** as an attendee or organizer.
   Every attendee has a **Profile** defining his `interests` and `location`(district), which allows us to filter the available Conferences for each individual. 
   **Conferences** have related information and multiple **Sessions**. Each **Session** has one **Quiz**, which will be answered by attendees to obtain Session Suggestions. 
@@ -396,14 +398,40 @@ Changelogs for the increments made can be found [here](https://github.com/FEUP-E
 
 ## Test
 
-To ensure the application is working properly, we have decided to add Unit Tests and Automated Acceptance Tests using *gherkin*.
+To test our application we have decided to add Unit Tests and Automated Acceptance Tests using *gherkin*.
 
-Unit Tests are used to verify the expected output after the user interacts with the application and have been implemented using the flutter_test dependency.
+Acceptance tests are a formal description of the behavior of a software product, generally expressed as an example or a usage scenario. We implemented them using *Gherkin* language,  with the aid of `flutter_gherkin` package for Flutter and expressing the scenarios described in the [User Storys Chapter](#User-stories).
 
-In this project the features tested are the following:
+Unit Tests are a way of testing a unit (the smallest piece of code that can be logically isolated in a system) and we implemented them using the `flutter_test` dependency.
 
--
--
+In this project we decided to mainly focus our tests on:
+
+- Tapping buttons to show another screen, verifying the flow between screens.
+- Presence of certain widgets to verify the construction of each screen class
+- Verification of input errors
+
+
+#### The features tested are the following:
+
+**Acceptance Tests**:
+- Insert Conference - [User Story IV](#Story-IV---Insert-Conference);
+- Pop-up mencioning error when inputs are invalid - Extra Feature - [Issue #19](https://github.com/FEUP-ESOF-2020-21/open-cx-t2g3-them-d/issues/19);
+- Manage Profile - [User Story VI](#Story-VI---Manage-Profile).
+
+**Unit Tests**:
+- Insert Conference Screen - [User Story V](#Story-V---Add-Sessions-and-Quiz-to-a-Conference);
+- Pop-up mencioning error when inputs are invalid - [Issue #19](https://github.com/FEUP-ESOF-2020-21/open-cx-t2g3-them-d/issues/19);
+- Conference Sessions Screen - [User Story V](#Story-V---Add-Sessions-and-Quiz-to-a-Conference);
+- Pressing the button to add a Session - [User Story V](#Story-V---Add-Sessions-and-Quiz-to-a-Conference);
+- Pressing the button to add the Conference generates error if no session are inserted - [User Story IV](#Story-IV---Insert-Conference);
+- New Session Screen - [User Story V](#Story-V---Add-Sessions-and-Quiz-to-a-Conference);
+- Insert Speakers and Topics of a Session Screen - [User Story V](#Story-V---Add-Sessions-and-Quiz-to-a-Conference).
+
+The planned features to be tested are the following:
+
+- Saved Conferences local database persistent data storage;
+- Managing profile and verifying the conference suggestions accordingly;
+- Answering Quiz and veryfying the session suggestions accordingly.
 
 ---
 
