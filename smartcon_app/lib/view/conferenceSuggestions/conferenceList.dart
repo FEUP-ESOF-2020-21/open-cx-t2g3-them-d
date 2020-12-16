@@ -3,9 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:smartcon_app/models/conference.dart';
-import 'package:smartcon_app/models/user.dart';
-import 'package:smartcon_app/services/database.dart';
+import 'package:smartcon_app/model/conference.dart';
+import 'package:smartcon_app/model/user.dart';
+import 'package:smartcon_app/controller/database.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ConferenceList extends StatefulWidget {

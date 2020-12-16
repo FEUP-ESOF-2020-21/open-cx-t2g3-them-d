@@ -1,7 +1,7 @@
 import 'package:date_range_picker/date_range_picker.dart' as DateRagePicker;
 import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:flutter/material.dart';
-import 'package:smartcon_app/models/conference.dart';
+import 'package:smartcon_app/model/conference.dart';
 import 'conferenceSessions.dart';
 
 class InsertConference extends StatefulWidget {

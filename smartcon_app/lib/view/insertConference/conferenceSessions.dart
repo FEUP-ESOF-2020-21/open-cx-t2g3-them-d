@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:smartcon_app/models/conference.dart';
-import 'package:smartcon_app/models/session.dart';
-import 'package:smartcon_app/screens/common/sessionTile.dart';
-import 'package:smartcon_app/screens/insertConference/newSession.dart';
-import 'package:smartcon_app/services/database.dart';
+import 'package:smartcon_app/model/conference.dart';
+import 'package:smartcon_app/model/session.dart';
+import 'package:smartcon_app/view/common/sessionTile.dart';
+import 'package:smartcon_app/view/insertConference/newSession.dart';
+import 'package:smartcon_app/controller/database.dart';
 
 import '../homePage.dart';
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:smartcon_app/models/session.dart';
-import 'package:smartcon_app/screens/insertConference/sessionQuestion.dart';
+import 'package:smartcon_app/model/session.dart';
+import 'package:smartcon_app/view/insertConference/sessionQuestion.dart';
 import 'package:time_range/time_range.dart';
-import 'package:smartcon_app/screens/insertConference/insertSpeakers.dart';
+import 'package:smartcon_app/view/insertConference/insertSpeakers.dart';
 import 'insertTopics.dart';
 
 class NewSession extends StatefulWidget {

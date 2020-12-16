@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:smartcon_app/models/session.dart';
-import 'package:smartcon_app/screens/common/sessionTile.dart';
-import 'package:smartcon_app/services/database.dart';
+import 'package:smartcon_app/model/session.dart';
+import 'package:smartcon_app/view/common/sessionTile.dart';
+import 'package:smartcon_app/controller/database.dart';
 
 class SessionSuggestions extends StatefulWidget {
 
