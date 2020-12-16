@@ -104,6 +104,7 @@ class ConferenceTile extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Icon> _starsForRatings(Conference conference) {
       List<Icon> stars = [];
+      if(conference.rating == 0) return stars;
       for (int i = 0; i < (conference.rating + 0.5).toInt(); i++) {
         stars.add(Icon(
           Icons.star,
@@ -129,7 +130,7 @@ class ConferenceTile extends StatelessWidget {
           child: Column(children: <Widget>[
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
               Container(
-                width: MediaQuery.of(context).size.width * 0.84 - 45 * conference.rating,
+                width: MediaQuery.of(context).size.width * 0.84 - 45 * (conference.rating > 0 ? conference.rating: 1),
                 child: Text(
                   conference.name.toUpperCase(),
                   style: Theme.of(context).textTheme.headline5,
