@@ -100,6 +100,7 @@ class _NewSessionState extends State<NewSession> {
   Widget _buildTopics() {
     return Row(children: <Widget>[
       ButtonTheme(
+        key: Key('topicsButtonn'),
         minWidth: MediaQuery.of(context).size.width * 0.84,
         child: RaisedButton(
           color: Colors.white,
@@ -133,6 +134,7 @@ class _NewSessionState extends State<NewSession> {
     return Row(
       children: [
         ButtonTheme(
+          key: Key('speakerButtonn'),
           minWidth: MediaQuery.of(context).size.width * 0.84,
           child: MaterialButton(
             color: Colors.white,

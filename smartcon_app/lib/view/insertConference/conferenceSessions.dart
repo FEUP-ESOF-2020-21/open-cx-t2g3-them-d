@@ -5,8 +5,8 @@ import 'package:smartcon_app/model/session.dart';
 import 'package:smartcon_app/view/common/sessionTile.dart';
 import 'package:smartcon_app/view/insertConference/newSession.dart';
 import 'package:smartcon_app/controller/database.dart';
+import 'package:smartcon_app/view/homePage.dart';
 
-import '../homePage.dart';
 
 class conferenceSessions extends StatefulWidget {
   Conference conference;
@@ -115,6 +115,7 @@ class _conferenceSessions extends State<conferenceSessions> {
           child: Align(
             alignment: Alignment.bottomLeft,
             child: FloatingActionButton(
+              key: Key('btn1'),
               heroTag: "btn1",
               child: Icon(Icons.add),
               backgroundColor: Color(0xFF5BBDB8),
@@ -126,6 +127,7 @@ class _conferenceSessions extends State<conferenceSessions> {
         Align(
           alignment: Alignment.bottomRight,
           child: FloatingActionButton(
+            key: Key('btn2'),
             heroTag: "btn2",
             child: Icon(Icons.done),
             backgroundColor: Color(0xFF5BBDB8),
