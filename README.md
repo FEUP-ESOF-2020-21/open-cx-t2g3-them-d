@@ -427,11 +427,6 @@ In this project we decided to mainly focus our tests on:
 - New Session Screen - [User Story V](#Story-V---Add-Sessions-and-Quiz-to-a-Conference);
 - Insert Speakers and Topics of a Session Screen - [User Story V](#Story-V---Add-Sessions-and-Quiz-to-a-Conference).
 
-The planned features to be tested are the following:
-
-- Saved Conferences local database persistent data storage;
-- Managing profile and verifying the conference suggestions accordingly;
-- Answering Quiz and veryfying the session suggestions accordingly.
 
 ---
 
