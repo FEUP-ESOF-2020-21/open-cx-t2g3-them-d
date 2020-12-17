@@ -252,11 +252,21 @@ As a member of the Conference staff, I want to be able to insert a conference in
 
 * **Acceptance tests**.
 ```gherkin
-Scenario: Conference staff member can insert conference data into the app
+Scenario: Insert conference data
   Given I am at the Home Page
   When I tap the Insert Conference button
   Then I will be redirected to the Insert Conference page
   And I will be presented with fields to insert the name, description, category, district and dates of the conference
+```
+
+```gherkin
+Feature: Lacking Conference Information
+  Scenario: A pop up is shown if conference data is incomplete
+    Given I am at the Insert Conference Page
+    When I fill the name field with a valid name
+    And I fill the description field with a description
+    And I tap the Next button
+    Then a popup will show saying I haven't filled all the required fields
 ```
 
 * **Value and effort**.
@@ -298,12 +308,11 @@ As an Attendee, I want to be able to change my saved interests and desired locat
 
 * **Acceptance tests**.
 ```gherkin
-Scenario: Attendee creates his profile preferences or location
-  Given I signed in for the first time
-  And I am at the Home Page
-  When I click the Search Conferences button
-  Then I will be able to set my Interests and District
-  And I will be able to Save Profile by clicking the button
+Scenario: Attendees can access the Manage Profile page directly from the Home page
+  Given I am at the Home Page
+  When I tap the Manage Profile button
+  Then I will be able to set my Interests and District in the Manage Profile page
+  And I will be able to Save Profile by clicking the Save Profile button
 ```
 
 ```gherkin
@@ -384,13 +393,28 @@ We chose Flutter because of its ability to easily customize anything that appear
 
 ### Prototype
 
-During the initial Prototype phase, we were indecisive about the users stories and their implementations. The first concern encountered by the group was adapting to the new environment Flutter and Dart brought us. As the ideas started to get more defined, the group discussed about which architecture would be the most appropriate for the app.
+During the initial Prototype phase, we were indecisive about the user stories and their implementations. As the ideas started to get more defined and as the product vision approached its final version, the group was able to identify the most valuable features to include:
+- Enabling the user to create his profile by choosing from a list of interests and by selecting his location;
+- Allowing the user to filter conferences by rating and date;
+- Allowing the user to get session suggestions by answering a quiz.
 
-We agreed upon making the app consist of a main menu where all the main features are present, requiring no navigation bar and making the traversal straightforward and intuitive.
+This main features were then converted into user stories with great value and their effort was estimated to better understand if we could also include some other features that would enrich the final product. 
+Therefore, we decided to also allow users to leave their feedback for a conference and to take a risk and commit ourselves to a feature that would take a lot of effort: allowing the organization to insert a conference with multiple sessions, speakers, topics and the quiz itself, to be answered by the user.
+ 
+At this stage, we started to discuss about which architecture and design would be the most appropriate for the app. 
+We agreed upon making the app consist of a main menu where all the main features are accessible by pressing a button, requiring no navigation bar and making the traversal straightforward and intuitive for the user.
 
-![main_menu](../images/mockups/final_main.png)
+<img src="./images/mockups/final_main.png" data-canonical-src="main menu" width="300" />
 
-We initially planned on releasing versions for both iOS and Android. Even though we had access to a Mac computer (necessary for the implementation of the iOS version), it turned out to cause major dependency problems in our app. Resulting in the idea being dropped and finally releasing only on Android.
+
+As we started developing the app, the first concern encountered by the group was adapting to the new environment Flutter and Dart brought us. Also, has most of our app required a database and authentication to keep the user data, we started as quickly as possible to connect to Firebase and to user Google Sign In to authenticate the user.
+
+In the first two iterations we decided to implement the user stories that clearly brought more value to the user. 
+In the next to iterations we implemented the remaining stories and we made some corrections and improvements to the main features according to the feedback he had. 
+
+Also, has we worked hard in the first three iterations so that we would be able to invest some time in extra features, we decided to allow the user to copy the code of the inserted conference and test the quiz that he just inserted, which allows all the features of the app to be tested by anyone that signs in. Furthermore, we added some pop ups to indicate when compulsory data was missing when inserting a conference, improving the user experience even more.
+
+Finally, as we wanted to focus our work on the implementation of the features themselves, we started by implementing our app for Android, but planned on releasing a version for iOS also. In the fourth iteration, after implementing the remaining features and also the extras, we tried to release the version for iOs . Even though we had access to a Mac computer (necessary for the implementation of the iOS version), it turned out to cause major dependency problems in our app due to Firebase. Resulting in the idea being dropped and finally releasing only on Android.
 
 ---
 
@@ -404,27 +428,30 @@ Changelogs for the increments made can be found [here](https://github.com/FEUP-E
 
 To test our application we have decided to add Unit Tests and Automated Acceptance Tests using *gherkin*.
 
-Acceptance tests are a formal description of the behavior of a software product, generally expressed as an example or a usage scenario. We implemented them using *Gherkin* language,  with the aid of `flutter_gherkin` package for Flutter and expressing the scenarios described in the [User Storys Chapter](#User-stories).
+Acceptance tests are a formal description of the behavior of a software product, generally expressed as an example or a usage scenario. We implemented them using *Gherkin* language,  with the aid of `flutter_gherkin` package for Flutter and expressing some of the scenarios described in the [User Storys Chapter](#User-stories).
 
 Unit Tests are a way of testing a unit (the smallest piece of code that can be logically isolated in a system) and we implemented them using the `flutter_test` dependency.
 
 In this project we decided to mainly focus our tests on:
 
 - Tapping buttons to show another screen, verifying the flow between screens.
-- Presence of certain widgets to verify the construction of each screen class
-- Verification of input errors
+- Presence of certain widgets to verify the construction of each screen class.
+- Verification of input errors.
+- Code that could be tested independently of the authentication with Google Sign In.
 
 
 #### The features tested are the following:
 
 **Acceptance Tests**:
-- Insert Conference - [User Story IV](#Story-IV---Insert-Conference);
-- Pop-up mencioning error when inputs are invalid - Extra Feature - [Issue #19](https://github.com/FEUP-ESOF-2020-21/open-cx-t2g3-them-d/issues/19);
-- Manage Profile - [User Story VI](#Story-VI---Manage-Profile).
+- Insert Conference - [User Story IV](#Story-IV---Insert-Conference): We decided to test this feature due to the multiplicity of fields and pages it involves.
+- Pop-up mentioning error when inputs are invalid - Extra Feature - [Issue #19](https://github.com/FEUP-ESOF-2020-21/open-cx-t2g3-them-d/issues/19). We added this extra feature in the last iteration and we wanted to make sure it worked as expected, identifying when the user did not fill all compulsory fields regarding the conference he is trying to insert.
+- Manage Profile - [User Story VI](#Story-VI---Manage-Profile). Even though the Manage Profile feature involves requests to the firebase, which made it tricky to test, we decided to test it with a test user because it is essencial that a user can access his profile data, which must have the location and interests sections.
 
 **Unit Tests**:
-- Insert Conference Screen - [User Story V](#Story-V---Add-Sessions-and-Quiz-to-a-Conference);
-- Pop-up mencioning error when inputs are invalid - [Issue #19](https://github.com/FEUP-ESOF-2020-21/open-cx-t2g3-them-d/issues/19);
+
+In the Unit Tests we focused our tests on the features related to the Insertion of a Conference, because it involves some screens that do not require firebase authentication and, therefore, were totally dependent on our Flutter code.
+- Insert Conference Screen - [User Story V](#Story-V---Add-Sessions-and-Quiz-to-a-Conference).
+- Pop-up mentioning error when inputs are invalid - [Issue #19](https://github.com/FEUP-ESOF-2020-21/open-cx-t2g3-them-d/issues/19);
 - Conference Sessions Screen - [User Story V](#Story-V---Add-Sessions-and-Quiz-to-a-Conference);
 - Pressing the button to add a Session - [User Story V](#Story-V---Add-Sessions-and-Quiz-to-a-Conference);
 - Pressing the button to add the Conference generates error if no session are inserted - [User Story IV](#Story-IV---Insert-Conference);
@@ -442,17 +469,14 @@ Configuration and change management are key activities to control change to, and
 
 ## Project management
 
-Software project management is an art and science of planning and leading software projects, in which software projects are planned, implemented, monitored and controlled.
-
-For this project, we used Github Projects in order to registering tasks, assign tasks to people, add estimations to tasks, monitor tasks progress. You can see our board [here](https://github.com/FEUP-ESOF-2020-21/open-cx-t2g3-them-d/projects/1).
-
-
-
+For this project, we used Github Projects in order to register the tasks, assign tasks to the members of the group, add estimations to tasks and monitor tasks progress. You can see our board [here](https://github.com/FEUP-ESOF-2020-21/open-cx-t2g3-them-d/projects/1).
 
 ---
 
-## Evolution - contributions to open-cx
+## Evolution - contributions to openCX
 
-In order to contribute to open-cx, our app is able to provide session suggestions for conferences based on user preference, which ends up being the most innovating feature of our mobile app.
+In order to contribute to openCX, our app is able to provide personalized Session Suggestions for previous filtered Conferences based on the level of knowledge of the user, which ends up being the most innovating feature of our mobile app.
 
-Each attendee can answer a quiz, that is later used by the app to provide one or more session suggestions according to the knowledge and preferences of the user in question.
+Each attendee can choose a conference that fits his interests and availability but, most of all, he can then answer the quiz of that Conference. His answers will be used by the app to provide one or more Session Suggestions according to the proficiency level on the topics of each Session.
+
+We feel SmartCon and this feature in particular have potencial to integrate the Open-CX, to grow even more with new types of questions and to be combined with other features developed by other groups to create an app that greatly improves the user experience in conferences and events.
