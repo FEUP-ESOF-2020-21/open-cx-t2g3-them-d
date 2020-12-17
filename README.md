@@ -384,9 +384,13 @@ We chose Flutter because of its ability to easily customize anything that appear
 
 ### Prototype
 
-To help on validating all the architectural, design and technological decisions made, we usually implement a vertical prototype, a thin vertical slice of the system.
+During the initial Prototype phase, we were indecisive about the users stories and their implementations. The first concern encountered by the group was adapting to the new environment Flutter and Dart brought us. As the ideas started to get more defined, the group discussed about which architecture would be the most appropriate for the app.
 
-In this subsection please describe in more detail which, and how, user(s) story(ies) were implemented.
+We agreed upon making the app consist of a main menu where all the main features are present, requiring no navigation bar and making the traversal straightforward and intuitive.
+
+![main_menu](../images/mockups/final_main.png)
+
+We initially planned on releasing versions for both iOS and Android. Even though we had access to a Mac computer (necessary for the implementation of the iOS version), it turned out to cause major dependency problems in our app. Resulting in the idea being dropped and finally releasing only on Android.
 
 ---
 
@@ -449,3 +453,6 @@ For this project, we used Github Projects in order to registering tasks, assign 
 
 ## Evolution - contributions to open-cx
 
+In order to contribute to open-cx, our app is able to provide session suggestions for conferences based on user preference, which ends up being the most innovating feature of our mobile app.
+
+Each attendee can answer a quiz, that is later used by the app to provide one or more session suggestions according to the knowledge and preferences of the user in question.
